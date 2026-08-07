@@ -167,24 +167,38 @@ def build_report(code, s3date):
             "ultv": list(uv[pid]), "alive": round(al[pid], 3),
             "hp": [[_sec(m, t0), round(v, 2)] for m, v in A.hp_track(d, pid, step=2000)],
         })
+    # 💚 힐 분배를 선수 stats에 덧붙인다 (추가 필드 — 구버전 캐시와 호환)
+    # (heals 는 아래에서 계산 — 여기선 자리만; 실제 주입은 report 조립 직전)
 
     srows, flips = A.score_timeline(d)
     deaths_out = []
-    for ev in A.death_details(d):
-        deaths_out.append({"s": _sec(ev["ms"], t0), "tgt": ev["tgt"],
+    for i, ev in enumerate(A.death_details(d), 1):
+        deaths_out.append({"i": i, "s": _sec(ev["ms"], t0), "tgt": ev["tgt"],
                            "by": ev["killers"],
                            "dmg": sorted(([q, v] for q, v in ev["dmg_by"].items()),
                                          key=lambda x: -x[1]),
                            "burst": round(ev["burst_s"], 1),
-                           "solo": ev["solo"], "near": len(ev["allies_near"])})
+                           "solo": ev["solo"], "near": len(ev["allies_near"]),
+                           # 🩸 교전 시작 시 체력 % · ⚔️ 그 순간 인원(아군, 적)
+                           "hp0": (round(ev["hp0"], 2) if ev.get("hp0") is not None else None),
+                           "nums": ev.get("nums")})
     ults = [{"s": _sec(ms, t0), "pid": pid}
             for ms, pid, kind in d.get("skills", []) if kind == "궁"]
     objs = [{"s": _sec(ms, t0), "kind": h[0], "by": h[1]}
             for ms, h in d["logs"]
             if h[0] in (8, 29) and h[1] in d["players"]]
-    fights_out = [{"a": _sec(a, t0), "b": _sec(b, t0), "dmg": tot,
-                   "lost": {str(k): v for k, v in lost.items()}, "win": win}
-                  for a, b, tot, lost, win in A.fight_rounds(d)]
+    # ⚔️ 교전 일지 — 누가 열었고 몇대몇으로 시작했나 (fight_story)
+    fights_out = [{"a": _sec(f["a"], t0), "b": _sec(f["b"], t0), "dmg": f["tot"],
+                   "lost": {str(k): v for k, v in f["lost"].items()}, "win": f["win"],
+                   "opener": f.get("opener"), "nums": f.get("nums")}
+                  for f in A.fight_story(d)]
+    # 💚 힐 분배 (kind 1 회복의 자기/아군 나눔) → 선수 stats에 추가 필드로
+    heals = A.heal_split(d)
+    for p in players:
+        hl = heals.get(p["pid"])
+        if hl:
+            p["stats"]["healA"] = hl["ally"]
+            p["stats"]["healS"] = hl["self"]
     spots = [{"s": _sec(ms, t0), "tgt": tgt, "x": round(p[0], 1), "z": round(p[2], 1)}
              for ms, tgt, who, p in A.death_spots(d) if p]
 

@@ -609,14 +609,40 @@ def fight_participation(d):
     return {pid: (n, len(fs)) for pid, n in took.items()}
 
 
-def death_details(d, lookback_ms=10000, near_r=15.0):
-    """💀 **사망 심화** — 죽기 직전 10초 동안 누구에게 얼마나 맞았고, 곁에 아군이 있었나.
+def _death_spans(d):
+    """선수별 [사망시각, 복귀시각) 구간 — 복귀는 좌표가 다시 갱신되는 시점(alive_time과 같은 근사)."""
+    spans = collections.defaultdict(list)
+    for dms, tgt, _who in deaths(d):
+        he = d["players"][tgt]["hero_entity"]
+        track = sorted(m for m, _ in d["pos"].get(he, []))
+        back = next((m for m in track if m > dms + 500), dms + 8000)
+        spans[tgt].append((dms, min(back, dms + 20000)))
+    return spans
 
-    · 피해 내역: 그 죽음 직전 10초의 피해 로그를 가해자별로 합산
-    · 혼자였나: 사망 시각에 아군 캐릭터가 15 유닛(맵 가로의 ~6%) 안에 있었는지 —
-      임계값은 실측 감각치라 "근처" 기준으로만 읽을 것
-    · 순삭이었나: 그 구간 첫 피해부터 죽음까지 걸린 시간
+
+def alive_counts(d, spans, ms, exclude=None):
+    """그 시각에 팀별로 **살아 있는 인원** — "2대3 열세였다"를 만드는 재료."""
+    cnt = collections.Counter()
+    for pid, p in d["players"].items():
+        if pid == exclude:
+            continue
+        dead = any(a < ms < b for a, b in spans.get(pid, []))
+        if not dead:
+            cnt[p["team"]] += 1
+    return cnt
+
+
+def death_details(d, lookback_ms=10000, near_r=15.0):
+    """💀 **사망 심화** — 죽음 하나하나에 "그때 상황"을 붙인다 (유저가 진짜 원하는 것).
+
+    · 피해 내역: 직전 10초의 피해 로그를 가해자별로 합산
+    · 혼자였나: 사망 순간 아군이 15유닛 안에 있었는지 (감각치 — "근처" 기준으로만)
+    · 순삭이었나: 첫 피해부터 죽음까지 걸린 시간
+    · 🩸 깎인 채 싸웠나(hp0): **교전이 시작될 때 체력이 몇 %였나** — "빠져서 회복하고
+      재진입했어야 한다"는 코칭의 근거 (2026-08-09 추가)
+    · ⚔️ 인원은 몇대몇이었나(nums): 사망 직전 팀별 생존 인원 — "열세에 무리했다"의 근거
     """
+    spans = _death_spans(d)
     out = []
     for ms, tgt, who in deaths(d):
         dmg_by = collections.Counter()
@@ -636,10 +662,65 @@ def death_details(d, lookback_ms=10000, near_r=15.0):
             q = _pos_at(d, p["hero_entity"], ms)
             if my and q and ((my[0]-q[0])**2 + (my[2]-q[2])**2) ** .5 <= near_r:
                 near.append(pid)
+        # 🩸 교전 시작 시점의 체력 비율 (버스트 시작 0.3초 전의 마지막 체력 샘플)
+        # 🪤 체력은 **바뀔 때만** 전송된다 → 리스폰 후 무피해면 샘플이 없어서
+        #    이전 죽음의 0이 그대로 읽힌다(실제로 "0%까지"라는 엉터리가 나왔다).
+        #    마지막 샘플이 **마지막 리스폰보다 오래됐으면** 만피(1.0)로 본다.
+        hp0 = None
+        mx = me.get("max_hp")
+        if mx:
+            he = me["hero_entity"]
+            before = [(m, v) for m, v, _x in d["hp"].get(he, []) if m <= first_hit - 300]
+            respawns = [b for a, b in spans.get(tgt, []) if b <= first_hit]
+            last_respawn = max(respawns) if respawns else None
+            if not before:
+                hp0 = 1.0
+            elif last_respawn and before[-1][0] < last_respawn:
+                hp0 = 1.0
+            else:
+                hp0 = max(0.0, min(1.0, before[-1][1] / mx))
+        # ⚔️ 사망 직전 인원 (본인 포함)
+        ac = alive_counts(d, spans, ms - 100)
+        my_team, foe_team = me["team"], next(t for t in (1, 2) if t != me["team"])
         out.append({"ms": ms, "tgt": tgt, "killers": who, "dmg_by": dict(dmg_by),
                     "burst_s": (ms - first_hit) / 1000, "allies_near": near,
-                    "solo": (my is not None and not near)})
+                    "solo": (my is not None and not near),
+                    "hp0": hp0, "nums": [ac.get(my_team, 0), ac.get(foe_team, 0)]})
     return out
+
+
+def heal_split(d):
+    """💚 힐 분배 — kind 1(회복)의 대상 기록으로 "누구를 살렸나"를 본다.
+
+    kind 13(재생)·15(구급킷)은 본인 회복이라 분배 판단에선 뺀다.
+    되돌려주는 것: {pid: {"self": n, "ally": n}} — ally 비중이 곧 "팀 힐러 성향".
+    """
+    out = collections.defaultdict(lambda: {"self": 0, "ally": 0})
+    for ms, h in d["logs"]:
+        if h[0] != 1 or h[1] not in d["players"] or not h[4]:
+            continue
+        if h[2] == h[1]:
+            out[h[1]]["self"] += h[4]
+        elif h[2] in d["players"] and d["players"][h[2]]["team"] == d["players"][h[1]]["team"]:
+            out[h[1]]["ally"] += h[4]
+    return dict(out)
+
+
+def fight_story(d):
+    """⚔️ 교전 일지 — 구간마다 "누가 열었고, 몇대몇으로 시작했고, 결과가 어땠나".
+
+    유저 요청(2026-08-09): "어떤 판단으로 졌는지"는 교전 단위로 읽힌다.
+    """
+    spans = _death_spans(d)
+    rows = []
+    fb = {(a, b): order for a, b, order in first_blood_order(d)}
+    for a, b, tot, lost, win in fight_rounds(d):
+        ac = alive_counts(d, spans, a - 100)
+        order = fb.get((a, b)) or []
+        opener = order[0][0] if order else None
+        rows.append({"a": a, "b": b, "tot": tot, "lost": lost, "win": win,
+                     "opener": opener, "nums": [ac.get(1, 0), ac.get(2, 0)]})
+    return rows
 
 
 def _pos_at(d, ent, ms, tol=2000):
@@ -814,28 +895,70 @@ def coach(d):
         if first is not None:
             first_die[first] += 1
 
+    heals = heal_split(d)
+    t0 = d["t0"]
+    sec = lambda ms: round((ms - t0) / 1000, 1)
+
     for pid, p in d["players"].items():
         if p.get("bot"):
             continue
         mydd = death_by.get(pid, [])
         ndeath = len(mydd)
-        solo = sum(1 for ev in mydd if ev["solo"])
-        melt = sum(1 for ev in mydd if ev["burst_s"] <= 3.0)
+        solo_ev = [ev for ev in mydd if ev["solo"]]
+        melt_ev = [ev for ev in mydd if ev["burst_s"] <= 3.0]
+        # 🩸 깎인 체력(55% 미만)으로 교전을 받다 죽은 것 — "빠져서 회복 후 재진입" 코칭의 근거
+        lowhp_ev = [ev for ev in mydd if ev.get("hp0") is not None and ev["hp0"] < 0.55]
+        # ⚔️ 인원 열세(예: 2대3)에서 싸우다 죽은 것
+        outnum_ev = [ev for ev in mydd
+                     if ev.get("nums") and ev["nums"][0] < ev["nums"][1]]
         n_part, tot_f = fp[pid]
         un, ug, ul = uv[pid]
         front = po[pid].get("front")
 
-        if ndeath >= 3 and solo >= 2 and solo * 2 >= ndeath:
-            out.append({"k": "p_solo", "sev": "bad", "pid": pid, "n": solo, "of": ndeath})
-        if melt >= 2:
-            out.append({"k": "p_melt", "sev": "bad", "pid": pid, "n": melt})
+        if ndeath >= 3 and len(solo_ev) >= 2 and len(solo_ev) * 2 >= ndeath:
+            out.append({"k": "p_solo", "sev": "bad", "pid": pid, "n": len(solo_ev),
+                        "of": ndeath, "ex": [sec(ev["ms"]) for ev in solo_ev[:2]]})
+        if len(melt_ev) >= 2:
+            # 주로 누구에게 잘렸나 — 그 죽음들에서 피해 1위 가해자
+            hurt = collections.Counter()
+            for ev in melt_ev:
+                for q, v in ev["dmg_by"].items():
+                    hurt[q] += v
+            by = hurt.most_common(1)[0][0] if hurt else None
+            out.append({"k": "p_melt", "sev": "bad", "pid": pid, "n": len(melt_ev),
+                        "by_pid": by, "ex": [sec(ev["ms"]) for ev in melt_ev[:2]]})
+        if len(lowhp_ev) >= 2:
+            out.append({"k": "p_lowhp", "sev": "bad", "pid": pid, "n": len(lowhp_ev),
+                        "hp": int(min(ev["hp0"] for ev in lowhp_ev) * 100),
+                        "ex": [sec(ev["ms"]) for ev in lowhp_ev[:2]]})
+        if len(outnum_ev) >= 2:
+            worst = min(outnum_ev, key=lambda ev: ev["nums"][0] - ev["nums"][1])
+            out.append({"k": "p_outnum", "sev": "bad", "pid": pid, "n": len(outnum_ev),
+                        "a": worst["nums"][0], "e": worst["nums"][1],
+                        "ex": [sec(ev["ms"]) for ev in outnum_ev[:2]]})
         if tot_f >= 4 and n_part * 10 <= tot_f * 6:
             out.append({"k": "p_lowpart", "sev": "bad", "pid": pid, "n": n_part, "of": tot_f})
         if first_die.get(pid, 0) >= 2:
-            out.append({"k": "p_firstdie", "sev": "bad", "pid": pid, "n": first_die[pid]})
+            fd_ex = []
+            for a, b, *_r in fr:
+                first = next((tgt for ms, tgt, _who in ds if a - 1500 <= ms <= b + 1500), None)
+                if first == pid:
+                    fd_ex.append(sec(a))
+            out.append({"k": "p_firstdie", "sev": "bad", "pid": pid,
+                        "n": first_die[pid], "ex": fd_ex[:2]})
         if front is not None and front >= 0.08 and ndeath >= 4:
             out.append({"k": "p_overext", "sev": "bad", "pid": pid,
                         "front": round(front, 2), "n": ndeath})
+        # 💚 힐 분배 — 회복 스킬(kind 1)이 거의 본인에게만 갔나 / 팀을 살렸나
+        hl = heals.get(pid)
+        if hl:
+            tot_h = hl["self"] + hl["ally"]
+            if tot_h >= 600 and hl["ally"] * 4 < tot_h:
+                out.append({"k": "p_selfheal", "sev": "bad", "pid": pid,
+                            "pct": int(hl["self"] * 100 / tot_h), "tot": tot_h})
+            elif hl["ally"] >= 800 and hl["ally"] * 2 >= tot_h:
+                out.append({"k": "p_goodheal", "sev": "good", "pid": pid,
+                            "ally": hl["ally"]})
         if un >= 2 and ug == 0:
             out.append({"k": "p_ultwaste", "sev": "info", "pid": pid, "n": un})
         if tot_f >= 4 and n_part == tot_f:
@@ -848,7 +971,8 @@ def coach(d):
                         "k_n": st[pid]["처치"], "dmg": st[pid]["준피해"]})
 
     # 한 선수당 고칠 점은 2개까지 (잔소리 폭탄 방지 — 제일 심한 것부터)
-    sev_rank = {"p_solo": 0, "p_melt": 1, "p_lowpart": 2, "p_firstdie": 3, "p_overext": 4}
+    sev_rank = {"p_solo": 0, "p_lowhp": 1, "p_melt": 2, "p_outnum": 3,
+                "p_selfheal": 4, "p_lowpart": 5, "p_firstdie": 6, "p_overext": 7}
     per = collections.Counter()
     trimmed = []
     for c in sorted(out, key=lambda c: sev_rank.get(c["k"], 9)):
@@ -877,15 +1001,28 @@ COACH_KO = {
     "t_decisive": "🏁 승부처: {mm}:{ss} 교전(사망 {deaths}명)에서 리드가 {team}팀으로 넘어갔어요 — 이 순간을 돌려보세요.",
     "t_close":   "🏁 {team}팀, 종이 한 장 차이였어요 — 아래 고칠 점 하나만 고쳐도 결과가 바뀌는 점수차입니다.",
     "p_solo":    "🔴 {name}: 죽음 {of}번 중 {n}번이 근처에 아군이 없는 상태였어요 — 팀과 붙어 다니면 절반은 살았을 싸움입니다.",
-    "p_melt":    "🔴 {name}: 3초 안에 녹은 죽음이 {n}번 — 각을 잡기 전에 몸이 먼저 나갔다는 신호예요. 엄폐물을 끼고 진입하세요.",
+    "p_melt":    "🔴 {name}: 3초 안에 녹은 죽음이 {n}번(주로 {by}에게) — 각을 잡기 전에 몸이 먼저 나갔다는 신호예요. 엄폐물을 끼고 진입하세요.",
+    "p_lowhp":   "🔴 {name}: 체력이 이미 깎인 채({hp}%까지) 교전을 받다 죽은 게 {n}번 — 무리하지 말고 빠져서 회복한 뒤 재진입하세요.",
+    "p_outnum":  "🔴 {name}: 인원 열세({a}대{e})에서 싸우다 죽은 게 {n}번 — 아군 부활까지 시간을 끌거나 함께 빠졌어야 해요.",
     "p_lowpart": "🔴 {name}: 교전 {of}번 중 {n}번만 참여 — 팀이 인원 열세로 싸우는 동안 다른 곳에 있었어요. 미니맵에서 팀 위치를 자주 보세요.",
     "p_firstdie": "🔴 {name}: 교전이 시작되자마자 첫 사망이 된 게 {n}번 — 진입이 팀보다 반 박자 빠릅니다. 팀과 같이 들어가세요.",
     "p_overext": "🔴 {name}: 팀보다 앞에 서는 성향(전방 +{front})인데 죽음이 {n}번 — 앞라인을 서려면 빠지는 타이밍도 같이 연습해야 해요.",
+    "p_selfheal": "🔴 {name}: 회복 스킬의 {pct}%가 본인에게 갔어요 — 아군에게 나눠주면 팀 전체 생존이 크게 올라갑니다.",
     "p_ultwaste": "💡 {name}: 궁을 {n}번 썼지만 이어진 처치가 없었어요 — 교전을 여는 용도보다, 이기고 있는 싸움을 굳히는 데 써보세요. (동시성 기준이라 참고용)",
     "p_goodpart": "🟢 {name}: 교전 {of}번 전부 참여 — 팀과 함께 움직이는 습관이 좋습니다.",
+    "p_goodheal": "🟢 {name}: 아군 회복 {ally} — 팀을 살리는 힐 분배가 좋았어요.",
     "p_ultgood": "🟢 {name}: 궁 {n}번 뒤에 처치 {got}회가 이어졌어요 — 궁 타이밍이 좋습니다.",
     "p_carry":   "🟢 {name}: 처치 {k_n} · 팀 최고 딜({dmg}) — 이 경기의 에이스였어요.",
 }
+
+
+def _fmt_ex(ex):
+    """[75.3, 101.2] → '01:15, 01:41'"""
+    out = []
+    for s in ex:
+        v = max(0, int(s))
+        out.append(f"{v // 60:02d}:{v % 60:02d}")
+    return ", ".join(out)
 
 
 def coach_lines(d, tpl=None):
@@ -899,15 +1036,22 @@ def coach_lines(d, tpl=None):
         vals = dict(c)
         if "pid" in c:
             vals["name"] = label(d, c["pid"]).split("(")[0]
+        if "by_pid" in c:
+            vals["by"] = label(d, c["by_pid"]).split("(")[0] if c["by_pid"] else "?"
         if "s" in c:
             vals["mm"] = f"{int(c['s']) // 60:02d}"
             vals["ss"] = f"{int(c['s']) % 60:02d}"
         if "dmg" in vals:
             vals["dmg"] = f"{vals['dmg']:,}"
+        if "ally" in vals:
+            vals["ally"] = f"{vals['ally']:,}"
         try:
-            lines.append(t.format(**vals))
+            line = t.format(**vals)
         except (KeyError, IndexError):
-            pass
+            continue
+        if c.get("ex"):
+            line += f" (예: {_fmt_ex(c['ex'])})"
+        lines.append(line)
     return lines
 
 
