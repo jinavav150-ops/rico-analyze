@@ -1,0 +1,1848 @@
+{
+ "IChangeHeroViewComponent": {
+  "bases": "ISyncOutputComponent",
+  "fields": []
+ },
+ "ITestOutputComponent": {
+  "bases": "ISyncOutputComponent",
+  "fields": [
+   {
+    "name": "Value",
+    "type": "float",
+    "interpolate": true,
+    "read": "?"
+   },
+   {
+    "name": "TriggerValue",
+    "type": "float",
+    "interpolate": false,
+    "read": "?"
+   },
+   {
+    "name": "SampleValue",
+    "type": "float",
+    "interpolate": false,
+    "read": "?"
+   },
+   {
+    "name": "MapTriggerValue",
+    "type": "ISyncMapData<int>",
+    "interpolate": false,
+    "read": "?"
+   },
+   {
+    "name": "MapSimpleValue",
+    "type": "ISyncMapData<bool>",
+    "interpolate": false,
+    "read": "?"
+   },
+   {
+    "name": "MapInterpolateValue",
+    "type": "ISyncMapData<float>",
+    "interpolate": true,
+    "read": "?"
+   }
+  ]
+ },
+ "IHpOutputComponent": {
+  "bases": "ISyncOutputComponent",
+  "fields": [
+   {
+    "name": "MaxHp",
+    "type": "int",
+    "interpolate": true,
+    "read": "ReadInt",
+    "min": 0,
+    "max": 16382,
+    "bits": 14
+   },
+   {
+    "name": "Hp",
+    "type": "int",
+    "interpolate": true,
+    "read": "ReadInt",
+    "min": 0,
+    "max": 16382,
+    "bits": 14
+   },
+   {
+    "name": "Shields",
+    "type": "int",
+    "interpolate": true,
+    "read": "ReadInt",
+    "min": 0,
+    "max": 1022,
+    "bits": 10
+   }
+  ]
+ },
+ "IShieldHpOutputComponent": {
+  "bases": "ISyncOutputComponent",
+  "fields": [
+   {
+    "name": "MaxHp",
+    "type": "int",
+    "interpolate": true,
+    "read": "ReadInt",
+    "min": 0,
+    "max": 1000,
+    "bits": 10
+   },
+   {
+    "name": "Hp",
+    "type": "int",
+    "interpolate": true,
+    "read": "ReadInt",
+    "min": 0,
+    "max": 1000,
+    "bits": 10
+   },
+   {
+    "name": "Damage",
+    "type": "int",
+    "interpolate": false,
+    "read": "ReadInt",
+    "min": 0,
+    "max": 1000,
+    "bits": 10
+   }
+  ]
+ },
+ "ICharacterGemsOutputComponent": {
+  "bases": "ISyncOutputComponent",
+  "fields": [
+   {
+    "name": "Gems",
+    "type": "int",
+    "interpolate": false,
+    "read": "ReadInt",
+    "min": 0,
+    "max": 2000,
+    "bits": 11
+   },
+   {
+    "name": "HasCriticalGemsNumber",
+    "type": "bool",
+    "interpolate": false,
+    "read": "?"
+   }
+  ]
+ },
+ "ICharacterTowerLinkOutputComponent": {
+  "bases": "ISyncOutputComponent",
+  "fields": [
+   {
+    "name": "Linked",
+    "type": "bool",
+    "interpolate": false,
+    "read": "?"
+   }
+  ]
+ },
+ "ICharacterWeakeningOutputComponent": {
+  "bases": "ISyncOutputComponent",
+  "fields": [
+   {
+    "name": "Stacks",
+    "type": "int",
+    "interpolate": false,
+    "read": "ReadInt",
+    "min": 0,
+    "max": 62,
+    "bits": 6
+   },
+   {
+    "name": "OwnerId",
+    "type": "int",
+    "interpolate": false,
+    "read": "ReadInt",
+    "min": -1,
+    "max": 2046,
+    "bits": 11
+   },
+   {
+    "name": "WeakeningProgress",
+    "type": "TimerData",
+    "interpolate": false,
+    "read": "?"
+   }
+  ]
+ },
+ "IWeakeningConsumableOutputComponent": {
+  "bases": "ISyncOutputComponent",
+  "fields": [
+   {
+    "name": "AdditionalLifetimeData",
+    "type": "TimerData",
+    "interpolate": false,
+    "read": "?"
+   }
+  ]
+ },
+ "IScaleFromLifeTimeOutputComponent": {
+  "bases": "ISyncOutputComponent",
+  "fields": [
+   {
+    "name": "StartScale",
+    "type": "float",
+    "interpolate": false,
+    "read": "?"
+   },
+   {
+    "name": "FinishScale",
+    "type": "float",
+    "interpolate": false,
+    "read": "?"
+   },
+   {
+    "name": "TimerData",
+    "type": "TimerData",
+    "interpolate": false,
+    "read": "?"
+   }
+  ]
+ },
+ "ICharacterBagOutputComponent": {
+  "bases": "ISyncOutputComponent",
+  "fields": [
+   {
+    "name": "HasBag",
+    "type": "bool",
+    "interpolate": false,
+    "read": "?"
+   }
+  ]
+ },
+ "ILastRespawnOutputComponent": {
+  "bases": "ISyncOutputComponent",
+  "fields": [
+   {
+    "name": "LastRespawnHeroNetworkId",
+    "type": "int",
+    "interpolate": false,
+    "read": "ReadInt",
+    "min": -1,
+    "max": 2046,
+    "bits": 11
+   }
+  ]
+ },
+ "ICurrentHeroOutputComponent": {
+  "bases": "ISyncOutputComponent",
+  "fields": [
+   {
+    "name": "HeroNetworkId",
+    "type": "int",
+    "interpolate": false,
+    "read": "ReadInt",
+    "min": -1,
+    "max": 2046,
+    "bits": 11
+   }
+  ]
+ },
+ "ILandingOutputComponent": {
+  "bases": "ISyncOutputComponent",
+  "fields": [
+   {
+    "name": "IsLanded",
+    "type": "bool",
+    "interpolate": false,
+    "read": "?"
+   }
+  ]
+ },
+ "IAvailableHeroOutputComponent": {
+  "bases": "ISyncOutputComponent",
+  "fields": [
+   {
+    "name": "UsedHeroNetworkIds",
+    "type": "AvailableHeroData[]",
+    "interpolate": false,
+    "read": "?"
+   }
+  ]
+ },
+ "IHeroPerkOutputComponent": {
+  "bases": "ISyncOutputComponent",
+  "fields": [
+   {
+    "name": "SelectPerk",
+    "type": "HeroPerkData",
+    "interpolate": false,
+    "read": "?"
+   }
+  ]
+ },
+ "IAbilityOutputComponent": {
+  "bases": "ISyncOutputComponent",
+  "fields": [
+   {
+    "name": "State",
+    "type": "AbilityState",
+    "interpolate": false,
+    "read": "?"
+   },
+   {
+    "name": "CooldownEndTime",
+    "type": "int",
+    "interpolate": false,
+    "read": "?"
+   },
+   {
+    "name": "AbilityStackOutputData",
+    "type": "AbilityStackOutputData",
+    "interpolate": false,
+    "read": "?"
+   },
+   {
+    "name": "RestrictionStatus",
+    "type": "AbilityRestriction",
+    "interpolate": false,
+    "read": "?"
+   }
+  ]
+ },
+ "IUltimateAbilityOutputComponent": {
+  "bases": "ISyncOutputComponent",
+  "fields": [
+   {
+    "name": "UltimateEarnedChargeProgress",
+    "type": "float",
+    "interpolate": true,
+    "read": "?"
+   },
+   {
+    "name": "UltimateTimeChargeData",
+    "type": "TimerData",
+    "interpolate": false,
+    "read": "?"
+   }
+  ]
+ },
+ "IWeaponFireOutputComponent": {
+  "bases": "ISyncOutputComponent",
+  "fields": [
+   {
+    "name": "Shot",
+    "type": "ShotParams",
+    "interpolate": false,
+    "read": "?"
+   }
+  ]
+ },
+ "IMeleeWeaponOutputComponent": {
+  "bases": "ISyncOutputComponent",
+  "fields": [
+   {
+    "name": "CurrentState",
+    "type": "int",
+    "interpolate": false,
+    "read": "ReadInt",
+    "min": 0,
+    "max": 3,
+    "bits": 2
+   }
+  ]
+ },
+ "IHitOutputComponent": {
+  "bases": "ISyncOutputComponent",
+  "fields": [
+   {
+    "name": "Position",
+    "type": "Vector3",
+    "interpolate": false,
+    "read": "?"
+   }
+  ]
+ },
+ "IWeaponModifierEnablePercentOutputComponent": {
+  "bases": "ISyncOutputComponent",
+  "fields": [
+   {
+    "name": "WeaponModifierEnablePercent",
+    "type": "float",
+    "interpolate": false,
+    "read": "?"
+   }
+  ]
+ },
+ "ICurrentTargetsOutputComponent": {
+  "bases": "ISyncOutputComponent",
+  "fields": [
+   {
+    "name": "TargetNetworkIds",
+    "type": "int[]",
+    "interpolate": false,
+    "read": "ReadFloat",
+    "fracBits": 4,
+    "min": -1,
+    "max": 2046,
+    "bits": 15
+   }
+  ]
+ },
+ "ITransformOutputComponent": {
+  "bases": "ISyncOutputComponent",
+  "fields": [
+   {
+    "name": "Position",
+    "type": "Vector3",
+    "interpolate": true,
+    "read": "?"
+   },
+   {
+    "name": "Rotation",
+    "type": "Quaternion",
+    "interpolate": true,
+    "read": "?"
+   }
+  ]
+ },
+ "IScaleOutputComponent": {
+  "bases": "ISyncOutputComponent",
+  "fields": [
+   {
+    "name": "Scale",
+    "type": "Vector3",
+    "interpolate": true,
+    "read": "?"
+   }
+  ]
+ },
+ "IGroundedOutputComponent": {
+  "bases": "ISyncOutputComponent",
+  "fields": [
+   {
+    "name": "IsGrounded",
+    "type": "bool",
+    "interpolate": false,
+    "read": "?"
+   },
+   {
+    "name": "UnderlyingGroundY",
+    "type": "float",
+    "interpolate": true,
+    "read": "?"
+   },
+   {
+    "name": "UnderlyingSurfaceNormal",
+    "type": "Vector3",
+    "interpolate": true,
+    "read": "?"
+   }
+  ]
+ },
+ "IWindOutputComponent": {
+  "bases": "ISyncOutputComponent",
+  "fields": [
+   {
+    "name": "Force",
+    "type": "Vector3",
+    "interpolate": false,
+    "read": "?"
+   },
+   {
+    "name": "RemainingTime",
+    "type": "float",
+    "interpolate": false,
+    "read": "?"
+   },
+   {
+    "name": "IsInWave",
+    "type": "bool",
+    "interpolate": false,
+    "read": "?"
+   }
+  ]
+ },
+ "ILaserOutputComponent": {
+  "bases": "ISyncOutputComponent",
+  "fields": [
+   {
+    "name": "Progress",
+    "type": "float",
+    "interpolate": false,
+    "read": "?"
+   },
+   {
+    "name": "SurfaceNormal",
+    "type": "Vector3",
+    "interpolate": true,
+    "read": "?"
+   }
+  ]
+ },
+ "IEmoteActionsOutputComponent": {
+  "bases": "ISyncOutputComponent",
+  "fields": [
+   {
+    "name": "TimerData",
+    "type": "TimerData",
+    "interpolate": false,
+    "read": "?"
+   }
+  ]
+ },
+ "IOutgrowthOutputComponent": {
+  "bases": "ISyncOutputComponent",
+  "fields": [
+   {
+    "name": "Position",
+    "type": "Vector3",
+    "interpolate": false,
+    "read": "?"
+   },
+   {
+    "name": "SurfaceNormal",
+    "type": "Vector3",
+    "interpolate": false,
+    "read": "?"
+   },
+   {
+    "name": "SourceRadius",
+    "type": "float",
+    "interpolate": false,
+    "read": "?"
+   },
+   {
+    "name": "TargetRadius",
+    "type": "float",
+    "interpolate": false,
+    "read": "?"
+   },
+   {
+    "name": "DeployTime",
+    "type": "float",
+    "interpolate": false,
+    "read": "?"
+   },
+   {
+    "name": "IsInActiveState",
+    "type": "bool",
+    "interpolate": false,
+    "read": "?"
+   },
+   {
+    "name": "ProgressFromDamage",
+    "type": "float",
+    "interpolate": true,
+    "read": "?"
+   },
+   {
+    "name": "LifetimeTimerData",
+    "type": "TimerData",
+    "interpolate": false,
+    "read": "?"
+   },
+   {
+    "name": "ScaleTimerData",
+    "type": "TimerData",
+    "interpolate": false,
+    "read": "?"
+   }
+  ]
+ },
+ "IMeteoriteOutputComponent": {
+  "bases": "ISyncOutputComponent",
+  "fields": [
+   {
+    "name": "PredictedLandingPosition",
+    "type": "Vector3",
+    "interpolate": false,
+    "read": "?"
+   },
+   {
+    "name": "PredictedLandingSurfaceNormal",
+    "type": "Vector3",
+    "interpolate": false,
+    "read": "?"
+   },
+   {
+    "name": "Velocity",
+    "type": "Vector3",
+    "interpolate": true,
+    "read": "?"
+   },
+   {
+    "name": "IsFalling",
+    "type": "bool",
+    "interpolate": false,
+    "read": "?"
+   }
+  ]
+ },
+ "ICapturepointOutputComponent": {
+  "bases": "ISyncOutputComponent",
+  "fields": [
+   {
+    "name": "IsPointActive",
+    "type": "bool",
+    "interpolate": false,
+    "read": "?"
+   },
+   {
+    "name": "OwnerTeam",
+    "type": "Team",
+    "interpolate": false,
+    "read": "?"
+   },
+   {
+    "name": "CapturingTeam",
+    "type": "Team",
+    "interpolate": false,
+    "read": "?"
+   },
+   {
+    "name": "FixedProgress",
+    "type": "float",
+    "interpolate": false,
+    "read": "?"
+   },
+   {
+    "name": "ProgressTimerData",
+    "type": "TimerData",
+    "interpolate": false,
+    "read": "?"
+   },
+   {
+    "name": "IsProgressDecreasing",
+    "type": "bool",
+    "interpolate": false,
+    "read": "?"
+   },
+   {
+    "name": "Team1ContestersAmount",
+    "type": "int",
+    "interpolate": false,
+    "read": "ReadInt",
+    "min": 0,
+    "max": 3,
+    "bits": 2
+   },
+   {
+    "name": "Team2ContestersAmount",
+    "type": "int",
+    "interpolate": false,
+    "read": "ReadInt",
+    "min": 0,
+    "max": 3,
+    "bits": 2
+   },
+   {
+    "name": "Team1CaptureScore",
+    "type": "int",
+    "interpolate": false,
+    "read": "ReadInt",
+    "min": 0,
+    "max": 100,
+    "bits": 7
+   },
+   {
+    "name": "Team2CaptureScore",
+    "type": "int",
+    "interpolate": false,
+    "read": "ReadInt",
+    "min": 0,
+    "max": 100,
+    "bits": 7
+   },
+   {
+    "name": "IsMultiPoints",
+    "type": "bool",
+    "interpolate": false,
+    "read": "?"
+   },
+   {
+    "name": "Team1CapturedPoints",
+    "type": "int",
+    "interpolate": false,
+    "read": "ReadInt",
+    "min": 0,
+    "max": 3,
+    "bits": 2
+   },
+   {
+    "name": "Team2CapturedPoints",
+    "type": "int",
+    "interpolate": false,
+    "read": "ReadInt",
+    "min": 0,
+    "max": 3,
+    "bits": 2
+   },
+   {
+    "name": "IsOvertimeActive",
+    "type": "bool",
+    "interpolate": false,
+    "read": "?"
+   },
+   {
+    "name": "OvertimeTimerData",
+    "type": "TimerData",
+    "interpolate": false,
+    "read": "?"
+   }
+  ]
+ },
+ "ITowersModeOutputComponent": {
+  "bases": "ISyncOutputComponent",
+  "fields": [
+   {
+    "name": "Team1Score",
+    "type": "int",
+    "interpolate": false,
+    "read": "ReadInt",
+    "min": 0,
+    "max": 16000,
+    "bits": 14
+   },
+   {
+    "name": "Team2Score",
+    "type": "int",
+    "interpolate": false,
+    "read": "ReadInt",
+    "min": 0,
+    "max": 16000,
+    "bits": 14
+   },
+   {
+    "name": "CurrentTowerId",
+    "type": "int",
+    "interpolate": false,
+    "read": "ReadInt",
+    "min": 0,
+    "max": 16000,
+    "bits": 14
+   },
+   {
+    "name": "CurrentActiveTowerId",
+    "type": "int",
+    "interpolate": false,
+    "read": "ReadInt",
+    "min": 0,
+    "max": 16000,
+    "bits": 14
+   },
+   {
+    "name": "TowerLastHitData",
+    "type": "TowerLastHitData",
+    "interpolate": false,
+    "read": "?"
+   },
+   {
+    "name": "IsMatchStarted",
+    "type": "bool",
+    "interpolate": false,
+    "read": "?"
+   }
+  ]
+ },
+ "ITowerOutputComponent": {
+  "bases": "ISyncOutputComponent",
+  "fields": [
+   {
+    "name": "ActivationTimerData",
+    "type": "TimerData",
+    "interpolate": false,
+    "read": "?"
+   },
+   {
+    "name": "IsActivated",
+    "type": "bool",
+    "interpolate": false,
+    "read": "?"
+   },
+   {
+    "name": "ControllingTeam",
+    "type": "Team",
+    "interpolate": false,
+    "read": "?"
+   },
+   {
+    "name": "IsContested",
+    "type": "bool",
+    "interpolate": false,
+    "read": "?"
+   }
+  ]
+ },
+ "IGemGrabModeOutputComponent": {
+  "bases": "ISyncOutputComponent",
+  "fields": [
+   {
+    "name": "SpawnActivated",
+    "type": "bool",
+    "interpolate": false,
+    "read": "?"
+   },
+   {
+    "name": "NextSpawnPosition",
+    "type": "Vector3",
+    "interpolate": false,
+    "read": "?"
+   },
+   {
+    "name": "HighlightedGemId",
+    "type": "int",
+    "interpolate": false,
+    "read": "ReadInt",
+    "min": -1,
+    "max": 2046,
+    "bits": 11
+   },
+   {
+    "name": "SpawnTimer",
+    "type": "TimerData",
+    "interpolate": false,
+    "read": "ReadInt(bits)",
+    "bits": 31
+   },
+   {
+    "name": "Team1Gems",
+    "type": "int",
+    "interpolate": false,
+    "read": "ReadInt",
+    "min": 0,
+    "max": 15,
+    "bits": 4
+   },
+   {
+    "name": "Team2Gems",
+    "type": "int",
+    "interpolate": false,
+    "read": "ReadInt",
+    "min": 0,
+    "max": 15,
+    "bits": 4
+   },
+   {
+    "name": "DominatingTeam",
+    "type": "Team",
+    "interpolate": false,
+    "read": "?"
+   },
+   {
+    "name": "HoldTimer",
+    "type": "TimerData",
+    "interpolate": false,
+    "read": "ReadInt(bits)",
+    "bits": 31
+   },
+   {
+    "name": "Team1Score",
+    "type": "int",
+    "interpolate": false,
+    "read": "ReadInt",
+    "min": 0,
+    "max": 15,
+    "bits": 4
+   },
+   {
+    "name": "Team2Score",
+    "type": "int",
+    "interpolate": false,
+    "read": "ReadInt",
+    "min": 0,
+    "max": 15,
+    "bits": 4
+   }
+  ]
+ },
+ "IBagModeOutputComponent": {
+  "bases": "ISyncOutputComponent",
+  "fields": [
+   {
+    "name": "IsSpawned",
+    "type": "bool",
+    "interpolate": false,
+    "read": "?"
+   },
+   {
+    "name": "ProgressTimerData",
+    "type": "TimerData",
+    "interpolate": false,
+    "read": "?"
+   },
+   {
+    "name": "TeamWithBag",
+    "type": "Team",
+    "interpolate": false,
+    "read": "?"
+   },
+   {
+    "name": "Team1Score",
+    "type": "int",
+    "interpolate": false,
+    "read": "ReadInt",
+    "min": 0,
+    "max": 15,
+    "bits": 4
+   },
+   {
+    "name": "Team2Score",
+    "type": "int",
+    "interpolate": false,
+    "read": "ReadInt",
+    "min": 0,
+    "max": 15,
+    "bits": 4
+   },
+   {
+    "name": "OwnerNetworkId",
+    "type": "int",
+    "interpolate": false,
+    "read": "ReadInt",
+    "min": -1,
+    "max": 2046,
+    "bits": 11
+   },
+   {
+    "name": "IsActive",
+    "type": "bool",
+    "interpolate": false,
+    "read": "?"
+   }
+  ]
+ },
+ "IPayloadPointOutputComponent": {
+  "bases": "ISyncOutputComponent",
+  "fields": [
+   {
+    "name": "PointIsActive",
+    "type": "bool",
+    "interpolate": false,
+    "read": "?"
+   },
+   {
+    "name": "PointActivationTimer",
+    "type": "TimerData",
+    "interpolate": false,
+    "read": "?"
+   },
+   {
+    "name": "PushingTeam",
+    "type": "Team",
+    "interpolate": false,
+    "read": "?"
+   },
+   {
+    "name": "Team1ContestersAmount",
+    "type": "int",
+    "interpolate": false,
+    "read": "ReadInt",
+    "min": 0,
+    "max": 3,
+    "bits": 2
+   },
+   {
+    "name": "Team2ContestersAmount",
+    "type": "int",
+    "interpolate": false,
+    "read": "ReadInt",
+    "min": 0,
+    "max": 3,
+    "bits": 2
+   }
+  ]
+ },
+ "IPushModeOutputComponent": {
+  "bases": "ISyncOutputComponent",
+  "fields": [
+   {
+    "name": "Team1SignedProgressReach",
+    "type": "float",
+    "interpolate": true,
+    "read": "?"
+   },
+   {
+    "name": "Team2SignedProgressReach",
+    "type": "float",
+    "interpolate": true,
+    "read": "?"
+   },
+   {
+    "name": "Team1Score",
+    "type": "int",
+    "interpolate": false,
+    "read": "ReadInt",
+    "min": 0,
+    "max": 100,
+    "bits": 7
+   },
+   {
+    "name": "Team2Score",
+    "type": "int",
+    "interpolate": false,
+    "read": "ReadInt",
+    "min": 0,
+    "max": 100,
+    "bits": 7
+   },
+   {
+    "name": "PayloadScore",
+    "type": "int",
+    "interpolate": false,
+    "read": "ReadInt",
+    "min": 0,
+    "max": 100,
+    "bits": 7
+   },
+   {
+    "name": "SegmentOwner",
+    "type": "Team",
+    "interpolate": false,
+    "read": "?"
+   },
+   {
+    "name": "LeadingTeam",
+    "type": "Team",
+    "interpolate": false,
+    "read": "?"
+   },
+   {
+    "name": "PushTimer",
+    "type": "TimerData",
+    "interpolate": false,
+    "read": "ReadInt(bits)",
+    "bits": 255
+   },
+   {
+    "name": "OvertimeIsActive",
+    "type": "bool",
+    "interpolate": false,
+    "read": "?"
+   },
+   {
+    "name": "OvertimeTimer",
+    "type": "TimerData",
+    "interpolate": false,
+    "read": "?"
+   },
+   {
+    "name": "PushIsFinished",
+    "type": "bool",
+    "interpolate": false,
+    "read": "?"
+   }
+  ]
+ },
+ "IEscortModeOutputComponent": {
+  "bases": "ISyncOutputComponent",
+  "fields": [
+   {
+    "name": "CurrentRoundRequiredProgress",
+    "type": "float",
+    "interpolate": true,
+    "read": "?"
+   },
+   {
+    "name": "CurrentRoundReachedProgress",
+    "type": "float",
+    "interpolate": true,
+    "read": "?"
+   },
+   {
+    "name": "Team1Score",
+    "type": "int",
+    "interpolate": false,
+    "read": "ReadInt",
+    "min": 0,
+    "max": 100,
+    "bits": 7
+   },
+   {
+    "name": "Team2Score",
+    "type": "int",
+    "interpolate": false,
+    "read": "ReadInt",
+    "min": 0,
+    "max": 100,
+    "bits": 7
+   },
+   {
+    "name": "PayloadScore",
+    "type": "int",
+    "interpolate": false,
+    "read": "ReadInt",
+    "min": 0,
+    "max": 100,
+    "bits": 7
+   },
+   {
+    "name": "RoundAttackTeam",
+    "type": "Team",
+    "interpolate": false,
+    "read": "?"
+   },
+   {
+    "name": "OddIndexRound",
+    "type": "bool",
+    "interpolate": false,
+    "read": "?"
+   },
+   {
+    "name": "RoundTimer",
+    "type": "TimerData",
+    "interpolate": false,
+    "read": "ReadInt(bits)",
+    "bits": 255
+   },
+   {
+    "name": "OvertimeIsActive",
+    "type": "bool",
+    "interpolate": false,
+    "read": "?"
+   },
+   {
+    "name": "OvertimeTimer",
+    "type": "TimerData",
+    "interpolate": false,
+    "read": "?"
+   },
+   {
+    "name": "RoundIsFinished",
+    "type": "bool",
+    "interpolate": false,
+    "read": "?"
+   },
+   {
+    "name": "PreparingNextRound",
+    "type": "bool",
+    "interpolate": false,
+    "read": "?"
+   }
+  ]
+ },
+ "IEnabledStateOutputComponent": {
+  "bases": "ISyncOutputComponent",
+  "fields": [
+   {
+    "name": "IsEnabled",
+    "type": "bool",
+    "interpolate": false,
+    "read": "?"
+   }
+  ]
+ },
+ "ICameraHeightOutputComponent": {
+  "bases": "ISyncOutputComponent",
+  "fields": [
+   {
+    "name": "HeightMultiplier",
+    "type": "float",
+    "interpolate": true,
+    "read": "?"
+   }
+  ]
+ },
+ "IPlayerOutputComponent": {
+  "bases": "ISyncOutputComponent",
+  "fields": [
+   {
+    "name": "State",
+    "type": "PlayerState",
+    "interpolate": false,
+    "read": "?"
+   },
+   {
+    "name": "RespawnTimer",
+    "type": "TimerData",
+    "interpolate": false,
+    "read": "?"
+   },
+   {
+    "name": "RespawnTime",
+    "type": "int",
+    "interpolate": false,
+    "read": "?"
+   },
+   {
+    "name": "IsNearObjective",
+    "type": "bool",
+    "interpolate": false,
+    "read": "?"
+   }
+  ]
+ },
+ "IAnimatorOutputComponent": {
+  "bases": "ISyncOutputComponent",
+  "fields": [
+   {
+    "name": "EffectTrigger",
+    "type": "PlayWorldEffectTriggerData",
+    "interpolate": false,
+    "read": "?"
+   }
+  ]
+ },
+ "IAimDataChangedOutputComponent": {
+  "bases": "ISyncOutputComponent",
+  "fields": [
+   {
+    "name": "Height",
+    "type": "float",
+    "interpolate": false,
+    "read": "?"
+   },
+   {
+    "name": "TruncationRate",
+    "type": "float",
+    "interpolate": false,
+    "read": "?"
+   },
+   {
+    "name": "HorizontalAngle",
+    "type": "float",
+    "interpolate": false,
+    "read": "?"
+   },
+   {
+    "name": "VerticalAngle",
+    "type": "float",
+    "interpolate": false,
+    "read": "?"
+   }
+  ]
+ },
+ "IWeaponModifiersDebugOutputComponent": {
+  "bases": "ISyncOutputComponent",
+  "fields": [
+   {
+    "name": "ModifierCollection",
+    "type": "ModifierCollection",
+    "interpolate": false,
+    "read": "?"
+   }
+  ]
+ },
+ "IMatchLogOutputComponent": {
+  "bases": "ISyncOutputComponent",
+  "fields": [
+   {
+    "name": "Data",
+    "type": "MatchResultLog",
+    "interpolate": false,
+    "read": "?"
+   }
+  ]
+ },
+ "IPlayerStatsOutputComponent": {
+  "bases": "ISyncOutputComponent",
+  "fields": [
+   {
+    "name": "EliminationsCount",
+    "type": "int",
+    "interpolate": false,
+    "read": "?"
+   },
+   {
+    "name": "DeathsCount",
+    "type": "int",
+    "interpolate": false,
+    "read": "?"
+   }
+  ]
+ },
+ "IBodyStateOutputComponent": {
+  "bases": "ISyncOutputComponent",
+  "fields": [
+   {
+    "name": "CurrentBodyState",
+    "type": "BodyStateNetworkData",
+    "interpolate": false,
+    "read": "?"
+   },
+   {
+    "name": "BindProgress",
+    "type": "float",
+    "interpolate": true,
+    "read": "?"
+   }
+  ]
+ },
+ "IRagdollOutputComponent": {
+  "bases": "ISyncOutputComponent",
+  "fields": [
+   {
+    "name": "Bones",
+    "type": "ISyncMapData<Quaternion>",
+    "interpolate": true,
+    "read": "?"
+   }
+  ]
+ },
+ "IEnableInvisibleOutputComponent": {
+  "bases": "ISyncOutputComponent",
+  "fields": [
+   {
+    "name": "InvisibleEnabled",
+    "type": "bool",
+    "interpolate": false,
+    "read": "?"
+   }
+  ]
+ },
+ "IShieldsZoneAbilityOutputComponent": {
+  "bases": "ISyncOutputComponent",
+  "fields": [
+   {
+    "name": "IsEnabled",
+    "type": "bool",
+    "interpolate": false,
+    "read": "?"
+   }
+  ]
+ },
+ "ITurretConsumableOutputComponent": {
+  "bases": "ISyncOutputComponent",
+  "fields": [
+   {
+    "name": "IsActiveState",
+    "type": "bool",
+    "interpolate": false,
+    "read": "?"
+   },
+   {
+    "name": "IsAtShoulder",
+    "type": "bool",
+    "interpolate": false,
+    "read": "?"
+   }
+  ]
+ },
+ "IStickyExplosiveOutputComponent": {
+  "bases": "ISyncOutputComponent",
+  "fields": [
+   {
+    "name": "HasEnemiesInRadius",
+    "type": "bool",
+    "interpolate": false,
+    "read": "?"
+   }
+  ]
+ },
+ "IEnergyBallConsumableOutputComponent": {
+  "bases": "ISyncOutputComponent",
+  "fields": [
+   {
+    "name": "IsAimed",
+    "type": "bool",
+    "interpolate": false,
+    "read": "?"
+   }
+  ]
+ },
+ "IAttachedOutputComponent": {
+  "bases": "ISyncOutputComponent",
+  "fields": [
+   {
+    "name": "IsAttached",
+    "type": "bool",
+    "interpolate": false,
+    "read": "?"
+   }
+  ]
+ },
+ "IBlinkAbilityOutputComponent": {
+  "bases": "ISyncOutputComponent",
+  "fields": [
+   {
+    "name": "IsActivated",
+    "type": "bool",
+    "interpolate": false,
+    "read": "?"
+   }
+  ]
+ },
+ "IBallAbilityOutputComponent": {
+  "bases": "ISyncOutputComponent",
+  "fields": [
+   {
+    "name": "IsActivated",
+    "type": "bool",
+    "interpolate": false,
+    "read": "?"
+   }
+  ]
+ },
+ "ILaserAbilityOutputComponent": {
+  "bases": "ISyncOutputComponent",
+  "fields": [
+   {
+    "name": "IsActivated",
+    "type": "bool",
+    "interpolate": false,
+    "read": "?"
+   }
+  ]
+ },
+ "IBallAbilityParamsOutputComponent": {
+  "bases": "ISyncOutputComponent",
+  "fields": [
+   {
+    "name": "Velocity",
+    "type": "float",
+    "interpolate": false,
+    "read": "?"
+   },
+   {
+    "name": "DirectionAngle",
+    "type": "float",
+    "interpolate": false,
+    "read": "?"
+   },
+   {
+    "name": "IsGrounded",
+    "type": "bool",
+    "interpolate": false,
+    "read": "?"
+   }
+  ]
+ },
+ "ITelekinesisOutputComponent": {
+  "bases": "ISyncOutputComponent",
+  "fields": [
+   {
+    "name": "IsActivated",
+    "type": "bool",
+    "interpolate": false,
+    "read": "?"
+   },
+   {
+    "name": "TargetNetworkId",
+    "type": "int",
+    "interpolate": false,
+    "read": "ReadInt",
+    "min": -1,
+    "max": 2046,
+    "bits": 11
+   }
+  ]
+ },
+ "IKineticPullOutputComponent": {
+  "bases": "ISyncOutputComponent",
+  "fields": [
+   {
+    "name": "IsActivated",
+    "type": "bool",
+    "interpolate": false,
+    "read": "?"
+   },
+   {
+    "name": "TargetNetworkId",
+    "type": "int",
+    "interpolate": false,
+    "read": "ReadInt",
+    "min": -1,
+    "max": 2046,
+    "bits": 11
+   },
+   {
+    "name": "PullTargetPosition",
+    "type": "Vector3",
+    "interpolate": false,
+    "read": "?"
+   }
+  ]
+ },
+ "ISwitchToShackleOutputComponent": {
+  "bases": "ISyncOutputComponent",
+  "fields": [
+   {
+    "name": "IsShackleActivated",
+    "type": "bool",
+    "interpolate": false,
+    "read": "?"
+   }
+  ]
+ },
+ "IActiveAbilitiesOutputComponent": {
+  "bases": "ISyncOutputComponent",
+  "fields": [
+   {
+    "name": "WeaponNetworkId",
+    "type": "int",
+    "interpolate": false,
+    "read": "ReadInt",
+    "min": -1,
+    "max": 2046,
+    "bits": 11
+   },
+   {
+    "name": "ActiveAbilityNetworkIds",
+    "type": "int[]",
+    "interpolate": false,
+    "read": "ReadFloat",
+    "fracBits": 4,
+    "min": -1,
+    "max": 2046,
+    "bits": 15
+   }
+  ]
+ },
+ "IAbilitiesOutputComponent": {
+  "bases": "ISyncOutputComponent",
+  "fields": [
+   {
+    "name": "AllWeaponsNetworkIds",
+    "type": "int[]",
+    "interpolate": false,
+    "read": "ReadFloat",
+    "fracBits": 4,
+    "min": -1,
+    "max": 2046,
+    "bits": 15
+   },
+   {
+    "name": "AllAbilitiesNetworkIds",
+    "type": "int[]",
+    "interpolate": false,
+    "read": "ReadFloat",
+    "fracBits": 4,
+    "min": -1,
+    "max": 2046,
+    "bits": 15
+   }
+  ]
+ },
+ "IAbilityUsageStateOutputComponent": {
+  "bases": "ISyncOutputComponent",
+  "fields": [
+   {
+    "name": "IsAbilityActive",
+    "type": "bool",
+    "interpolate": false,
+    "read": "?"
+   },
+   {
+    "name": "UsageTrigger",
+    "type": "int",
+    "interpolate": false,
+    "read": "?"
+   }
+  ]
+ },
+ "IDurationOutputComponent": {
+  "bases": "ISyncOutputComponent",
+  "fields": [
+   {
+    "name": "TimerData",
+    "type": "TimerData",
+    "interpolate": false,
+    "read": "?"
+   }
+  ]
+ },
+ "IAnimationParametersOutputComponent": {
+  "bases": "ISyncOutputComponent",
+  "fields": [
+   {
+    "name": "TriggerParameters",
+    "type": "ISyncMapData<bool>",
+    "interpolate": false,
+    "read": "?"
+   },
+   {
+    "name": "BoolParameters",
+    "type": "ISyncMapData<bool>",
+    "interpolate": false,
+    "read": "?"
+   },
+   {
+    "name": "IntParameters",
+    "type": "ISyncMapData<int>",
+    "interpolate": false,
+    "read": "ReadInt",
+    "min": 0,
+    "max": 15,
+    "bits": 4
+   },
+   {
+    "name": "FloatParameters",
+    "type": "ISyncMapData<float>",
+    "interpolate": true,
+    "read": "?"
+   }
+  ]
+ },
+ "IRespawnOutputComponent": {
+  "bases": "ISyncOutputComponent",
+  "fields": [
+   {
+    "name": "RespawnCounter",
+    "type": "int",
+    "interpolate": false,
+    "read": "?"
+   },
+   {
+    "name": "RespawnRotation",
+    "type": "float",
+    "interpolate": false,
+    "read": "?"
+   }
+  ]
+ },
+ "ITeamOutputComponent": {
+  "bases": "ISyncOutputComponent",
+  "fields": [
+   {
+    "name": "CurrentTeam",
+    "type": "Team",
+    "interpolate": false,
+    "read": "?"
+   }
+  ]
+ },
+ "IConsumableStateOutputComponent": {
+  "bases": "ISyncOutputComponent",
+  "fields": [
+   {
+    "name": "State",
+    "type": "EConsumableState",
+    "interpolate": false,
+    "read": "?"
+   },
+   {
+    "name": "BodyState",
+    "type": "EConsumableBodyState",
+    "interpolate": false,
+    "read": "?"
+   },
+   {
+    "name": "StateTrigger",
+    "type": "ConsumableTriggerData",
+    "interpolate": false,
+    "read": "?"
+   },
+   {
+    "name": "LaunchTime",
+    "type": "int",
+    "interpolate": false,
+    "read": "ReadInt",
+    "min": -1,
+    "max": 900000,
+    "bits": 20
+   }
+  ]
+ },
+ "IExplosionOutputComponent": {
+  "bases": "ISyncOutputComponent",
+  "fields": [
+   {
+    "name": "ExplosionOutputData",
+    "type": "ExplosionOutputData",
+    "interpolate": false,
+    "read": "?"
+   }
+  ]
+ },
+ "ITutorialOutputComponent": {
+  "bases": "ISyncOutputComponent",
+  "fields": [
+   {
+    "name": "IsControlsTutorialActive",
+    "type": "bool",
+    "interpolate": false,
+    "read": "?"
+   },
+   {
+    "name": "IsConditionFrameCompleted",
+    "type": "bool",
+    "interpolate": false,
+    "read": "?"
+   },
+   {
+    "name": "Bots",
+    "type": "int[]",
+    "interpolate": false,
+    "read": "?"
+   },
+   {
+    "name": "MovePoint",
+    "type": "int",
+    "interpolate": false,
+    "read": "?"
+   }
+  ]
+ },
+ "IInvincibleOutputComponent": {
+  "bases": "ISyncOutputComponent",
+  "fields": [
+   {
+    "name": "IsInvincible",
+    "type": "bool",
+    "interpolate": false,
+    "read": "?"
+   },
+   {
+    "name": "IsKnockdownImmune",
+    "type": "bool",
+    "interpolate": false,
+    "read": "?"
+   }
+  ]
+ },
+ "IAimFilterOutputComponent": {
+  "bases": "ISyncOutputComponent",
+  "fields": [
+   {
+    "name": "HasOfffendersFilter",
+    "type": "bool",
+    "interpolate": false,
+    "read": "?"
+   },
+   {
+    "name": "AllowedOffendersNetworkIds",
+    "type": "int[]",
+    "interpolate": false,
+    "read": "ReadFloat",
+    "fracBits": 6,
+    "min": -1,
+    "max": 2046,
+    "bits": 17
+   }
+  ]
+ },
+ "IHeroBuffOutputComponent": {
+  "bases": "ISyncOutputComponent",
+  "fields": [
+   {
+    "name": "IsActiveDamageBuff",
+    "type": "bool",
+    "interpolate": false,
+    "read": "?"
+   },
+   {
+    "name": "IsActiveSpeedBuff",
+    "type": "bool",
+    "interpolate": false,
+    "read": "?"
+   },
+   {
+    "name": "IsActiveRegenBuff",
+    "type": "bool",
+    "interpolate": false,
+    "read": "?"
+   }
+  ]
+ },
+ "IKineticAttractorOutputComponent": {
+  "bases": "ISyncOutputComponent",
+  "fields": [
+   {
+    "name": "TargetNetworkIds",
+    "type": "int[]",
+    "interpolate": false,
+    "read": "ReadFloat",
+    "fracBits": 4,
+    "min": -1,
+    "max": 2046,
+    "bits": 15
+   },
+   {
+    "name": "HasHero",
+    "type": "bool",
+    "interpolate": false,
+    "read": "?"
+   }
+  ]
+ },
+ "ITauntOutputComponent": {
+  "bases": "ISyncOutputComponent",
+  "fields": [
+   {
+    "name": "TauntId",
+    "type": "int",
+    "interpolate": false,
+    "read": "?"
+   }
+  ]
+ },
+ "IExplosionBarrelOutputComponent": {
+  "bases": "ISyncOutputComponent",
+  "fields": [
+   {
+    "name": "IsExploding",
+    "type": "bool",
+    "interpolate": false,
+    "read": "?"
+   },
+   {
+    "name": "CanExplode",
+    "type": "bool",
+    "interpolate": false,
+    "read": "?"
+   }
+  ]
+ },
+ "IPowerUpOutputComponent": {
+  "bases": "ISyncOutputComponent",
+  "fields": [
+   {
+    "name": "PowerUpType",
+    "type": "int",
+    "interpolate": false,
+    "read": "ReadInt",
+    "min": -1,
+    "max": 8,
+    "bits": 4
+   },
+   {
+    "name": "PowerUpState",
+    "type": "int",
+    "interpolate": false,
+    "read": "ReadInt",
+    "min": -1,
+    "max": 4,
+    "bits": 3
+   },
+   {
+    "name": "TargetNetworkId",
+    "type": "int",
+    "interpolate": false,
+    "read": "ReadInt",
+    "min": -1,
+    "max": 2046,
+    "bits": 11
+   }
+  ]
+ },
+ "IPrizeDropStateOutputComponent": {
+  "bases": "ISyncOutputComponent",
+  "fields": [
+   {
+    "name": "IsLanded",
+    "type": "bool",
+    "interpolate": false,
+    "read": "?"
+   }
+  ]
+ },
+ "ILevelResetOutputComponent": {
+  "bases": "ISyncOutputComponent",
+  "fields": [
+   {
+    "name": "Reset",
+    "type": "bool",
+    "interpolate": false,
+    "read": "?"
+   }
+  ]
+ },
+ "ILocalPlayerListener": {
+  "bases": "IBaseViewComponent, ISyncOutputComponent, IDisposable",
+  "fields": []
+ },
+ "IBaseViewComponent": {
+  "bases": "ISyncOutputComponent, IDisposable",
+  "fields": [
+   {
+    "name": "EntityNetworkId",
+    "type": "int",
+    "interpolate": false,
+    "read": "?"
+   }
+  ]
+ }
+}

@@ -1,0 +1,1728 @@
+{
+ "Test": {
+  "rva": "0x6F474C0",
+  "slots": [
+   {
+    "kind": "map",
+    "reader": "TriggerSyncMapReader",
+    "type": "int",
+    "field": "TriggerValue"
+   },
+   {
+    "kind": "map",
+    "reader": "ValueSyncMapReader",
+    "type": "bool",
+    "field": "MapTriggerValue"
+   },
+   {
+    "kind": "map",
+    "reader": "InterpolateSyncMapReader",
+    "type": "float",
+    "field": "MapSimpleValue"
+   },
+   {
+    "kind": "value",
+    "field": "Value"
+   },
+   {
+    "kind": "trigger",
+    "type": "float",
+    "field": "MapInterpolateValue"
+   },
+   {
+    "kind": "value",
+    "field": "SampleValue"
+   }
+  ],
+  "type": 2,
+  "declared": [
+   "Value",
+   "TriggerValue",
+   "SampleValue",
+   "MapTriggerValue",
+   "MapSimpleValue",
+   "MapInterpolateValue"
+  ]
+ },
+ "Hp": {
+  "rva": "0x6F27F24",
+  "slots": [
+   {
+    "kind": "value",
+    "field": "MaxHp"
+   },
+   {
+    "kind": "value",
+    "field": "Hp"
+   },
+   {
+    "kind": "value",
+    "field": "Shields"
+   }
+  ],
+  "type": 3,
+  "declared": [
+   "MaxHp",
+   "Hp",
+   "Shields"
+  ]
+ },
+ "ShieldHp": {
+  "rva": "0x6F4238C",
+  "slots": [
+   {
+    "kind": "value",
+    "field": "MaxHp"
+   },
+   {
+    "kind": "value",
+    "field": "Hp"
+   },
+   {
+    "kind": "trigger",
+    "type": "int",
+    "field": "Damage"
+   }
+  ],
+  "type": 4,
+  "declared": [
+   "MaxHp",
+   "Hp",
+   "Damage"
+  ]
+ },
+ "CharacterGems": {
+  "rva": "0x6F07744",
+  "slots": [
+   {
+    "kind": "value",
+    "field": "HasCriticalGemsNumber"
+   },
+   {
+    "kind": "value",
+    "field": "Gems"
+   }
+  ],
+  "type": 5,
+  "declared": [
+   "Gems",
+   "HasCriticalGemsNumber"
+  ]
+ },
+ "CharacterTowerLink": {
+  "rva": "0x6F0809C",
+  "slots": [
+   {
+    "kind": "value",
+    "field": "Linked"
+   }
+  ],
+  "type": 6,
+  "declared": [
+   "Linked"
+  ]
+ },
+ "CharacterWeakening": {
+  "rva": "0x6F090A8",
+  "slots": [
+   {
+    "kind": "value",
+    "field": "Stacks"
+   },
+   {
+    "kind": "value",
+    "field": "OwnerId"
+   },
+   {
+    "kind": "value",
+    "field": "WeakeningProgress"
+   }
+  ],
+  "type": 7,
+  "declared": [
+   "Stacks",
+   "OwnerId",
+   "WeakeningProgress"
+  ]
+ },
+ "WeakeningConsumable": {
+  "rva": "0x6F5006C",
+  "slots": [
+   {
+    "kind": "value",
+    "field": "AdditionalLifetimeData"
+   }
+  ],
+  "type": 8,
+  "declared": [
+   "AdditionalLifetimeData"
+  ]
+ },
+ "ScaleFromLifeTime": {
+  "rva": "0x6F40470",
+  "slots": [
+   {
+    "kind": "value",
+    "field": "StartScale"
+   },
+   {
+    "kind": "value",
+    "field": "FinishScale"
+   },
+   {
+    "kind": "value",
+    "field": "TimerData"
+   }
+  ],
+  "type": 9,
+  "declared": [
+   "StartScale",
+   "FinishScale",
+   "TimerData"
+  ]
+ },
+ "CharacterBag": {
+  "rva": "0x6F06B14",
+  "slots": [
+   {
+    "kind": "value",
+    "field": "HasBag"
+   }
+  ],
+  "type": 10,
+  "declared": [
+   "HasBag"
+  ]
+ },
+ "LastRespawn": {
+  "rva": "0x6F2D6E0",
+  "slots": [
+   {
+    "kind": "value",
+    "field": "LastRespawnHeroNetworkId"
+   }
+  ],
+  "type": 11,
+  "declared": [
+   "LastRespawnHeroNetworkId"
+  ]
+ },
+ "CurrentHero": {
+  "rva": "0x6F0B520",
+  "slots": [
+   {
+    "kind": "value",
+    "field": "HeroNetworkId"
+   }
+  ],
+  "type": 12,
+  "declared": [
+   "HeroNetworkId"
+  ]
+ },
+ "Landing": {
+  "rva": "0x6F2B814",
+  "slots": [
+   {
+    "kind": "trigger",
+    "type": "bool",
+    "field": "IsLanded"
+   }
+  ],
+  "type": 13,
+  "declared": [
+   "IsLanded"
+  ]
+ },
+ "AvailableHero": {
+  "rva": "0x6EFB0E0",
+  "slots": [
+   {
+    "kind": "value",
+    "field": "UsedHeroNetworkIds"
+   }
+  ],
+  "type": 14,
+  "declared": [
+   "UsedHeroNetworkIds"
+  ]
+ },
+ "HeroPerk": {
+  "rva": "0x6F26480",
+  "slots": [
+   {
+    "kind": "value",
+    "field": "SelectPerk"
+   }
+  ],
+  "type": 15,
+  "declared": [
+   "SelectPerk"
+  ]
+ },
+ "Ability": {
+  "rva": "0x6EF54FC",
+  "slots": [
+   {
+    "kind": "value",
+    "field": "RestrictionStatus"
+   },
+   {
+    "kind": "value",
+    "field": "AbilityStackOutputData"
+   },
+   {
+    "kind": "value",
+    "field": "State"
+   },
+   {
+    "kind": "value",
+    "field": "CooldownEndTime"
+   }
+  ],
+  "type": 16,
+  "declared": [
+   "State",
+   "CooldownEndTime",
+   "AbilityStackOutputData",
+   "RestrictionStatus"
+  ]
+ },
+ "UltimateAbility": {
+  "rva": "0x6F4F6C8",
+  "slots": [
+   {
+    "kind": "value",
+    "field": "UltimateEarnedChargeProgress"
+   },
+   {
+    "kind": "value",
+    "field": "UltimateTimeChargeData"
+   }
+  ],
+  "type": 17,
+  "declared": [
+   "UltimateEarnedChargeProgress",
+   "UltimateTimeChargeData"
+  ]
+ },
+ "WeaponFire": {
+  "rva": "0x6F50904",
+  "slots": [
+   {
+    "kind": "trigger",
+    "type": "ShotParams",
+    "field": "Shot"
+   }
+  ],
+  "type": 18,
+  "declared": [
+   "Shot"
+  ]
+ },
+ "MeleeWeapon": {
+  "rva": "0x6F2EFA8",
+  "slots": [
+   {
+    "kind": "trigger",
+    "type": "int",
+    "field": "CurrentState"
+   }
+  ],
+  "type": 19,
+  "declared": [
+   "CurrentState"
+  ]
+ },
+ "Hit": {
+  "rva": "0x6F26D08",
+  "slots": [
+   {
+    "kind": "trigger",
+    "type": "Vector3",
+    "field": "Position"
+   }
+  ],
+  "type": 20,
+  "declared": [
+   "Position"
+  ]
+ },
+ "WeaponModifierEnablePercent": {
+  "rva": "0x6F510AC",
+  "slots": [
+   {
+    "kind": "value",
+    "field": "WeaponModifierEnablePercent"
+   }
+  ],
+  "type": 21,
+  "declared": [
+   "WeaponModifierEnablePercent"
+  ]
+ },
+ "CurrentTargets": {
+  "rva": "0x6F0BD20",
+  "slots": [
+   {
+    "kind": "value",
+    "field": "TargetNetworkIds"
+   }
+  ],
+  "type": 22,
+  "declared": [
+   "TargetNetworkIds"
+  ]
+ },
+ "Transform": {
+  "rva": "0x6F4C18C",
+  "slots": [
+   {
+    "kind": "value",
+    "field": "Rotation"
+   },
+   {
+    "kind": "value",
+    "field": "Position"
+   }
+  ],
+  "type": 23,
+  "declared": [
+   "Position",
+   "Rotation"
+  ]
+ },
+ "Scale": {
+  "rva": "0x6F410CC",
+  "slots": [
+   {
+    "kind": "value",
+    "field": "Scale"
+   }
+  ],
+  "type": 24,
+  "declared": [
+   "Scale"
+  ]
+ },
+ "Grounded": {
+  "rva": "0x6F247A4",
+  "slots": [
+   {
+    "kind": "value",
+    "field": "IsGrounded"
+   },
+   {
+    "kind": "value",
+    "field": "UnderlyingGroundY"
+   },
+   {
+    "kind": "value",
+    "field": "UnderlyingSurfaceNormal"
+   }
+  ],
+  "type": 25,
+  "declared": [
+   "IsGrounded",
+   "UnderlyingGroundY",
+   "UnderlyingSurfaceNormal"
+  ]
+ },
+ "Wind": {
+  "rva": "0x6F52A60",
+  "slots": [
+   {
+    "kind": "value",
+    "field": "IsInWave"
+   },
+   {
+    "kind": "value",
+    "field": "RemainingTime"
+   },
+   {
+    "kind": "value",
+    "field": "Force"
+   }
+  ],
+  "type": 26,
+  "declared": [
+   "Force",
+   "RemainingTime",
+   "IsInWave"
+  ]
+ },
+ "Laser": {
+  "rva": "0x6F2CD74",
+  "slots": [
+   {
+    "kind": "value",
+    "field": "Progress"
+   },
+   {
+    "kind": "value",
+    "field": "SurfaceNormal"
+   }
+  ],
+  "type": 27,
+  "declared": [
+   "Progress",
+   "SurfaceNormal"
+  ]
+ },
+ "EmoteActions": {
+  "rva": "0x6F0CDA0",
+  "slots": [
+   {
+    "kind": "value",
+    "field": "TimerData"
+   }
+  ],
+  "type": 28,
+  "declared": [
+   "TimerData"
+  ]
+ },
+ "Outgrowth": {
+  "rva": "0x6F332D4",
+  "slots": [
+   {
+    "kind": "value",
+    "field": "IsInActiveState"
+   },
+   {
+    "kind": "value",
+    "field": "SourceRadius"
+   },
+   {
+    "kind": "value",
+    "field": "TargetRadius"
+   },
+   {
+    "kind": "value",
+    "field": "DeployTime"
+   },
+   {
+    "kind": "value",
+    "field": "ProgressFromDamage"
+   },
+   {
+    "kind": "value",
+    "field": "LifetimeTimerData"
+   },
+   {
+    "kind": "value",
+    "field": "ScaleTimerData"
+   },
+   {
+    "kind": "value",
+    "field": "Position"
+   },
+   {
+    "kind": "value",
+    "field": "SurfaceNormal"
+   }
+  ],
+  "type": 29,
+  "declared": [
+   "Position",
+   "SurfaceNormal",
+   "SourceRadius",
+   "TargetRadius",
+   "DeployTime",
+   "IsInActiveState",
+   "ProgressFromDamage",
+   "LifetimeTimerData",
+   "ScaleTimerData"
+  ]
+ },
+ "Meteorite": {
+  "rva": "0x6F30544",
+  "slots": [
+   {
+    "kind": "value",
+    "field": "IsFalling"
+   },
+   {
+    "kind": "value",
+    "field": "PredictedLandingPosition"
+   },
+   {
+    "kind": "value",
+    "field": "PredictedLandingSurfaceNormal"
+   },
+   {
+    "kind": "value",
+    "field": "Velocity"
+   }
+  ],
+  "type": 30,
+  "declared": [
+   "PredictedLandingPosition",
+   "PredictedLandingSurfaceNormal",
+   "Velocity",
+   "IsFalling"
+  ]
+ },
+ "Capturepoint": {
+  "rva": "0x6F05150",
+  "slots": [
+   {
+    "kind": "value",
+    "field": "IsPointActive"
+   },
+   {
+    "kind": "value",
+    "field": "IsProgressDecreasing"
+   },
+   {
+    "kind": "value",
+    "field": "IsMultiPoints"
+   },
+   {
+    "kind": "value",
+    "field": "IsOvertimeActive"
+   },
+   {
+    "kind": "value",
+    "field": "Team1ContestersAmount"
+   },
+   {
+    "kind": "value",
+    "field": "Team2ContestersAmount"
+   },
+   {
+    "kind": "value",
+    "field": "Team1CaptureScore"
+   },
+   {
+    "kind": "value",
+    "field": "Team2CaptureScore"
+   },
+   {
+    "kind": "value",
+    "field": "Team1CapturedPoints"
+   },
+   {
+    "kind": "value",
+    "field": "Team2CapturedPoints"
+   },
+   {
+    "kind": "value",
+    "field": "FixedProgress"
+   },
+   {
+    "kind": "value",
+    "field": "OwnerTeam"
+   },
+   {
+    "kind": "value",
+    "field": "CapturingTeam"
+   },
+   {
+    "kind": "value",
+    "field": "ProgressTimerData"
+   },
+   {
+    "kind": "value",
+    "field": "OvertimeTimerData"
+   }
+  ],
+  "type": 31,
+  "declared": [
+   "IsPointActive",
+   "OwnerTeam",
+   "CapturingTeam",
+   "FixedProgress",
+   "ProgressTimerData",
+   "IsProgressDecreasing",
+   "Team1ContestersAmount",
+   "Team2ContestersAmount",
+   "Team1CaptureScore",
+   "Team2CaptureScore",
+   "IsMultiPoints",
+   "Team1CapturedPoints",
+   "Team2CapturedPoints",
+   "IsOvertimeActive",
+   "OvertimeTimerData"
+  ]
+ },
+ "TowersMode": {
+  "rva": "0x6F4AB8C",
+  "slots": [
+   {
+    "kind": "value",
+    "field": "IsMatchStarted"
+   },
+   {
+    "kind": "value",
+    "field": "Team1Score"
+   },
+   {
+    "kind": "value",
+    "field": "Team2Score"
+   },
+   {
+    "kind": "value",
+    "field": "CurrentTowerId"
+   },
+   {
+    "kind": "value",
+    "field": "CurrentActiveTowerId"
+   },
+   {
+    "kind": "value",
+    "field": "TowerLastHitData"
+   }
+  ],
+  "type": 32,
+  "declared": [
+   "Team1Score",
+   "Team2Score",
+   "CurrentTowerId",
+   "CurrentActiveTowerId",
+   "TowerLastHitData",
+   "IsMatchStarted"
+  ]
+ },
+ "Tower": {
+  "rva": "0x6F48C30",
+  "slots": [
+   {
+    "kind": "value",
+    "field": "IsActivated"
+   },
+   {
+    "kind": "value",
+    "field": "IsContested"
+   },
+   {
+    "kind": "value",
+    "field": "ControllingTeam"
+   },
+   {
+    "kind": "value",
+    "field": "ActivationTimerData"
+   }
+  ],
+  "type": 33,
+  "declared": [
+   "ActivationTimerData",
+   "IsActivated",
+   "ControllingTeam",
+   "IsContested"
+  ]
+ },
+ "GemGrabMode": {
+  "rva": "0x6F228B8",
+  "slots": [
+   {
+    "kind": "value",
+    "field": "SpawnActivated"
+   },
+   {
+    "kind": "value",
+    "field": "HighlightedGemId"
+   },
+   {
+    "kind": "value",
+    "field": "Team1Gems"
+   },
+   {
+    "kind": "value",
+    "field": "Team2Gems"
+   },
+   {
+    "kind": "value",
+    "field": "Team1Score"
+   },
+   {
+    "kind": "value",
+    "field": "Team2Score"
+   },
+   {
+    "kind": "value",
+    "field": "DominatingTeam"
+   },
+   {
+    "kind": "value",
+    "field": "SpawnTimer"
+   },
+   {
+    "kind": "value",
+    "field": "HoldTimer"
+   },
+   {
+    "kind": "value",
+    "field": "NextSpawnPosition"
+   }
+  ],
+  "type": 34,
+  "declared": [
+   "SpawnActivated",
+   "NextSpawnPosition",
+   "HighlightedGemId",
+   "SpawnTimer",
+   "Team1Gems",
+   "Team2Gems",
+   "DominatingTeam",
+   "HoldTimer",
+   "Team1Score",
+   "Team2Score"
+  ]
+ },
+ "BagMode": {
+  "rva": "0x6EFD0D4",
+  "slots": [
+   {
+    "kind": "value",
+    "field": "IsSpawned"
+   },
+   {
+    "kind": "value",
+    "field": "IsActive"
+   },
+   {
+    "kind": "value",
+    "field": "Team1Score"
+   },
+   {
+    "kind": "value",
+    "field": "Team2Score"
+   },
+   {
+    "kind": "value",
+    "field": "OwnerNetworkId"
+   },
+   {
+    "kind": "value",
+    "field": "TeamWithBag"
+   },
+   {
+    "kind": "value",
+    "field": "ProgressTimerData"
+   }
+  ],
+  "type": 35,
+  "declared": [
+   "IsSpawned",
+   "ProgressTimerData",
+   "TeamWithBag",
+   "Team1Score",
+   "Team2Score",
+   "OwnerNetworkId",
+   "IsActive"
+  ]
+ },
+ "PayloadPoint": {
+  "rva": "0x6F35604",
+  "slots": [
+   {
+    "kind": "value",
+    "field": "PointIsActive"
+   },
+   {
+    "kind": "value",
+    "field": "Team1ContestersAmount"
+   },
+   {
+    "kind": "value",
+    "field": "Team2ContestersAmount"
+   },
+   {
+    "kind": "value",
+    "field": "PushingTeam"
+   },
+   {
+    "kind": "value",
+    "field": "PointActivationTimer"
+   }
+  ],
+  "type": 36,
+  "declared": [
+   "PointIsActive",
+   "PointActivationTimer",
+   "PushingTeam",
+   "Team1ContestersAmount",
+   "Team2ContestersAmount"
+  ]
+ },
+ "PushMode": {
+  "rva": "0x6F3D4A8",
+  "slots": [
+   {
+    "kind": "value",
+    "field": "OvertimeIsActive"
+   },
+   {
+    "kind": "value",
+    "field": "PushIsFinished"
+   },
+   {
+    "kind": "value",
+    "field": "Team1Score"
+   },
+   {
+    "kind": "value",
+    "field": "Team2Score"
+   },
+   {
+    "kind": "value",
+    "field": "PayloadScore"
+   },
+   {
+    "kind": "value",
+    "field": "Team1SignedProgressReach"
+   },
+   {
+    "kind": "value",
+    "field": "Team2SignedProgressReach"
+   },
+   {
+    "kind": "value",
+    "field": "SegmentOwner"
+   },
+   {
+    "kind": "value",
+    "field": "LeadingTeam"
+   },
+   {
+    "kind": "value",
+    "field": "PushTimer"
+   },
+   {
+    "kind": "value",
+    "field": "OvertimeTimer"
+   }
+  ],
+  "type": 37,
+  "declared": [
+   "Team1SignedProgressReach",
+   "Team2SignedProgressReach",
+   "Team1Score",
+   "Team2Score",
+   "PayloadScore",
+   "SegmentOwner",
+   "LeadingTeam",
+   "PushTimer",
+   "OvertimeIsActive",
+   "OvertimeTimer",
+   "PushIsFinished"
+  ]
+ },
+ "EscortMode": {
+  "rva": "0x6F11B14",
+  "slots": [
+   {
+    "kind": "value",
+    "field": "OddIndexRound"
+   },
+   {
+    "kind": "value",
+    "field": "OvertimeIsActive"
+   },
+   {
+    "kind": "value",
+    "field": "RoundIsFinished"
+   },
+   {
+    "kind": "value",
+    "field": "PreparingNextRound"
+   },
+   {
+    "kind": "value",
+    "field": "Team1Score"
+   },
+   {
+    "kind": "value",
+    "field": "Team2Score"
+   },
+   {
+    "kind": "value",
+    "field": "PayloadScore"
+   },
+   {
+    "kind": "value",
+    "field": "CurrentRoundRequiredProgress"
+   },
+   {
+    "kind": "value",
+    "field": "CurrentRoundReachedProgress"
+   },
+   {
+    "kind": "value",
+    "field": "RoundAttackTeam"
+   },
+   {
+    "kind": "value",
+    "field": "RoundTimer"
+   },
+   {
+    "kind": "value",
+    "field": "OvertimeTimer"
+   }
+  ],
+  "type": 38,
+  "declared": [
+   "CurrentRoundRequiredProgress",
+   "CurrentRoundReachedProgress",
+   "Team1Score",
+   "Team2Score",
+   "PayloadScore",
+   "RoundAttackTeam",
+   "OddIndexRound",
+   "RoundTimer",
+   "OvertimeIsActive",
+   "OvertimeTimer",
+   "RoundIsFinished",
+   "PreparingNextRound"
+  ]
+ },
+ "EnabledState": {
+  "rva": "0x6F0D5B4",
+  "slots": [
+   {
+    "kind": "value",
+    "field": "IsEnabled"
+   }
+  ],
+  "type": 39,
+  "declared": [
+   "IsEnabled"
+  ]
+ },
+ "CameraHeight": {
+  "rva": "0x6F0130C",
+  "slots": [
+   {
+    "kind": "value",
+    "field": "HeightMultiplier"
+   }
+  ],
+  "type": 40,
+  "declared": [
+   "HeightMultiplier"
+  ]
+ },
+ "Player": {
+  "rva": "0x6F37050",
+  "slots": [
+   {
+    "kind": "value",
+    "field": "IsNearObjective"
+   },
+   {
+    "kind": "value",
+    "field": "RespawnTime"
+   },
+   {
+    "kind": "value",
+    "field": "State"
+   },
+   {
+    "kind": "value",
+    "field": "RespawnTimer"
+   }
+  ],
+  "type": 41,
+  "declared": [
+   "State",
+   "RespawnTimer",
+   "RespawnTime",
+   "IsNearObjective"
+  ]
+ },
+ "Animator": {
+  "rva": "0x6EFA2D4",
+  "slots": [],
+  "type": 42,
+  "declared": [
+   "EffectTrigger"
+  ]
+ },
+ "PlayWorldEffect": {
+  "rva": "0x6F389A4",
+  "slots": [
+   {
+    "kind": "trigger",
+    "type": "PlayWorldEffectTriggerData",
+    "field": "EffectTrigger"
+   }
+  ],
+  "type": 43,
+  "declared": [
+   "EffectTrigger"
+  ]
+ },
+ "AimDataChanged": {
+  "rva": "0x6EF82B8",
+  "slots": [
+   {
+    "kind": "value",
+    "field": "Height"
+   },
+   {
+    "kind": "value",
+    "field": "TruncationRate"
+   },
+   {
+    "kind": "value",
+    "field": "HorizontalAngle"
+   },
+   {
+    "kind": "value",
+    "field": "VerticalAngle"
+   }
+  ],
+  "type": 44,
+  "declared": [
+   "Height",
+   "TruncationRate",
+   "HorizontalAngle",
+   "VerticalAngle"
+  ]
+ },
+ "WeaponModifiersDebug": {
+  "rva": "0x6F51964",
+  "slots": [
+   {
+    "kind": "value",
+    "field": "ModifierCollection"
+   }
+  ],
+  "type": 45,
+  "declared": [
+   "ModifierCollection"
+  ]
+ },
+ "MatchLog": {
+  "rva": "0x6F2E784",
+  "slots": [
+   {
+    "kind": "trigger",
+    "type": "MatchResultLog",
+    "field": "Data"
+   }
+  ],
+  "type": 46,
+  "declared": [
+   "Data"
+  ]
+ },
+ "PlayerStats": {
+  "rva": "0x6F37FFC",
+  "slots": [
+   {
+    "kind": "value",
+    "field": "EliminationsCount"
+   },
+   {
+    "kind": "value",
+    "field": "DeathsCount"
+   }
+  ],
+  "type": 47,
+  "declared": [
+   "EliminationsCount",
+   "DeathsCount"
+  ]
+ },
+ "BodyState": {
+  "rva": "0x6F0088C",
+  "slots": [
+   {
+    "kind": "value",
+    "field": "CurrentBodyState"
+   },
+   {
+    "kind": "value",
+    "field": "BindProgress"
+   }
+  ],
+  "type": 48,
+  "declared": [
+   "CurrentBodyState",
+   "BindProgress"
+  ]
+ },
+ "Ragdoll": {
+  "rva": "0x6F3E7C8",
+  "slots": [
+   {
+    "kind": "map",
+    "reader": "InterpolateSyncMapReader",
+    "type": "Quaternion",
+    "field": "Bones"
+   }
+  ],
+  "type": 49,
+  "declared": [
+   "Bones"
+  ]
+ },
+ "EnableInvisible": {
+  "rva": "0x6F0DDB8",
+  "slots": [
+   {
+    "kind": "value",
+    "field": "InvisibleEnabled"
+   }
+  ],
+  "type": 50,
+  "declared": [
+   "InvisibleEnabled"
+  ]
+ },
+ "ShieldsZoneAbility": {
+  "rva": "0x6F42DA4",
+  "slots": [
+   {
+    "kind": "value",
+    "field": "IsEnabled"
+   }
+  ],
+  "type": 51,
+  "declared": [
+   "IsEnabled"
+  ]
+ },
+ "TurretConsumable": {
+  "rva": "0x6F4CF08",
+  "slots": [
+   {
+    "kind": "value",
+    "field": "IsActiveState"
+   },
+   {
+    "kind": "value",
+    "field": "IsAtShoulder"
+   }
+  ],
+  "type": 52,
+  "declared": [
+   "IsActiveState",
+   "IsAtShoulder"
+  ]
+ },
+ "StickyExplosive": {
+  "rva": "0x6F435A8",
+  "slots": [
+   {
+    "kind": "value",
+    "field": "HasEnemiesInRadius"
+   }
+  ],
+  "type": 53,
+  "declared": [
+   "HasEnemiesInRadius"
+  ]
+ },
+ "EnergyBallConsumable": {
+  "rva": "0x6F0E5BC",
+  "slots": [
+   {
+    "kind": "value",
+    "field": "IsAimed"
+   }
+  ],
+  "type": 54,
+  "declared": [
+   "IsAimed"
+  ]
+ },
+ "Attached": {
+  "rva": "0x6EFA8E0",
+  "slots": [
+   {
+    "kind": "value",
+    "field": "IsAttached"
+   }
+  ],
+  "type": 55,
+  "declared": [
+   "IsAttached"
+  ]
+ },
+ "BlinkAbility": {
+  "rva": "0x6EFFB14",
+  "slots": [
+   {
+    "kind": "value",
+    "field": "IsActivated"
+   }
+  ],
+  "type": 56,
+  "declared": [
+   "IsActivated"
+  ]
+ },
+ "BallAbility": {
+  "rva": "0x6EFF310",
+  "slots": [
+   {
+    "kind": "value",
+    "field": "IsActivated"
+   }
+  ],
+  "type": 57,
+  "declared": [
+   "IsActivated"
+  ]
+ },
+ "LaserAbility": {
+  "rva": "0x6F2BFA8",
+  "slots": [
+   {
+    "kind": "value",
+    "field": "IsActivated"
+   }
+  ],
+  "type": 58,
+  "declared": [
+   "IsActivated"
+  ]
+ },
+ "BallAbilityParams": {
+  "rva": "0x6EFE878",
+  "slots": [
+   {
+    "kind": "value",
+    "field": "IsGrounded"
+   },
+   {
+    "kind": "value",
+    "field": "Velocity"
+   },
+   {
+    "kind": "value",
+    "field": "DirectionAngle"
+   }
+  ],
+  "type": 59,
+  "declared": [
+   "Velocity",
+   "DirectionAngle",
+   "IsGrounded"
+  ]
+ },
+ "Telekinesis": {
+  "rva": "0x6F459EC",
+  "slots": [
+   {
+    "kind": "value",
+    "field": "IsActivated"
+   },
+   {
+    "kind": "value",
+    "field": "TargetNetworkId"
+   }
+  ],
+  "type": 60,
+  "declared": [
+   "IsActivated",
+   "TargetNetworkId"
+  ]
+ },
+ "KineticPull": {
+  "rva": "0x6F2ACD8",
+  "slots": [
+   {
+    "kind": "value",
+    "field": "IsActivated"
+   },
+   {
+    "kind": "value",
+    "field": "TargetNetworkId"
+   },
+   {
+    "kind": "value",
+    "field": "PullTargetPosition"
+   }
+  ],
+  "type": 61,
+  "declared": [
+   "IsActivated",
+   "TargetNetworkId",
+   "PullTargetPosition"
+  ]
+ },
+ "SwitchToShackle": {
+  "rva": "0x6F43DAC",
+  "slots": [
+   {
+    "kind": "value",
+    "field": "IsShackleActivated"
+   }
+  ],
+  "type": 62,
+  "declared": [
+   "IsShackleActivated"
+  ]
+ },
+ "ActiveAbilities": {
+  "rva": "0x6EF7058",
+  "slots": [
+   {
+    "kind": "value",
+    "field": "WeaponNetworkId"
+   },
+   {
+    "kind": "value",
+    "field": "ActiveAbilityNetworkIds"
+   }
+  ],
+  "type": 63,
+  "declared": [
+   "WeaponNetworkId",
+   "ActiveAbilityNetworkIds"
+  ]
+ },
+ "Abilities": {
+  "rva": "0x6EF4104",
+  "slots": [
+   {
+    "kind": "value",
+    "field": "AllWeaponsNetworkIds"
+   },
+   {
+    "kind": "value",
+    "field": "AllAbilitiesNetworkIds"
+   }
+  ],
+  "type": 64,
+  "declared": [
+   "AllWeaponsNetworkIds",
+   "AllAbilitiesNetworkIds"
+  ]
+ },
+ "AbilityUsageState": {
+  "rva": "0x6EF64AC",
+  "slots": [
+   {
+    "kind": "value",
+    "field": "IsAbilityActive"
+   },
+   {
+    "kind": "trigger",
+    "type": "int",
+    "field": "UsageTrigger"
+   }
+  ],
+  "type": 65,
+  "declared": [
+   "IsAbilityActive",
+   "UsageTrigger"
+  ]
+ },
+ "Duration": {
+  "rva": "0x6F0C558",
+  "slots": [
+   {
+    "kind": "value",
+    "field": "TimerData"
+   }
+  ],
+  "type": 66,
+  "declared": [
+   "TimerData"
+  ]
+ },
+ "AnimationParameters": {
+  "rva": "0x6EFA158",
+  "slots": [
+   {
+    "kind": "map",
+    "reader": "TriggerSyncMapReader",
+    "type": "bool",
+    "field": "TriggerParameters"
+   },
+   {
+    "kind": "map",
+    "reader": "ValueSyncMapReader",
+    "type": "bool",
+    "field": "BoolParameters"
+   },
+   {
+    "kind": "map",
+    "reader": "ValueSyncMapReader",
+    "type": "int",
+    "field": "IntParameters"
+   },
+   {
+    "kind": "map",
+    "reader": "InterpolateSyncMapReader",
+    "type": "float",
+    "field": "FloatParameters"
+   }
+  ],
+  "type": 67,
+  "declared": [
+   "TriggerParameters",
+   "BoolParameters",
+   "IntParameters",
+   "FloatParameters"
+  ]
+ },
+ "Respawn": {
+  "rva": "0x6F3F348",
+  "slots": [
+   {
+    "kind": "value",
+    "field": "RespawnCounter"
+   },
+   {
+    "kind": "trigger",
+    "type": "float",
+    "field": "RespawnRotation"
+   }
+  ],
+  "type": 68,
+  "declared": [
+   "RespawnCounter",
+   "RespawnRotation"
+  ]
+ },
+ "Team": {
+  "rva": "0x6F44DBC",
+  "slots": [
+   {
+    "kind": "value",
+    "field": "CurrentTeam"
+   }
+  ],
+  "type": 69,
+  "declared": [
+   "CurrentTeam"
+  ]
+ },
+ "ConsumableState": {
+  "rva": "0x6F0A960",
+  "slots": [
+   {
+    "kind": "trigger",
+    "type": "ConsumableTriggerData",
+    "field": "StateTrigger"
+   },
+   {
+    "kind": "value",
+    "field": "BodyState"
+   },
+   {
+    "kind": "value",
+    "field": "State"
+   },
+   {
+    "kind": "value",
+    "field": "LaunchTime"
+   }
+  ],
+  "type": 70,
+  "declared": [
+   "State",
+   "BodyState",
+   "StateTrigger",
+   "LaunchTime"
+  ]
+ },
+ "Explosion": {
+  "rva": "0x6F1FD20",
+  "slots": [
+   {
+    "kind": "trigger",
+    "type": "ExplosionOutputData",
+    "field": "ExplosionOutputData"
+   }
+  ],
+  "type": 71,
+  "declared": [
+   "ExplosionOutputData"
+  ]
+ },
+ "Tutorial": {
+  "rva": "0x6F4E590",
+  "slots": [
+   {
+    "kind": "value",
+    "field": "IsControlsTutorialActive"
+   },
+   {
+    "kind": "trigger",
+    "type": "bool",
+    "field": "IsConditionFrameCompleted"
+   },
+   {
+    "kind": "value",
+    "field": "MovePoint"
+   },
+   {
+    "kind": "value",
+    "field": "Bots"
+   }
+  ],
+  "type": 72,
+  "declared": [
+   "IsControlsTutorialActive",
+   "IsConditionFrameCompleted",
+   "Bots",
+   "MovePoint"
+  ]
+ },
+ "Invincible": {
+  "rva": "0x6F28D54",
+  "slots": [
+   {
+    "kind": "value",
+    "field": "IsInvincible"
+   },
+   {
+    "kind": "value",
+    "field": "IsKnockdownImmune"
+   }
+  ],
+  "type": 73,
+  "declared": [
+   "IsInvincible",
+   "IsKnockdownImmune"
+  ]
+ },
+ "AimFilter": {
+  "rva": "0x6EF92A8",
+  "slots": [
+   {
+    "kind": "value",
+    "field": "HasOfffendersFilter"
+   },
+   {
+    "kind": "value",
+    "field": "AllowedOffendersNetworkIds"
+   }
+  ],
+  "type": 74,
+  "declared": [
+   "HasOfffendersFilter",
+   "AllowedOffendersNetworkIds"
+  ]
+ },
+ "HeroBuff": {
+  "rva": "0x6F25A14",
+  "slots": [
+   {
+    "kind": "value",
+    "field": "IsActiveDamageBuff"
+   },
+   {
+    "kind": "value",
+    "field": "IsActiveSpeedBuff"
+   },
+   {
+    "kind": "value",
+    "field": "IsActiveRegenBuff"
+   }
+  ],
+  "type": 75,
+  "declared": [
+   "IsActiveDamageBuff",
+   "IsActiveSpeedBuff",
+   "IsActiveRegenBuff"
+  ]
+ },
+ "KineticAttractor": {
+  "rva": "0x6F29ACC",
+  "slots": [
+   {
+    "kind": "value",
+    "field": "HasHero"
+   },
+   {
+    "kind": "value",
+    "field": "TargetNetworkIds"
+   }
+  ],
+  "type": 76,
+  "declared": [
+   "TargetNetworkIds",
+   "HasHero"
+  ]
+ },
+ "Taunt": {
+  "rva": "0x6F44608",
+  "slots": [
+   {
+    "kind": "trigger",
+    "type": "int",
+    "field": "TauntId"
+   }
+  ],
+  "type": 77,
+  "declared": [
+   "TauntId"
+  ]
+ },
+ "ExplosionBarrel": {
+  "rva": "0x6F1F38C",
+  "slots": [
+   {
+    "kind": "value",
+    "field": "IsExploding"
+   },
+   {
+    "kind": "value",
+    "field": "CanExplode"
+   }
+  ],
+  "type": 78,
+  "declared": [
+   "IsExploding",
+   "CanExplode"
+  ]
+ },
+ "PowerUp": {
+  "rva": "0x6F39888",
+  "slots": [
+   {
+    "kind": "value",
+    "field": "PowerUpType"
+   },
+   {
+    "kind": "value",
+    "field": "PowerUpState"
+   },
+   {
+    "kind": "value",
+    "field": "TargetNetworkId"
+   }
+  ],
+  "type": 79,
+  "declared": [
+   "PowerUpType",
+   "PowerUpState",
+   "TargetNetworkId"
+  ]
+ },
+ "PrizeDropState": {
+  "rva": "0x6F3A2F4",
+  "slots": [
+   {
+    "kind": "value",
+    "field": "IsLanded"
+   }
+  ],
+  "type": 80,
+  "declared": [
+   "IsLanded"
+  ]
+ },
+ "LevelReset": {
+  "rva": "0x6F2DF3C",
+  "slots": [
+   {
+    "kind": "trigger",
+    "type": "bool",
+    "field": "Reset"
+   }
+  ],
+  "type": 81,
+  "declared": [
+   "Reset"
+  ]
+ }
+}

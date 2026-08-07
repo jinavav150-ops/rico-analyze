@@ -1,0 +1,11 @@
+# Render 설정 — 저장소를 연결하면 이 파일을 읽어 자동으로 서비스가 만들어진다.
+# (Render 대시보드 → New → Blueprint → 이 저장소 선택)
+services:
+  - type: web
+    name: rico-match-analyze
+    runtime: python
+    plan: free
+    buildCommand: pip install -r requirements.txt
+    # -w 1 : 512MB 램에서 분석은 한 번에 하나만
+    # -t 300 : 분석이 1~2분 걸릴 수 있어 타임아웃을 넉넉히
+    startCommand: gunicorn -w 1 -t 300 -b 0.0.0.0:$PORT app:app
