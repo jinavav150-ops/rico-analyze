@@ -146,26 +146,26 @@
    "52": "Calibri/Nova",
    "71": "Oni",
    "79": "Remedy",
-   "98": "Twinkle",
+   "98": "Fury",
    "137": "Jagger",
-   "165": "Vector",
-   "175": "Remedy",
-   "193": "Vector",
-   "208": "Twinkle",
-   "216": "Vector",
-   "224": "Twinkle",
+   "165": "Calibri/Nova",
+   "175": "Leo",
+   "193": "Calibri/Nova",
+   "208": "Fury",
+   "216": "Calibri/Nova",
+   "224": "Fury",
    "237": "Fury",
    "259": "Khan",
    "274": "Calibri/Nova",
    "293": "Oni",
    "301": "Remedy",
-   "320": "Twinkle",
+   "320": "Fury",
    "359": "Jagger",
-   "387": "Vector",
-   "397": "Remedy",
-   "415": "Vector",
-   "430": "Twinkle",
-   "438": "Vector"
+   "387": "Calibri/Nova",
+   "397": "Leo",
+   "415": "Calibri/Nova",
+   "430": "Fury",
+   "438": "Calibri/Nova"
   },
   "엔티티별_후보": {
    "2": [
@@ -187,41 +187,41 @@
     "Remedy"
    ],
    "98": [
-    "Twinkle",
+    "Fury",
     "Magnus/Sejin",
-    "Fury"
+    "Twinkle"
    ],
    "137": [
     "Jagger"
    ],
    "165": [
-    "Vector",
+    "Calibri/Nova",
     "Dread",
-    "Calibri/Nova"
+    "Vector"
    ],
    "175": [
-    "Remedy",
-    "Leo"
+    "Leo",
+    "Remedy"
    ],
    "193": [
-    "Vector",
+    "Calibri/Nova",
     "Dread",
-    "Calibri/Nova"
+    "Vector"
    ],
    "208": [
-    "Twinkle",
+    "Fury",
     "Magnus/Sejin",
-    "Fury"
+    "Twinkle"
    ],
    "216": [
-    "Vector",
+    "Calibri/Nova",
     "Dread",
-    "Calibri/Nova"
+    "Vector"
    ],
    "224": [
-    "Twinkle",
+    "Fury",
     "Magnus/Sejin",
-    "Fury"
+    "Twinkle"
    ],
    "237": [
     "Fury"
@@ -239,36 +239,36 @@
     "Remedy"
    ],
    "320": [
-    "Twinkle",
+    "Fury",
     "Magnus/Sejin",
-    "Fury"
+    "Twinkle"
    ],
    "359": [
     "Jagger"
    ],
    "387": [
-    "Vector",
+    "Calibri/Nova",
     "Dread",
-    "Calibri/Nova"
+    "Vector"
    ],
    "397": [
-    "Remedy",
-    "Leo"
+    "Leo",
+    "Remedy"
    ],
    "415": [
-    "Vector",
+    "Calibri/Nova",
     "Dread",
-    "Calibri/Nova"
+    "Vector"
    ],
    "430": [
-    "Twinkle",
+    "Fury",
     "Magnus/Sejin",
-    "Fury"
+    "Twinkle"
    ],
    "438": [
-    "Vector",
+    "Calibri/Nova",
     "Dread",
-    "Calibri/Nova"
+    "Vector"
    ]
   },
   "항목수": {
@@ -318,7 +318,7 @@
     "BoolParameters": 1,
     "FloatParameters": 8,
     "IntParameters": 2,
-    "TriggerParameters": 14
+    "TriggerParameters": 17
    },
    "137": {
     "BoolParameters": 3,
@@ -330,37 +330,37 @@
     "BoolParameters": 1,
     "FloatParameters": 9,
     "IntParameters": 2,
-    "TriggerParameters": 16
+    "TriggerParameters": 14
    },
    "175": {
     "BoolParameters": 2,
     "FloatParameters": 8,
     "IntParameters": 2,
-    "TriggerParameters": 12
+    "TriggerParameters": 13
    },
    "193": {
     "BoolParameters": 1,
     "FloatParameters": 9,
     "IntParameters": 2,
-    "TriggerParameters": 16
+    "TriggerParameters": 14
    },
    "208": {
     "BoolParameters": 1,
     "FloatParameters": 8,
     "IntParameters": 2,
-    "TriggerParameters": 14
+    "TriggerParameters": 17
    },
    "216": {
     "BoolParameters": 1,
     "FloatParameters": 9,
     "IntParameters": 2,
-    "TriggerParameters": 16
+    "TriggerParameters": 14
    },
    "224": {
     "BoolParameters": 1,
     "FloatParameters": 8,
     "IntParameters": 2,
-    "TriggerParameters": 14
+    "TriggerParameters": 17
    },
    "237": {
     "BoolParameters": 1,
@@ -390,7 +390,7 @@
     "BoolParameters": 1,
     "FloatParameters": 8,
     "IntParameters": 2,
-    "TriggerParameters": 14
+    "TriggerParameters": 17
    },
    "359": {
     "BoolParameters": 3,
@@ -402,69 +402,69 @@
     "BoolParameters": 1,
     "FloatParameters": 9,
     "IntParameters": 2,
-    "TriggerParameters": 16
+    "TriggerParameters": 14
    },
    "397": {
     "BoolParameters": 2,
     "FloatParameters": 8,
     "IntParameters": 2,
-    "TriggerParameters": 12
+    "TriggerParameters": 13
    },
    "415": {
     "BoolParameters": 1,
     "FloatParameters": 9,
     "IntParameters": 2,
-    "TriggerParameters": 16
+    "TriggerParameters": 14
    },
    "430": {
     "BoolParameters": 1,
     "FloatParameters": 8,
     "IntParameters": 2,
-    "TriggerParameters": 14
+    "TriggerParameters": 17
    },
    "438": {
     "BoolParameters": 1,
     "FloatParameters": 9,
     "IntParameters": 2,
-    "TriggerParameters": 16
+    "TriggerParameters": 14
    }
   }
  },
  "J2VRV3D4": {
   "완주율": 99,
   "엔티티별_영웅": {
-   "13": "Twinkle",
+   "13": "Fury",
    "26": "Fury",
    "48": "Khan",
    "63": "Calibri/Nova",
    "82": "Oni",
    "90": "Remedy",
-   "109": "Twinkle",
+   "109": "Fury",
    "148": "Jagger",
-   "176": "Vector",
-   "186": "Remedy",
-   "204": "Vector",
-   "219": "Twinkle",
-   "227": "Vector",
-   "235": "Twinkle",
+   "176": "Calibri/Nova",
+   "186": "Leo",
+   "204": "Calibri/Nova",
+   "219": "Fury",
+   "227": "Calibri/Nova",
+   "235": "Fury",
    "248": "Fury",
    "270": "Khan",
-   "285": "Vector",
+   "285": "Calibri/Nova",
    "304": "Oni",
    "312": "Remedy",
-   "331": "Twinkle",
+   "331": "Fury",
    "370": "Jagger",
-   "398": "Vector",
+   "398": "Calibri/Nova",
    "408": "Leo",
-   "426": "Vector",
-   "441": "Twinkle",
-   "449": "Vector"
+   "426": "Calibri/Nova",
+   "441": "Fury",
+   "449": "Calibri/Nova"
   },
   "엔티티별_후보": {
    "13": [
-    "Twinkle",
+    "Fury",
     "Magnus/Sejin",
-    "Fury"
+    "Twinkle"
    ],
    "26": [
     "Fury"
@@ -482,41 +482,41 @@
     "Remedy"
    ],
    "109": [
-    "Twinkle",
+    "Fury",
     "Magnus/Sejin",
-    "Fury"
+    "Twinkle"
    ],
    "148": [
     "Jagger"
    ],
    "176": [
-    "Vector",
+    "Calibri/Nova",
     "Dread",
-    "Calibri/Nova"
+    "Vector"
    ],
    "186": [
-    "Remedy",
-    "Leo"
+    "Leo",
+    "Remedy"
    ],
    "204": [
-    "Vector",
+    "Calibri/Nova",
     "Dread",
-    "Calibri/Nova"
+    "Vector"
    ],
    "219": [
-    "Twinkle",
+    "Fury",
     "Magnus/Sejin",
-    "Fury"
+    "Twinkle"
    ],
    "227": [
-    "Vector",
+    "Calibri/Nova",
     "Dread",
-    "Calibri/Nova"
+    "Vector"
    ],
    "235": [
-    "Twinkle",
+    "Fury",
     "Magnus/Sejin",
-    "Fury"
+    "Twinkle"
    ],
    "248": [
     "Fury"
@@ -525,9 +525,9 @@
     "Khan"
    ],
    "285": [
-    "Vector",
+    "Calibri/Nova",
     "Dread",
-    "Calibri/Nova"
+    "Vector"
    ],
    "304": [
     "Oni"
@@ -536,35 +536,35 @@
     "Remedy"
    ],
    "331": [
-    "Twinkle",
+    "Fury",
     "Magnus/Sejin",
-    "Fury"
+    "Twinkle"
    ],
    "370": [
     "Jagger"
    ],
    "398": [
-    "Vector",
+    "Calibri/Nova",
     "Dread",
-    "Calibri/Nova"
+    "Vector"
    ],
    "408": [
     "Leo"
    ],
    "426": [
-    "Vector",
+    "Calibri/Nova",
     "Dread",
-    "Calibri/Nova"
+    "Vector"
    ],
    "441": [
-    "Twinkle",
+    "Fury",
     "Magnus/Sejin",
-    "Fury"
+    "Twinkle"
    ],
    "449": [
-    "Vector",
+    "Calibri/Nova",
     "Dread",
-    "Calibri/Nova"
+    "Vector"
    ]
   },
   "항목수": {
@@ -584,7 +584,7 @@
     "BoolParameters": 1,
     "FloatParameters": 8,
     "IntParameters": 2,
-    "TriggerParameters": 14
+    "TriggerParameters": 17
    },
    "26": {
     "BoolParameters": 1,
@@ -614,7 +614,7 @@
     "BoolParameters": 1,
     "FloatParameters": 8,
     "IntParameters": 2,
-    "TriggerParameters": 14
+    "TriggerParameters": 17
    },
    "148": {
     "BoolParameters": 3,
@@ -626,37 +626,37 @@
     "BoolParameters": 1,
     "FloatParameters": 9,
     "IntParameters": 2,
-    "TriggerParameters": 16
+    "TriggerParameters": 14
    },
    "186": {
     "BoolParameters": 2,
     "FloatParameters": 8,
     "IntParameters": 2,
-    "TriggerParameters": 12
+    "TriggerParameters": 13
    },
    "204": {
     "BoolParameters": 1,
     "FloatParameters": 9,
     "IntParameters": 2,
-    "TriggerParameters": 16
+    "TriggerParameters": 14
    },
    "219": {
     "BoolParameters": 1,
     "FloatParameters": 8,
     "IntParameters": 2,
-    "TriggerParameters": 14
+    "TriggerParameters": 17
    },
    "227": {
     "BoolParameters": 1,
     "FloatParameters": 9,
     "IntParameters": 2,
-    "TriggerParameters": 16
+    "TriggerParameters": 14
    },
    "235": {
     "BoolParameters": 1,
     "FloatParameters": 8,
     "IntParameters": 2,
-    "TriggerParameters": 14
+    "TriggerParameters": 17
    },
    "248": {
     "BoolParameters": 1,
@@ -668,7 +668,7 @@
     "BoolParameters": 1,
     "FloatParameters": 9,
     "IntParameters": 2,
-    "TriggerParameters": 16
+    "TriggerParameters": 14
    },
    "304": {
     "BoolParameters": 3,
@@ -686,7 +686,7 @@
     "BoolParameters": 1,
     "FloatParameters": 8,
     "IntParameters": 2,
-    "TriggerParameters": 14
+    "TriggerParameters": 17
    },
    "370": {
     "BoolParameters": 3,
@@ -698,7 +698,7 @@
     "BoolParameters": 1,
     "FloatParameters": 9,
     "IntParameters": 2,
-    "TriggerParameters": 16
+    "TriggerParameters": 14
    },
    "408": {
     "BoolParameters": 2,
@@ -710,57 +710,57 @@
     "BoolParameters": 1,
     "FloatParameters": 9,
     "IntParameters": 2,
-    "TriggerParameters": 16
+    "TriggerParameters": 14
    },
    "441": {
     "BoolParameters": 1,
     "FloatParameters": 8,
     "IntParameters": 2,
-    "TriggerParameters": 14
+    "TriggerParameters": 17
    },
    "449": {
     "BoolParameters": 1,
     "FloatParameters": 9,
     "IntParameters": 2,
-    "TriggerParameters": 16
+    "TriggerParameters": 14
    }
   }
  },
  "AQA3W547": {
   "완주율": 99,
   "엔티티별_영웅": {
-   "11": "Twinkle",
+   "11": "Fury",
    "24": "Fury",
    "46": "Khan",
    "61": "Calibri/Nova",
    "80": "Oni",
    "88": "Remedy",
-   "107": "Twinkle",
+   "107": "Fury",
    "146": "Jagger",
-   "174": "Vector",
-   "184": "Remedy",
-   "202": "Vector",
-   "217": "Twinkle",
-   "225": "Vector",
-   "233": "Twinkle",
+   "174": "Calibri/Nova",
+   "184": "Leo",
+   "202": "Calibri/Nova",
+   "217": "Fury",
+   "225": "Calibri/Nova",
+   "233": "Fury",
    "246": "Fury",
    "268": "Khan",
-   "283": "Vector",
+   "283": "Calibri/Nova",
    "302": "Oni",
    "310": "Remedy",
-   "329": "Twinkle",
+   "329": "Fury",
    "368": "Jagger",
-   "396": "Vector",
+   "396": "Calibri/Nova",
    "406": "Leo",
-   "424": "Vector",
-   "439": "Twinkle",
-   "447": "Vector"
+   "424": "Calibri/Nova",
+   "439": "Fury",
+   "447": "Calibri/Nova"
   },
   "엔티티별_후보": {
    "11": [
-    "Twinkle",
+    "Fury",
     "Magnus/Sejin",
-    "Fury"
+    "Twinkle"
    ],
    "24": [
     "Fury"
@@ -778,41 +778,41 @@
     "Remedy"
    ],
    "107": [
-    "Twinkle",
+    "Fury",
     "Magnus/Sejin",
-    "Fury"
+    "Twinkle"
    ],
    "146": [
     "Jagger"
    ],
    "174": [
-    "Vector",
+    "Calibri/Nova",
     "Dread",
-    "Calibri/Nova"
+    "Vector"
    ],
    "184": [
-    "Remedy",
-    "Leo"
+    "Leo",
+    "Remedy"
    ],
    "202": [
-    "Vector",
+    "Calibri/Nova",
     "Dread",
-    "Calibri/Nova"
+    "Vector"
    ],
    "217": [
-    "Twinkle",
+    "Fury",
     "Magnus/Sejin",
-    "Fury"
+    "Twinkle"
    ],
    "225": [
-    "Vector",
+    "Calibri/Nova",
     "Dread",
-    "Calibri/Nova"
+    "Vector"
    ],
    "233": [
-    "Twinkle",
+    "Fury",
     "Magnus/Sejin",
-    "Fury"
+    "Twinkle"
    ],
    "246": [
     "Fury"
@@ -821,9 +821,9 @@
     "Khan"
    ],
    "283": [
-    "Vector",
+    "Calibri/Nova",
     "Dread",
-    "Calibri/Nova"
+    "Vector"
    ],
    "302": [
     "Oni"
@@ -832,35 +832,35 @@
     "Remedy"
    ],
    "329": [
-    "Twinkle",
+    "Fury",
     "Magnus/Sejin",
-    "Fury"
+    "Twinkle"
    ],
    "368": [
     "Jagger"
    ],
    "396": [
-    "Vector",
+    "Calibri/Nova",
     "Dread",
-    "Calibri/Nova"
+    "Vector"
    ],
    "406": [
     "Leo"
    ],
    "424": [
-    "Vector",
+    "Calibri/Nova",
     "Dread",
-    "Calibri/Nova"
+    "Vector"
    ],
    "439": [
-    "Twinkle",
+    "Fury",
     "Magnus/Sejin",
-    "Fury"
+    "Twinkle"
    ],
    "447": [
-    "Vector",
+    "Calibri/Nova",
     "Dread",
-    "Calibri/Nova"
+    "Vector"
    ]
   },
   "항목수": {
@@ -880,7 +880,7 @@
     "BoolParameters": 1,
     "FloatParameters": 8,
     "IntParameters": 2,
-    "TriggerParameters": 14
+    "TriggerParameters": 17
    },
    "24": {
     "BoolParameters": 1,
@@ -910,7 +910,7 @@
     "BoolParameters": 1,
     "FloatParameters": 8,
     "IntParameters": 2,
-    "TriggerParameters": 14
+    "TriggerParameters": 17
    },
    "146": {
     "BoolParameters": 3,
@@ -922,37 +922,37 @@
     "BoolParameters": 1,
     "FloatParameters": 9,
     "IntParameters": 2,
-    "TriggerParameters": 16
+    "TriggerParameters": 14
    },
    "184": {
     "BoolParameters": 2,
     "FloatParameters": 8,
     "IntParameters": 2,
-    "TriggerParameters": 12
+    "TriggerParameters": 13
    },
    "202": {
     "BoolParameters": 1,
     "FloatParameters": 9,
     "IntParameters": 2,
-    "TriggerParameters": 16
+    "TriggerParameters": 14
    },
    "217": {
     "BoolParameters": 1,
     "FloatParameters": 8,
     "IntParameters": 2,
-    "TriggerParameters": 14
+    "TriggerParameters": 17
    },
    "225": {
     "BoolParameters": 1,
     "FloatParameters": 9,
     "IntParameters": 2,
-    "TriggerParameters": 16
+    "TriggerParameters": 14
    },
    "233": {
     "BoolParameters": 1,
     "FloatParameters": 8,
     "IntParameters": 2,
-    "TriggerParameters": 14
+    "TriggerParameters": 17
    },
    "246": {
     "BoolParameters": 1,
@@ -964,7 +964,7 @@
     "BoolParameters": 1,
     "FloatParameters": 9,
     "IntParameters": 2,
-    "TriggerParameters": 16
+    "TriggerParameters": 14
    },
    "302": {
     "BoolParameters": 3,
@@ -982,7 +982,7 @@
     "BoolParameters": 1,
     "FloatParameters": 8,
     "IntParameters": 2,
-    "TriggerParameters": 14
+    "TriggerParameters": 17
    },
    "368": {
     "BoolParameters": 3,
@@ -994,7 +994,7 @@
     "BoolParameters": 1,
     "FloatParameters": 9,
     "IntParameters": 2,
-    "TriggerParameters": 16
+    "TriggerParameters": 14
    },
    "406": {
     "BoolParameters": 2,
@@ -1006,19 +1006,19 @@
     "BoolParameters": 1,
     "FloatParameters": 9,
     "IntParameters": 2,
-    "TriggerParameters": 16
+    "TriggerParameters": 14
    },
    "439": {
     "BoolParameters": 1,
     "FloatParameters": 8,
     "IntParameters": 2,
-    "TriggerParameters": 14
+    "TriggerParameters": 17
    },
    "447": {
     "BoolParameters": 1,
     "FloatParameters": 9,
     "IntParameters": 2,
-    "TriggerParameters": 16
+    "TriggerParameters": 14
    }
   }
  },
@@ -1094,51 +1094,51 @@
  "AY2AE1JK": {
   "완주율": 99,
   "엔티티별_영웅": {
-   "2": "Twinkle",
-   "15": "Twinkle",
+   "2": "Fury",
+   "15": "Fury",
    "37": "Khan",
-   "52": "Vector",
+   "52": "Calibri/Nova",
    "71": "Oni",
    "79": "Remedy",
-   "98": "Twinkle",
+   "98": "Fury",
    "137": "Jagger",
    "165": "Calibri/Nova",
    "175": "Leo",
-   "193": "Vector",
-   "208": "Twinkle",
-   "216": "Vector",
+   "193": "Calibri/Nova",
+   "208": "Fury",
+   "216": "Calibri/Nova",
    "224": "Magnus/Sejin",
    "237": "Fury",
    "259": "Khan",
-   "274": "Vector",
+   "274": "Calibri/Nova",
    "293": "Oni",
-   "301": "Remedy",
-   "320": "Twinkle",
+   "301": "Leo",
+   "320": "Fury",
    "359": "Jagger",
-   "387": "Vector",
+   "387": "Calibri/Nova",
    "397": "Leo",
-   "415": "Vector",
-   "430": "Twinkle",
+   "415": "Calibri/Nova",
+   "430": "Fury",
    "438": "Dread"
   },
   "엔티티별_후보": {
    "2": [
-    "Twinkle",
+    "Fury",
     "Magnus/Sejin",
-    "Fury"
+    "Twinkle"
    ],
    "15": [
-    "Twinkle",
+    "Fury",
     "Magnus/Sejin",
-    "Fury"
+    "Twinkle"
    ],
    "37": [
     "Khan"
    ],
    "52": [
-    "Vector",
+    "Calibri/Nova",
     "Dread",
-    "Calibri/Nova"
+    "Vector"
    ],
    "71": [
     "Oni"
@@ -1147,9 +1147,9 @@
     "Remedy"
    ],
    "98": [
-    "Twinkle",
+    "Fury",
     "Magnus/Sejin",
-    "Fury"
+    "Twinkle"
    ],
    "137": [
     "Jagger"
@@ -1161,19 +1161,19 @@
     "Leo"
    ],
    "193": [
-    "Vector",
+    "Calibri/Nova",
     "Dread",
-    "Calibri/Nova"
+    "Vector"
    ],
    "208": [
-    "Twinkle",
+    "Fury",
     "Magnus/Sejin",
-    "Fury"
+    "Twinkle"
    ],
    "216": [
-    "Vector",
+    "Calibri/Nova",
     "Dread",
-    "Calibri/Nova"
+    "Vector"
    ],
    "224": [
     "Magnus/Sejin"
@@ -1185,42 +1185,43 @@
     "Khan"
    ],
    "274": [
-    "Vector",
+    "Calibri/Nova",
     "Dread",
-    "Calibri/Nova"
+    "Vector"
    ],
    "293": [
     "Oni"
    ],
    "301": [
-    "Remedy",
-    "Leo"
+    "Leo",
+    "Remedy"
    ],
    "320": [
-    "Twinkle",
+    "Fury",
     "Magnus/Sejin",
-    "Fury"
+    "Twinkle"
    ],
    "359": [
     "Jagger"
    ],
    "387": [
-    "Vector",
+    "Calibri/Nova",
     "Dread",
-    "Calibri/Nova"
+    "Vector"
    ],
    "397": [
-    "Leo"
+    "Leo",
+    "Remedy"
    ],
    "415": [
-    "Vector",
+    "Calibri/Nova",
     "Dread",
-    "Calibri/Nova"
+    "Vector"
    ],
    "430": [
-    "Twinkle",
+    "Fury",
     "Magnus/Sejin",
-    "Fury"
+    "Twinkle"
    ],
    "438": [
     "Dread"
@@ -1243,19 +1244,19 @@
     "BoolParameters": 1,
     "FloatParameters": 8,
     "IntParameters": 2,
-    "TriggerParameters": 14
+    "TriggerParameters": 17
    },
    "15": {
     "BoolParameters": 1,
     "FloatParameters": 8,
     "IntParameters": 2,
-    "TriggerParameters": 14
+    "TriggerParameters": 17
    },
    "52": {
     "BoolParameters": 1,
     "FloatParameters": 9,
     "IntParameters": 2,
-    "TriggerParameters": 16
+    "TriggerParameters": 14
    },
    "71": {
     "BoolParameters": 3,
@@ -1273,7 +1274,7 @@
     "BoolParameters": 1,
     "FloatParameters": 8,
     "IntParameters": 2,
-    "TriggerParameters": 14
+    "TriggerParameters": 17
    },
    "137": {
     "BoolParameters": 3,
@@ -1297,19 +1298,19 @@
     "BoolParameters": 1,
     "FloatParameters": 9,
     "IntParameters": 2,
-    "TriggerParameters": 16
+    "TriggerParameters": 14
    },
    "208": {
     "BoolParameters": 1,
     "FloatParameters": 8,
     "IntParameters": 2,
-    "TriggerParameters": 14
+    "TriggerParameters": 17
    },
    "216": {
     "BoolParameters": 1,
     "FloatParameters": 9,
     "IntParameters": 2,
-    "TriggerParameters": 16
+    "TriggerParameters": 14
    },
    "224": {
     "BoolParameters": 1,
@@ -1327,7 +1328,7 @@
     "BoolParameters": 1,
     "FloatParameters": 9,
     "IntParameters": 2,
-    "TriggerParameters": 16
+    "TriggerParameters": 14
    },
    "293": {
     "BoolParameters": 3,
@@ -1339,13 +1340,13 @@
     "BoolParameters": 2,
     "FloatParameters": 8,
     "IntParameters": 2,
-    "TriggerParameters": 12
+    "TriggerParameters": 13
    },
    "320": {
     "BoolParameters": 1,
     "FloatParameters": 8,
     "IntParameters": 2,
-    "TriggerParameters": 14
+    "TriggerParameters": 17
    },
    "359": {
     "BoolParameters": 3,
@@ -1357,7 +1358,7 @@
     "BoolParameters": 1,
     "FloatParameters": 9,
     "IntParameters": 2,
-    "TriggerParameters": 16
+    "TriggerParameters": 14
    },
    "397": {
     "BoolParameters": 2,
@@ -1369,13 +1370,13 @@
     "BoolParameters": 1,
     "FloatParameters": 9,
     "IntParameters": 2,
-    "TriggerParameters": 16
+    "TriggerParameters": 14
    },
    "430": {
     "BoolParameters": 1,
     "FloatParameters": 8,
     "IntParameters": 2,
-    "TriggerParameters": 14
+    "TriggerParameters": 17
    },
    "438": {
     "BoolParameters": 1,
@@ -1457,69 +1458,71 @@
  "UNAVFHLU": {
   "완주율": 99,
   "엔티티별_영웅": {
-   "35": "Twinkle",
-   "48": "Twinkle",
+   "35": "Fury",
+   "48": "Fury",
    "70": "Khan",
    "85": "Calibri/Nova",
    "104": "Oni",
-   "112": "Remedy",
-   "131": "Twinkle",
+   "112": "Leo",
+   "131": "Fury",
    "170": "Jagger",
-   "198": "Vector",
+   "198": "Calibri/Nova",
    "208": "Leo",
    "226": "Vector",
-   "241": "Twinkle",
-   "249": "Vector",
+   "241": "Fury",
+   "249": "Calibri/Nova",
    "257": "Magnus/Sejin",
-   "270": "Twinkle",
+   "270": "Fury",
    "292": "Khan",
-   "307": "Vector",
+   "307": "Calibri/Nova",
    "326": "Oni",
-   "334": "Remedy",
-   "353": "Twinkle",
+   "334": "Leo",
+   "353": "Fury",
    "392": "Jagger",
-   "420": "Vector",
-   "430": "Remedy",
-   "448": "Vector",
+   "420": "Calibri/Nova",
+   "430": "Leo",
+   "448": "Calibri/Nova",
    "463": "Magnus/Sejin",
-   "471": "Vector"
+   "471": "Calibri/Nova"
   },
   "엔티티별_후보": {
    "35": [
-    "Twinkle",
+    "Fury",
     "Magnus/Sejin",
-    "Fury"
+    "Twinkle"
    ],
    "48": [
-    "Twinkle",
+    "Fury",
     "Magnus/Sejin",
-    "Fury"
+    "Twinkle"
    ],
    "70": [
     "Khan"
    ],
    "85": [
-    "Calibri/Nova"
+    "Calibri/Nova",
+    "Dread",
+    "Vector"
    ],
    "104": [
     "Oni"
    ],
    "112": [
-    "Remedy",
-    "Leo"
+    "Leo",
+    "Remedy"
    ],
    "131": [
-    "Twinkle",
+    "Fury",
     "Magnus/Sejin",
-    "Fury"
+    "Twinkle"
    ],
    "170": [
     "Jagger"
    ],
    "198": [
-    "Vector",
+    "Calibri/Nova",
     "Dread",
-    "Calibri/Nova"
+    "Vector"
    ],
    "208": [
     "Leo"
@@ -1528,67 +1531,67 @@
     "Vector"
    ],
    "241": [
-    "Twinkle",
+    "Fury",
     "Magnus/Sejin",
-    "Fury"
+    "Twinkle"
    ],
    "249": [
-    "Vector",
+    "Calibri/Nova",
     "Dread",
-    "Calibri/Nova"
+    "Vector"
    ],
    "257": [
     "Magnus/Sejin"
    ],
    "270": [
-    "Twinkle",
+    "Fury",
     "Magnus/Sejin",
-    "Fury"
+    "Twinkle"
    ],
    "292": [
     "Khan"
    ],
    "307": [
-    "Vector",
+    "Calibri/Nova",
     "Dread",
-    "Calibri/Nova"
+    "Vector"
    ],
    "326": [
     "Oni"
    ],
    "334": [
-    "Remedy",
-    "Leo"
+    "Leo",
+    "Remedy"
    ],
    "353": [
-    "Twinkle",
+    "Fury",
     "Magnus/Sejin",
-    "Fury"
+    "Twinkle"
    ],
    "392": [
     "Jagger"
    ],
    "420": [
-    "Vector",
+    "Calibri/Nova",
     "Dread",
-    "Calibri/Nova"
+    "Vector"
    ],
    "430": [
-    "Remedy",
-    "Leo"
+    "Leo",
+    "Remedy"
    ],
    "448": [
-    "Vector",
+    "Calibri/Nova",
     "Dread",
-    "Calibri/Nova"
+    "Vector"
    ],
    "463": [
     "Magnus/Sejin"
    ],
    "471": [
-    "Vector",
+    "Calibri/Nova",
     "Dread",
-    "Calibri/Nova"
+    "Vector"
    ]
   },
   "항목수": {
@@ -1596,13 +1599,13 @@
     "BoolParameters": 1,
     "FloatParameters": 8,
     "IntParameters": 2,
-    "TriggerParameters": 14
+    "TriggerParameters": 17
    },
    "48": {
     "BoolParameters": 1,
     "FloatParameters": 8,
     "IntParameters": 2,
-    "TriggerParameters": 14
+    "TriggerParameters": 17
    },
    "70": {
     "BoolParameters": 2,
@@ -1626,13 +1629,13 @@
     "BoolParameters": 2,
     "FloatParameters": 8,
     "IntParameters": 2,
-    "TriggerParameters": 12
+    "TriggerParameters": 13
    },
    "131": {
     "BoolParameters": 1,
     "FloatParameters": 8,
     "IntParameters": 2,
-    "TriggerParameters": 14
+    "TriggerParameters": 17
    },
    "170": {
     "BoolParameters": 3,
@@ -1644,7 +1647,7 @@
     "BoolParameters": 1,
     "FloatParameters": 9,
     "IntParameters": 2,
-    "TriggerParameters": 16
+    "TriggerParameters": 14
    },
    "208": {
     "BoolParameters": 2,
@@ -1662,13 +1665,13 @@
     "BoolParameters": 1,
     "FloatParameters": 8,
     "IntParameters": 2,
-    "TriggerParameters": 14
+    "TriggerParameters": 17
    },
    "249": {
     "BoolParameters": 1,
     "FloatParameters": 9,
     "IntParameters": 2,
-    "TriggerParameters": 16
+    "TriggerParameters": 14
    },
    "257": {
     "BoolParameters": 1,
@@ -1680,7 +1683,7 @@
     "BoolParameters": 1,
     "FloatParameters": 8,
     "IntParameters": 2,
-    "TriggerParameters": 14
+    "TriggerParameters": 17
    },
    "292": {
     "BoolParameters": 2,
@@ -1692,7 +1695,7 @@
     "BoolParameters": 1,
     "FloatParameters": 9,
     "IntParameters": 2,
-    "TriggerParameters": 16
+    "TriggerParameters": 14
    },
    "326": {
     "BoolParameters": 3,
@@ -1704,13 +1707,13 @@
     "BoolParameters": 2,
     "FloatParameters": 8,
     "IntParameters": 2,
-    "TriggerParameters": 12
+    "TriggerParameters": 13
    },
    "353": {
     "BoolParameters": 1,
     "FloatParameters": 8,
     "IntParameters": 2,
-    "TriggerParameters": 14
+    "TriggerParameters": 17
    },
    "392": {
     "BoolParameters": 3,
@@ -1722,19 +1725,19 @@
     "BoolParameters": 1,
     "FloatParameters": 9,
     "IntParameters": 2,
-    "TriggerParameters": 16
+    "TriggerParameters": 14
    },
    "430": {
     "BoolParameters": 2,
     "FloatParameters": 8,
     "IntParameters": 2,
-    "TriggerParameters": 12
+    "TriggerParameters": 13
    },
    "448": {
     "BoolParameters": 1,
     "FloatParameters": 9,
     "IntParameters": 2,
-    "TriggerParameters": 16
+    "TriggerParameters": 14
    },
    "463": {
     "BoolParameters": 1,
@@ -1746,68 +1749,70 @@
     "BoolParameters": 1,
     "FloatParameters": 9,
     "IntParameters": 2,
-    "TriggerParameters": 16
+    "TriggerParameters": 14
    }
   }
  },
  "7RGTWKER": {
   "완주율": 99,
   "엔티티별_영웅": {
-   "12": "Twinkle",
+   "12": "Fury",
    "25": "Fury",
    "47": "Khan",
-   "62": "Vector",
+   "62": "Calibri/Nova",
    "81": "Oni",
-   "89": "Remedy",
-   "108": "Twinkle",
+   "89": "Leo",
+   "108": "Fury",
    "147": "Jagger",
    "175": "Calibri/Nova",
    "185": "Leo",
    "203": "Vector",
    "218": "Magnus/Sejin",
-   "226": "Vector",
-   "234": "Twinkle",
-   "247": "Twinkle",
+   "226": "Calibri/Nova",
+   "234": "Fury",
+   "247": "Fury",
    "269": "Khan",
    "284": "Calibri/Nova",
    "303": "Oni",
-   "311": "Remedy",
-   "330": "Twinkle",
+   "311": "Leo",
+   "330": "Fury",
    "369": "Jagger",
-   "397": "Vector",
+   "397": "Calibri/Nova",
    "407": "Leo",
-   "425": "Vector",
+   "425": "Calibri/Nova",
    "440": "Magnus/Sejin",
-   "448": "Vector"
+   "448": "Calibri/Nova"
   },
   "엔티티별_후보": {
    "12": [
-    "Twinkle",
+    "Fury",
     "Magnus/Sejin",
-    "Fury"
+    "Twinkle"
    ],
    "25": [
-    "Fury"
+    "Fury",
+    "Magnus/Sejin",
+    "Twinkle"
    ],
    "47": [
     "Khan"
    ],
    "62": [
-    "Vector",
+    "Calibri/Nova",
     "Dread",
-    "Calibri/Nova"
+    "Vector"
    ],
    "81": [
     "Oni"
    ],
    "89": [
-    "Remedy",
-    "Leo"
+    "Leo",
+    "Remedy"
    ],
    "108": [
-    "Twinkle",
+    "Fury",
     "Magnus/Sejin",
-    "Fury"
+    "Twinkle"
    ],
    "147": [
     "Jagger"
@@ -1816,7 +1821,8 @@
     "Calibri/Nova"
    ],
    "185": [
-    "Leo"
+    "Leo",
+    "Remedy"
    ],
    "203": [
     "Vector"
@@ -1825,19 +1831,19 @@
     "Magnus/Sejin"
    ],
    "226": [
-    "Vector",
+    "Calibri/Nova",
     "Dread",
-    "Calibri/Nova"
+    "Vector"
    ],
    "234": [
-    "Twinkle",
+    "Fury",
     "Magnus/Sejin",
-    "Fury"
+    "Twinkle"
    ],
    "247": [
-    "Twinkle",
+    "Fury",
     "Magnus/Sejin",
-    "Fury"
+    "Twinkle"
    ],
    "269": [
     "Khan"
@@ -1849,37 +1855,38 @@
     "Oni"
    ],
    "311": [
-    "Remedy",
-    "Leo"
+    "Leo",
+    "Remedy"
    ],
    "330": [
-    "Twinkle",
+    "Fury",
     "Magnus/Sejin",
-    "Fury"
+    "Twinkle"
    ],
    "369": [
     "Jagger"
    ],
    "397": [
-    "Vector",
+    "Calibri/Nova",
     "Dread",
-    "Calibri/Nova"
+    "Vector"
    ],
    "407": [
-    "Leo"
+    "Leo",
+    "Remedy"
    ],
    "425": [
-    "Vector",
+    "Calibri/Nova",
     "Dread",
-    "Calibri/Nova"
+    "Vector"
    ],
    "440": [
     "Magnus/Sejin"
    ],
    "448": [
-    "Vector",
+    "Calibri/Nova",
     "Dread",
-    "Calibri/Nova"
+    "Vector"
    ]
   },
   "항목수": {
@@ -1887,7 +1894,7 @@
     "BoolParameters": 1,
     "FloatParameters": 8,
     "IntParameters": 2,
-    "TriggerParameters": 14
+    "TriggerParameters": 17
    },
    "25": {
     "BoolParameters": 1,
@@ -1905,7 +1912,7 @@
     "BoolParameters": 1,
     "FloatParameters": 9,
     "IntParameters": 2,
-    "TriggerParameters": 16
+    "TriggerParameters": 14
    },
    "81": {
     "BoolParameters": 3,
@@ -1917,13 +1924,13 @@
     "BoolParameters": 2,
     "FloatParameters": 8,
     "IntParameters": 2,
-    "TriggerParameters": 12
+    "TriggerParameters": 13
    },
    "108": {
     "BoolParameters": 1,
     "FloatParameters": 8,
     "IntParameters": 2,
-    "TriggerParameters": 14
+    "TriggerParameters": 17
    },
    "147": {
     "BoolParameters": 3,
@@ -1959,19 +1966,19 @@
     "BoolParameters": 1,
     "FloatParameters": 9,
     "IntParameters": 2,
-    "TriggerParameters": 16
+    "TriggerParameters": 14
    },
    "234": {
     "BoolParameters": 1,
     "FloatParameters": 8,
     "IntParameters": 2,
-    "TriggerParameters": 14
+    "TriggerParameters": 17
    },
    "247": {
     "BoolParameters": 1,
     "FloatParameters": 8,
     "IntParameters": 2,
-    "TriggerParameters": 14
+    "TriggerParameters": 17
    },
    "269": {
     "BoolParameters": 2,
@@ -1995,13 +2002,13 @@
     "BoolParameters": 2,
     "FloatParameters": 8,
     "IntParameters": 2,
-    "TriggerParameters": 12
+    "TriggerParameters": 13
    },
    "330": {
     "BoolParameters": 1,
     "FloatParameters": 8,
     "IntParameters": 2,
-    "TriggerParameters": 14
+    "TriggerParameters": 17
    },
    "369": {
     "BoolParameters": 3,
@@ -2013,7 +2020,7 @@
     "BoolParameters": 1,
     "FloatParameters": 9,
     "IntParameters": 2,
-    "TriggerParameters": 16
+    "TriggerParameters": 14
    },
    "407": {
     "BoolParameters": 2,
@@ -2025,7 +2032,7 @@
     "BoolParameters": 1,
     "FloatParameters": 9,
     "IntParameters": 2,
-    "TriggerParameters": 16
+    "TriggerParameters": 14
    },
    "440": {
     "BoolParameters": 1,
@@ -2037,7 +2044,7 @@
     "BoolParameters": 1,
     "FloatParameters": 9,
     "IntParameters": 2,
-    "TriggerParameters": 16
+    "TriggerParameters": 14
    }
   }
  },
@@ -2251,43 +2258,43 @@
  "WX57C1JU": {
   "완주율": 99,
   "엔티티별_영웅": {
-   "53": "Twinkle",
-   "66": "Twinkle",
+   "53": "Fury",
+   "66": "Fury",
    "88": "Khan",
    "103": "Calibri/Nova",
    "122": "Oni",
-   "130": "Remedy",
-   "149": "Twinkle",
+   "130": "Leo",
+   "149": "Fury",
    "188": "Jagger",
    "216": "Calibri/Nova",
-   "226": "Remedy",
-   "244": "Vector",
-   "259": "Twinkle",
-   "267": "Vector",
-   "275": "Twinkle",
-   "288": "Twinkle",
+   "226": "Leo",
+   "244": "Calibri/Nova",
+   "259": "Fury",
+   "267": "Calibri/Nova",
+   "275": "Fury",
+   "288": "Fury",
    "310": "Khan",
    "325": "Calibri/Nova",
    "344": "Oni",
-   "352": "Remedy",
-   "371": "Twinkle",
+   "352": "Leo",
+   "371": "Fury",
    "410": "Jagger",
    "438": "Calibri/Nova",
    "448": "Leo",
-   "466": "Vector",
-   "481": "Twinkle",
-   "489": "Vector"
+   "466": "Calibri/Nova",
+   "481": "Fury",
+   "489": "Calibri/Nova"
   },
   "엔티티별_후보": {
    "53": [
-    "Twinkle",
+    "Fury",
     "Magnus/Sejin",
-    "Fury"
+    "Twinkle"
    ],
    "66": [
-    "Twinkle",
+    "Fury",
     "Magnus/Sejin",
-    "Fury"
+    "Twinkle"
    ],
    "88": [
     "Khan"
@@ -2299,13 +2306,13 @@
     "Oni"
    ],
    "130": [
-    "Remedy",
-    "Leo"
+    "Leo",
+    "Remedy"
    ],
    "149": [
-    "Twinkle",
+    "Fury",
     "Magnus/Sejin",
-    "Fury"
+    "Twinkle"
    ],
    "188": [
     "Jagger"
@@ -2314,33 +2321,33 @@
     "Calibri/Nova"
    ],
    "226": [
-    "Remedy",
-    "Leo"
+    "Leo",
+    "Remedy"
    ],
    "244": [
-    "Vector",
+    "Calibri/Nova",
     "Dread",
-    "Calibri/Nova"
+    "Vector"
    ],
    "259": [
-    "Twinkle",
+    "Fury",
     "Magnus/Sejin",
-    "Fury"
+    "Twinkle"
    ],
    "267": [
-    "Vector",
+    "Calibri/Nova",
     "Dread",
-    "Calibri/Nova"
+    "Vector"
    ],
    "275": [
-    "Twinkle",
+    "Fury",
     "Magnus/Sejin",
-    "Fury"
+    "Twinkle"
    ],
    "288": [
-    "Twinkle",
+    "Fury",
     "Magnus/Sejin",
-    "Fury"
+    "Twinkle"
    ],
    "310": [
     "Khan"
@@ -2352,13 +2359,13 @@
     "Oni"
    ],
    "352": [
-    "Remedy",
-    "Leo"
+    "Leo",
+    "Remedy"
    ],
    "371": [
-    "Twinkle",
+    "Fury",
     "Magnus/Sejin",
-    "Fury"
+    "Twinkle"
    ],
    "410": [
     "Jagger"
@@ -2367,22 +2374,23 @@
     "Calibri/Nova"
    ],
    "448": [
-    "Leo"
+    "Leo",
+    "Remedy"
    ],
    "466": [
-    "Vector",
+    "Calibri/Nova",
     "Dread",
-    "Calibri/Nova"
+    "Vector"
    ],
    "481": [
-    "Twinkle",
+    "Fury",
     "Magnus/Sejin",
-    "Fury"
+    "Twinkle"
    ],
    "489": [
-    "Vector",
+    "Calibri/Nova",
     "Dread",
-    "Calibri/Nova"
+    "Vector"
    ]
   },
   "항목수": {
@@ -2390,13 +2398,13 @@
     "BoolParameters": 1,
     "FloatParameters": 8,
     "IntParameters": 2,
-    "TriggerParameters": 14
+    "TriggerParameters": 17
    },
    "66": {
     "BoolParameters": 1,
     "FloatParameters": 8,
     "IntParameters": 2,
-    "TriggerParameters": 14
+    "TriggerParameters": 17
    },
    "88": {
     "BoolParameters": 2,
@@ -2420,13 +2428,13 @@
     "BoolParameters": 2,
     "FloatParameters": 8,
     "IntParameters": 2,
-    "TriggerParameters": 12
+    "TriggerParameters": 13
    },
    "149": {
     "BoolParameters": 1,
     "FloatParameters": 8,
     "IntParameters": 2,
-    "TriggerParameters": 14
+    "TriggerParameters": 17
    },
    "188": {
     "BoolParameters": 3,
@@ -2444,37 +2452,37 @@
     "BoolParameters": 2,
     "FloatParameters": 8,
     "IntParameters": 2,
-    "TriggerParameters": 12
+    "TriggerParameters": 13
    },
    "244": {
     "BoolParameters": 1,
     "FloatParameters": 9,
     "IntParameters": 2,
-    "TriggerParameters": 16
+    "TriggerParameters": 14
    },
    "259": {
     "BoolParameters": 1,
     "FloatParameters": 8,
     "IntParameters": 2,
-    "TriggerParameters": 14
+    "TriggerParameters": 17
    },
    "267": {
     "BoolParameters": 1,
     "FloatParameters": 9,
     "IntParameters": 2,
-    "TriggerParameters": 16
+    "TriggerParameters": 14
    },
    "275": {
     "BoolParameters": 1,
     "FloatParameters": 8,
     "IntParameters": 2,
-    "TriggerParameters": 14
+    "TriggerParameters": 17
    },
    "288": {
     "BoolParameters": 1,
     "FloatParameters": 8,
     "IntParameters": 2,
-    "TriggerParameters": 14
+    "TriggerParameters": 17
    },
    "310": {
     "BoolParameters": 2,
@@ -2498,13 +2506,13 @@
     "BoolParameters": 2,
     "FloatParameters": 8,
     "IntParameters": 2,
-    "TriggerParameters": 12
+    "TriggerParameters": 13
    },
    "371": {
     "BoolParameters": 1,
     "FloatParameters": 8,
     "IntParameters": 2,
-    "TriggerParameters": 14
+    "TriggerParameters": 17
    },
    "410": {
     "BoolParameters": 3,
@@ -2528,19 +2536,19 @@
     "BoolParameters": 1,
     "FloatParameters": 9,
     "IntParameters": 2,
-    "TriggerParameters": 16
+    "TriggerParameters": 14
    },
    "481": {
     "BoolParameters": 1,
     "FloatParameters": 8,
     "IntParameters": 2,
-    "TriggerParameters": 14
+    "TriggerParameters": 17
    },
    "489": {
     "BoolParameters": 1,
     "FloatParameters": 9,
     "IntParameters": 2,
-    "TriggerParameters": 16
+    "TriggerParameters": 14
    }
   }
  },
@@ -2688,28 +2696,28 @@
    "2": "Magnus/Sejin",
    "15": "Fury",
    "37": "Khan",
-   "52": "Vector",
+   "52": "Calibri/Nova",
    "71": "Oni",
-   "79": "Remedy",
-   "98": "Twinkle",
+   "79": "Leo",
+   "98": "Fury",
    "137": "Jagger",
-   "165": "Vector",
+   "165": "Calibri/Nova",
    "175": "Leo",
-   "193": "Vector",
-   "208": "Twinkle",
-   "216": "Vector",
-   "224": "Twinkle",
+   "193": "Calibri/Nova",
+   "208": "Fury",
+   "216": "Calibri/Nova",
+   "224": "Fury",
    "237": "Fury",
    "259": "Khan",
-   "274": "Vector",
+   "274": "Calibri/Nova",
    "293": "Oni",
    "301": "Remedy",
-   "320": "Twinkle",
+   "320": "Fury",
    "359": "Jagger",
-   "387": "Vector",
+   "387": "Calibri/Nova",
    "397": "Leo",
-   "415": "Vector",
-   "430": "Twinkle",
+   "415": "Calibri/Nova",
+   "430": "Fury",
    "438": "Dread"
   },
   "엔티티별_후보": {
@@ -2723,52 +2731,52 @@
     "Khan"
    ],
    "52": [
-    "Vector",
+    "Calibri/Nova",
     "Dread",
-    "Calibri/Nova"
+    "Vector"
    ],
    "71": [
     "Oni"
    ],
    "79": [
-    "Remedy",
-    "Leo"
+    "Leo",
+    "Remedy"
    ],
    "98": [
-    "Twinkle",
+    "Fury",
     "Magnus/Sejin",
-    "Fury"
+    "Twinkle"
    ],
    "137": [
     "Jagger"
    ],
    "165": [
-    "Vector",
+    "Calibri/Nova",
     "Dread",
-    "Calibri/Nova"
+    "Vector"
    ],
    "175": [
     "Leo"
    ],
    "193": [
-    "Vector",
+    "Calibri/Nova",
     "Dread",
-    "Calibri/Nova"
+    "Vector"
    ],
    "208": [
-    "Twinkle",
+    "Fury",
     "Magnus/Sejin",
-    "Fury"
+    "Twinkle"
    ],
    "216": [
-    "Vector",
+    "Calibri/Nova",
     "Dread",
-    "Calibri/Nova"
+    "Vector"
    ],
    "224": [
-    "Twinkle",
+    "Fury",
     "Magnus/Sejin",
-    "Fury"
+    "Twinkle"
    ],
    "237": [
     "Fury"
@@ -2777,9 +2785,9 @@
     "Khan"
    ],
    "274": [
-    "Vector",
+    "Calibri/Nova",
     "Dread",
-    "Calibri/Nova"
+    "Vector"
    ],
    "293": [
     "Oni"
@@ -2788,30 +2796,30 @@
     "Remedy"
    ],
    "320": [
-    "Twinkle",
+    "Fury",
     "Magnus/Sejin",
-    "Fury"
+    "Twinkle"
    ],
    "359": [
     "Jagger"
    ],
    "387": [
-    "Vector",
+    "Calibri/Nova",
     "Dread",
-    "Calibri/Nova"
+    "Vector"
    ],
    "397": [
     "Leo"
    ],
    "415": [
-    "Vector",
+    "Calibri/Nova",
     "Dread",
-    "Calibri/Nova"
+    "Vector"
    ],
    "430": [
-    "Twinkle",
+    "Fury",
     "Magnus/Sejin",
-    "Fury"
+    "Twinkle"
    ],
    "438": [
     "Dread"
@@ -2846,7 +2854,7 @@
     "BoolParameters": 1,
     "FloatParameters": 9,
     "IntParameters": 2,
-    "TriggerParameters": 16
+    "TriggerParameters": 14
    },
    "71": {
     "BoolParameters": 3,
@@ -2858,13 +2866,13 @@
     "BoolParameters": 2,
     "FloatParameters": 8,
     "IntParameters": 2,
-    "TriggerParameters": 12
+    "TriggerParameters": 13
    },
    "98": {
     "BoolParameters": 1,
     "FloatParameters": 8,
     "IntParameters": 2,
-    "TriggerParameters": 14
+    "TriggerParameters": 17
    },
    "137": {
     "BoolParameters": 3,
@@ -2876,7 +2884,7 @@
     "BoolParameters": 1,
     "FloatParameters": 9,
     "IntParameters": 2,
-    "TriggerParameters": 16
+    "TriggerParameters": 14
    },
    "175": {
     "BoolParameters": 2,
@@ -2888,25 +2896,25 @@
     "BoolParameters": 1,
     "FloatParameters": 9,
     "IntParameters": 2,
-    "TriggerParameters": 16
+    "TriggerParameters": 14
    },
    "208": {
     "BoolParameters": 1,
     "FloatParameters": 8,
     "IntParameters": 2,
-    "TriggerParameters": 14
+    "TriggerParameters": 17
    },
    "216": {
     "BoolParameters": 1,
     "FloatParameters": 9,
     "IntParameters": 2,
-    "TriggerParameters": 16
+    "TriggerParameters": 14
    },
    "224": {
     "BoolParameters": 1,
     "FloatParameters": 8,
     "IntParameters": 2,
-    "TriggerParameters": 14
+    "TriggerParameters": 17
    },
    "237": {
     "BoolParameters": 1,
@@ -2918,7 +2926,7 @@
     "BoolParameters": 1,
     "FloatParameters": 9,
     "IntParameters": 2,
-    "TriggerParameters": 16
+    "TriggerParameters": 14
    },
    "293": {
     "BoolParameters": 3,
@@ -2936,7 +2944,7 @@
     "BoolParameters": 1,
     "FloatParameters": 8,
     "IntParameters": 2,
-    "TriggerParameters": 14
+    "TriggerParameters": 17
    },
    "359": {
     "BoolParameters": 3,
@@ -2948,7 +2956,298 @@
     "BoolParameters": 1,
     "FloatParameters": 9,
     "IntParameters": 2,
+    "TriggerParameters": 14
+   },
+   "397": {
+    "BoolParameters": 2,
+    "FloatParameters": 8,
+    "IntParameters": 2,
+    "TriggerParameters": 13
+   },
+   "415": {
+    "BoolParameters": 1,
+    "FloatParameters": 9,
+    "IntParameters": 2,
+    "TriggerParameters": 14
+   },
+   "430": {
+    "BoolParameters": 1,
+    "FloatParameters": 8,
+    "IntParameters": 2,
+    "TriggerParameters": 17
+   },
+   "438": {
+    "BoolParameters": 1,
+    "FloatParameters": 9,
+    "IntParameters": 2,
+    "TriggerParameters": 18
+   }
+  }
+ },
+ "ZDAVTZPC": {
+  "완주율": 99,
+  "엔티티별_영웅": {
+   "2": "Magnus/Sejin",
+   "15": "Fury",
+   "37": "Khan",
+   "52": "Calibri/Nova",
+   "71": "Oni",
+   "79": "Leo",
+   "98": "Fury",
+   "137": "Jagger",
+   "165": "Calibri/Nova",
+   "175": "Leo",
+   "193": "Vector",
+   "208": "Fury",
+   "216": "Dread",
+   "224": "Fury",
+   "237": "Fury",
+   "259": "Khan",
+   "274": "Calibri/Nova",
+   "293": "Oni",
+   "301": "Leo",
+   "320": "Fury",
+   "359": "Jagger",
+   "387": "Calibri/Nova",
+   "397": "Leo",
+   "415": "Vector",
+   "430": "Fury",
+   "438": "Calibri/Nova"
+  },
+  "엔티티별_후보": {
+   "2": [
+    "Magnus/Sejin"
+   ],
+   "15": [
+    "Fury",
+    "Magnus/Sejin",
+    "Twinkle"
+   ],
+   "37": [
+    "Khan"
+   ],
+   "52": [
+    "Calibri/Nova",
+    "Dread",
+    "Vector"
+   ],
+   "71": [
+    "Oni"
+   ],
+   "79": [
+    "Leo",
+    "Remedy"
+   ],
+   "98": [
+    "Fury",
+    "Magnus/Sejin",
+    "Twinkle"
+   ],
+   "137": [
+    "Jagger"
+   ],
+   "165": [
+    "Calibri/Nova"
+   ],
+   "175": [
+    "Leo",
+    "Remedy"
+   ],
+   "193": [
+    "Vector"
+   ],
+   "208": [
+    "Fury",
+    "Magnus/Sejin",
+    "Twinkle"
+   ],
+   "216": [
+    "Dread"
+   ],
+   "224": [
+    "Fury",
+    "Magnus/Sejin",
+    "Twinkle"
+   ],
+   "237": [
+    "Fury"
+   ],
+   "259": [
+    "Khan"
+   ],
+   "274": [
+    "Calibri/Nova"
+   ],
+   "293": [
+    "Oni"
+   ],
+   "301": [
+    "Leo",
+    "Remedy"
+   ],
+   "320": [
+    "Fury",
+    "Magnus/Sejin",
+    "Twinkle"
+   ],
+   "359": [
+    "Jagger"
+   ],
+   "387": [
+    "Calibri/Nova",
+    "Dread",
+    "Vector"
+   ],
+   "397": [
+    "Leo",
+    "Remedy"
+   ],
+   "415": [
+    "Vector"
+   ],
+   "430": [
+    "Fury",
+    "Magnus/Sejin",
+    "Twinkle"
+   ],
+   "438": [
+    "Calibri/Nova",
+    "Dread",
+    "Vector"
+   ]
+  },
+  "항목수": {
+   "37": {
+    "BoolParameters": 2,
+    "FloatParameters": 9,
+    "IntParameters": 2,
+    "TriggerParameters": 12
+   },
+   "259": {
+    "BoolParameters": 2,
+    "FloatParameters": 9,
+    "IntParameters": 2,
+    "TriggerParameters": 12
+   },
+   "2": {
+    "BoolParameters": 1,
+    "FloatParameters": 8,
+    "IntParameters": 2,
+    "TriggerParameters": 15
+   },
+   "15": {
+    "BoolParameters": 1,
+    "FloatParameters": 8,
+    "IntParameters": 2,
+    "TriggerParameters": 17
+   },
+   "52": {
+    "BoolParameters": 1,
+    "FloatParameters": 9,
+    "IntParameters": 2,
+    "TriggerParameters": 14
+   },
+   "71": {
+    "BoolParameters": 3,
+    "FloatParameters": 5,
+    "IntParameters": 2,
+    "TriggerParameters": 13
+   },
+   "79": {
+    "BoolParameters": 2,
+    "FloatParameters": 8,
+    "IntParameters": 2,
+    "TriggerParameters": 13
+   },
+   "98": {
+    "BoolParameters": 1,
+    "FloatParameters": 8,
+    "IntParameters": 2,
+    "TriggerParameters": 17
+   },
+   "137": {
+    "BoolParameters": 3,
+    "FloatParameters": 8,
+    "IntParameters": 2,
+    "TriggerParameters": 13
+   },
+   "165": {
+    "BoolParameters": 1,
+    "FloatParameters": 9,
+    "IntParameters": 2,
+    "TriggerParameters": 14
+   },
+   "175": {
+    "BoolParameters": 2,
+    "FloatParameters": 8,
+    "IntParameters": 2,
+    "TriggerParameters": 13
+   },
+   "193": {
+    "BoolParameters": 1,
+    "FloatParameters": 9,
+    "IntParameters": 2,
     "TriggerParameters": 16
+   },
+   "208": {
+    "BoolParameters": 1,
+    "FloatParameters": 8,
+    "IntParameters": 2,
+    "TriggerParameters": 17
+   },
+   "216": {
+    "BoolParameters": 1,
+    "FloatParameters": 9,
+    "IntParameters": 2,
+    "TriggerParameters": 18
+   },
+   "224": {
+    "BoolParameters": 1,
+    "FloatParameters": 8,
+    "IntParameters": 2,
+    "TriggerParameters": 17
+   },
+   "237": {
+    "BoolParameters": 1,
+    "FloatParameters": 8,
+    "IntParameters": 2,
+    "TriggerParameters": 17
+   },
+   "274": {
+    "BoolParameters": 1,
+    "FloatParameters": 9,
+    "IntParameters": 2,
+    "TriggerParameters": 14
+   },
+   "293": {
+    "BoolParameters": 3,
+    "FloatParameters": 5,
+    "IntParameters": 2,
+    "TriggerParameters": 13
+   },
+   "301": {
+    "BoolParameters": 2,
+    "FloatParameters": 8,
+    "IntParameters": 2,
+    "TriggerParameters": 13
+   },
+   "320": {
+    "BoolParameters": 1,
+    "FloatParameters": 8,
+    "IntParameters": 2,
+    "TriggerParameters": 17
+   },
+   "359": {
+    "BoolParameters": 3,
+    "FloatParameters": 8,
+    "IntParameters": 2,
+    "TriggerParameters": 13
+   },
+   "387": {
+    "BoolParameters": 1,
+    "FloatParameters": 9,
+    "IntParameters": 2,
+    "TriggerParameters": 14
    },
    "397": {
     "BoolParameters": 2,
@@ -2966,13 +3265,13 @@
     "BoolParameters": 1,
     "FloatParameters": 8,
     "IntParameters": 2,
-    "TriggerParameters": 14
+    "TriggerParameters": 17
    },
    "438": {
     "BoolParameters": 1,
     "FloatParameters": 9,
     "IntParameters": 2,
-    "TriggerParameters": 18
+    "TriggerParameters": 14
    }
   }
  }

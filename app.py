@@ -267,7 +267,7 @@ def _run_job(code):
             head = zlib.decompressobj(47).decompress(data[:65536]).decode("utf-8", "replace")
             m = re.search(r'"CompatibilityVersion":"([^"]+)"', head)
             gamever = m.group(1) if m else None
-            S.cmd_save([code])                # 애니 항목 수 풀기 (경기마다 다르다)
+            S.cmd_save([code], quick=True)    # 애니 항목 수 풀기 (⚡ 빠른 길 — 느린 길은 47초→Render 8분)
             report, ok_ratio = build_report(code, s3date)
             if report is None:
                 _jobs[code] = {"state": "error", "code": "version_mismatch",

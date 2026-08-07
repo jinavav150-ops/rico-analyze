@@ -411,7 +411,23 @@ def candidates(name, assign, sets):
     return out
 
 
-def refine_with_data(name, assign, cand, sets):
+def player_hero_entities(name):
+    """선수 6명이 **조종하는 캐릭터 엔티티** 번호. (초기 상태의 `CurrentHero.HeroNetworkId`)
+
+    영웅 **이름**이 필요한 건 이 엔티티들뿐이다 — 포탑·오브젝트 같은 나머지는 파싱만 맞으면 된다.
+    """
+    try:
+        r = walk(restore_bytes(name), HEAD_CONNECT, outer=False)
+    except Exception:
+        return []
+    out = []
+    for e, t, c, v in r["events"]:
+        if c == "CurrentHero" and isinstance(v, dict) and v.get("HeroNetworkId"):
+            out.append(v["HeroNetworkId"])
+    return out
+
+
+def refine_with_data(name, assign, cand, sets, quick=False):
     """🎯 세 번째 신호 — **실시간 프레임**으로 영웅 후보를 더 좁힌다.
 
     초기 상태에서는 `AnimationParameters` 지도의 게이트가 0 인 경우가 많아 **항목 수가 아예
@@ -421,6 +437,14 @@ def refine_with_data(name, assign, cand, sets):
     그래서 **그 캐릭터가 등장하는 프레임만 세서** 완주 비율이 제일 높은 후보를 고른다.
     차이는 0.5~1% 로 작지만 **여섯 명 모두 일관되게** 갈렸고, 그 결과가 진행기록에 적힌
     예상 명단(Fury11·Khan12·Sejin11·Fury15·Leo15·Nova15)과 **정확히 일치**했다(2026-08-07).
+
+    ⚡ `quick=True` (서버용) — 이 단계가 **전체 시간의 94%**를 먹는다(2026-08-08 실측:
+       47초 중 44초. 후보마다 7,271프레임을 통째로 다시 파싱하기 때문). Render 무료 CPU에선
+       그게 8분이 된다. 그래서 빠른 길을 따로 둔다:
+         ① 먼저 **실패한 프레임만** 모아 "어느 엔티티에서 멈췄나"로 범인을 찾고,
+            그 엔티티의 후보만 바꿔 가며 **실패 프레임만** 다시 읽는다(전체가 아니라).
+         ② 그래도 안 끝나면 남은 애매한 엔티티만 원래 방식으로 가른다.
+       느린 길(quick=False)은 로컬 표본 만들 때 쓴다 — 결과가 같은지 회귀검사로 확인한다.
     """
     rep = R.load(replays()[name])
     D = [b for k, b in R.frames(rep) if k == R.T_DATA]
@@ -431,9 +455,9 @@ def refine_with_data(name, assign, cand, sets):
             for f, k in sets[h].items():
                 R.ENTITY_MAP_COUNTS[(e, "AnimationParameters", f)] = k
 
-    def ratio(ent):
+    def ratio(ent, pool=None):
         tot = done = 0
-        for b in D:
+        for b in (pool if pool is not None else D):
             fr = R.parse_frame(b)
             if not (fr.get("at_entity") == ent
                     or any(e == ent and c == "AnimationParameters" for e, t, c, v in fr["events"])):
@@ -444,6 +468,69 @@ def refine_with_data(name, assign, cand, sets):
         return done / max(tot, 1)
 
     out_assign, out_cand = dict(assign), dict(cand)
+
+    if quick:
+        def failures(a, pool):
+            """실패한 프레임과 '멈춘 자리의 엔티티' 목록."""
+            apply(a)
+            out = []
+            for b in pool:
+                fr = R.parse_frame(b)
+                if (fr["stopped"] or "") not in ("end", "EOF", ""):
+                    out.append((b, fr.get("at_entity")))
+            return out
+
+        bad = failures(out_assign, D)
+        for _round in range(8):                       # 안 나아지면 그만둔다
+            if not bad:
+                break
+            pool = [b for b, _e in bad]
+            ranked = collections.Counter(e for _b, e in bad if e is not None).most_common()
+            fixed = False
+            for ent, _n in ranked:
+                if len(out_cand.get(ent, [])) < 2:
+                    continue
+                base = len(bad)
+                pick = None
+                for h in out_cand[ent]:
+                    if h == out_assign.get(ent):
+                        continue
+                    a = dict(out_assign)
+                    a[ent] = h
+                    n = len(failures(a, pool))         # ⚡ 실패 프레임만 다시 읽는다
+                    if n < base:
+                        base, pick = n, h
+                if pick:
+                    out_assign[ent] = pick
+                    out_cand[ent] = [pick]
+                    fixed = True
+                    break
+            if not fixed:
+                break
+            bad = failures(out_assign, D)
+
+        # ② 이름이 **필요한 곳만** 정밀 판정한다.
+        #    파싱은 위 ①로 이미 100% 가 된다. 그런데 `Leo`↔`Remedy` 처럼 애니 개수·체력 성장·
+        #    컴포넌트 지문이 **전부 같은 쌍**은 완주율(신호 ③)로만 갈린다.
+        #    예전엔 엔티티 20여 개를 전부 이 방식으로 돌려 44초를 썼는데, 정작 이름이 필요한 건
+        #    **선수 캐릭터 6명뿐**이다 → 대상만 좁히니 몇 초로 끝난다.
+        for ent in player_hero_entities(name):
+            cs = out_cand.get(ent) or []
+            if len(cs) < 2:
+                continue
+            scored = []
+            for h in cs:
+                a = dict(out_assign)
+                a[ent] = h
+                apply(a)
+                scored.append((ratio(ent), h))
+            scored.sort(reverse=True)
+            top = scored[0][0]
+            out_assign[ent] = scored[0][1]
+            out_cand[ent] = [h for r, h in scored if top - r < 0.002]
+        apply(out_assign)
+        return out_assign, out_cand
+
     for ent, cs in cand.items():
         if len(cs) < 2:
             continue
@@ -463,7 +550,7 @@ def refine_with_data(name, assign, cand, sets):
     return out_assign, out_cand
 
 
-def cmd_save(names):
+def cmd_save(names, quick=False):
     """푼 결과를 저장 — **실시간 프레임(Data) 파싱에도 그대로 쓴다.**
 
     지도 항목 수는 캐릭터마다 달라서, 초기 상태에서 한 번 풀어 두면 그 경기 전체에 쓸 수 있다.
@@ -477,7 +564,7 @@ def cmd_save(names):
         assign, r = solve_anim(name)
         done = r["used"] * 100 // r["total"]
         cand = candidates(name, assign, sets)
-        assign, cand = refine_with_data(name, assign, cand, sets)
+        assign, cand = refine_with_data(name, assign, cand, sets, quick=quick)
         out[name] = {"완주율": done,
                      "엔티티별_영웅": {str(e): h for e, h in sorted(assign.items())},
                      "엔티티별_후보": {str(e): v for e, v in sorted(cand.items())},
@@ -634,7 +721,7 @@ def main():
             head = int(a.split("=")[1])
     names = args or list(replays())
     if "--저장" in opts:
-        cmd_save(names)
+        cmd_save(names, quick="--빠르게" in opts)
         return
     if "--맞추기" in opts:
         for n in names:
