@@ -204,34 +204,35 @@ def build_report(code, s3date):
 
 @app.get("/health")
 def health():
-    return jsonify({"ok": True, "cached": len(_cache)})
+    return jsonify({"ok": True, "cached": len(_cache), "jobs": len(_jobs)})
 
 
-@app.get("/analyze/<raw_code>")
-def analyze(raw_code):
-    code = raw_code.strip().upper()
-    if not CODE_RE.match(code):
-        return err("bad_code", "매치 코드 형식이 아니에요 (영문 대문자·숫자).",
-                   "Not a valid match code.")
-    hit = _cache.get(code)
-    if hit:
-        return jsonify(hit[1])
+# ═══ 🕒 비동기 처리 — Render 무료 플랜(CPU 0.1코어) 대응 ═══════════════════
+#   🪤 2026-08-08 실측: 맥에서 32초 걸리는 분석이 여기선 훨씬 오래 걸려
+#      **Render 게이트웨이가 먼저 요청을 끊었다**(`{"ok":false,"error":"timed out"}`
+#      — 우리 형식이 아니라 Render 것). 오래 붙잡는 방식으로는 절대 못 넘긴다.
+#   → 요청은 **즉시** 상태만 돌려주고, 실제 분석은 뒤에서 돌린다. 사이트가 몇 초마다 다시 물어본다.
+#     한 번 분석한 경기는 사이트가 Firebase에 저장하므로, 이 기다림은 **경기당 딱 한 번**뿐이다.
+_jobs = {}                       # 코드 → {state, started, report?, err?}
+_current = None                  # 지금 실제로 분석 중인 코드 (나머지는 순서 대기)
+_JOB_MAX = 40
+_JOB_TIMEOUT = 1800              # 30분 넘게 붙잡고 있으면 죽은 것으로 본다
 
-    if not _lock.acquire(timeout=150):        # 앞 요청이 너무 오래 물고 있으면
-        return err("busy", "지금 다른 경기를 분석하는 중이에요. 잠시 뒤 다시 눌러 주세요.",
-                   "Server is busy analyzing another match. Try again shortly.")
+
+def _run_job(code):
+    """백그라운드 워커 — 한 번에 하나만 (512MB 램이라 동시 분석은 위험)."""
+    global _current
+    dst = os.path.join(REPLAY_DIR, f"{code}.rsrpl.gz")
     try:
-        hit = _cache.get(code)                # 기다리는 동안 끝났을 수도
-        if hit:
-            return jsonify(hit[1])
-        key, s3date = find_on_s3(code)
-        if not key:
-            return err("not_found",
-                       "리플레이를 못 찾았어요. 코드 오타이거나, 40일이 지나 서버에서 지워진 경기예요.",
-                       "Replay not found — wrong code, or older than 40 days (deleted).")
-        dst = os.path.join(REPLAY_DIR, f"{code}.rsrpl.gz")
-        try:
-            with _http(f"{BUCKET}/{key}", timeout=60) as r:
+        with _lock:
+            _current = code
+            key, s3date = find_on_s3(code)
+            if not key:
+                _jobs[code] = {"state": "error", "code": "not_found",
+                               "ko": "리플레이를 못 찾았어요. 코드 오타이거나, 40일이 지나 서버에서 지워진 경기예요.",
+                               "en": "Replay not found — wrong code, or older than 40 days (deleted)."}
+                return
+            with _http(f"{BUCKET}/{key}", timeout=90) as r:
                 data = r.read()
             os.makedirs(REPLAY_DIR, exist_ok=True)
             open(dst, "wb").write(data)
@@ -242,29 +243,63 @@ def analyze(raw_code):
             S.cmd_save([code])                # 애니 항목 수 풀기 (경기마다 다르다)
             report, ok_ratio = build_report(code, s3date)
             if report is None:
-                return err("version_mismatch",
-                           f"이 리플레이는 아직 못 읽어요 (완주율 {ok_ratio*100:.0f}%). "
-                           "게임이 업데이트된 직후라면 분석기 갱신을 기다려 주세요.",
-                           "Cannot parse this replay yet — likely a new game version.")
+                _jobs[code] = {"state": "error", "code": "version_mismatch",
+                               "ko": f"이 리플레이는 아직 못 읽어요 (완주율 {ok_ratio*100:.0f}%). "
+                                     "게임이 업데이트된 직후라면 분석기 갱신을 기다려 주세요.",
+                               "en": "Cannot parse this replay yet — likely a new game version."}
+                return
             report["gamever"] = gamever
             if len(_cache) >= _CACHE_MAX:     # 캐시 자리 비우기 (오래된 것부터)
-                oldest = min(_cache, key=lambda k: _cache[k][0])
-                del _cache[oldest]
+                del _cache[min(_cache, key=lambda k: _cache[k][0])]
             _cache[code] = (time.time(), report)
-            return jsonify(report)
-        finally:
-            if os.path.exists(dst):
-                os.remove(dst)                # 디스크는 임시 — 결과만 남긴다
-    except Exception as e:                    # 예상 밖 오류는 정직하게
+            _jobs[code] = {"state": "done"}
+    except Exception as e:
         app.logger.exception("analyze 실패: %s", code)
-        return err("internal", f"분석 중 오류가 났어요 ({type(e).__name__}). "
-                   "같은 오류가 반복되면 피드백으로 알려 주세요.",
-                   f"Analysis failed ({type(e).__name__}).")
+        _jobs[code] = {"state": "error", "code": "internal",
+                       "ko": f"분석 중 오류가 났어요 ({type(e).__name__}). 같은 오류가 반복되면 피드백으로 알려 주세요.",
+                       "en": f"Analysis failed ({type(e).__name__})."}
     finally:
-        try:
-            _lock.release()
-        except RuntimeError:
-            pass
+        if _current == code:
+            _current = None
+        if os.path.exists(dst):
+            os.remove(dst)                    # 디스크는 임시 — 결과만 남긴다
+
+
+@app.get("/analyze/<raw_code>")
+def analyze(raw_code):
+    """즉시 응답한다. 아직이면 `{"status":"running"}` — 사이트가 다시 물어본다."""
+    code = raw_code.strip().upper()
+    if not CODE_RE.match(code):
+        return err("bad_code", "매치 코드 형식이 아니에요 (영문 대문자·숫자).",
+                   "Not a valid match code.")
+    hit = _cache.get(code)
+    if hit:
+        out = dict(hit[1])
+        out["status"] = "done"
+        return jsonify(out)
+
+    job = _jobs.get(code)
+    if job:
+        if job["state"] == "error":
+            _jobs.pop(code, None)             # 다시 누르면 재시도할 수 있게
+            return err(job["code"], job["ko"], job["en"])
+        if job["state"] == "running":
+            if time.time() - job["started"] > _JOB_TIMEOUT:
+                _jobs.pop(code, None)
+                return err("timeout", "분석이 너무 오래 걸려 중단했어요. 다시 시도해 주세요.",
+                           "Analysis took too long and was dropped. Please try again.")
+            return jsonify({"status": "running",
+                            "elapsed": int(time.time() - job["started"]),
+                            "queued": _current is not None and _current != code})
+        # state == done 인데 캐시에 없으면(캐시 밀림) 다시 돌린다
+        _jobs.pop(code, None)
+
+    if len(_jobs) >= _JOB_MAX:                # 오래된 기록 정리
+        for k in [k for k, v in _jobs.items() if v.get("state") != "running"][:20]:
+            _jobs.pop(k, None)
+    _jobs[code] = {"state": "running", "started": time.time()}
+    threading.Thread(target=_run_job, args=(code,), daemon=True).start()
+    return jsonify({"status": "started", "elapsed": 0})
 
 
 @app.after_request
