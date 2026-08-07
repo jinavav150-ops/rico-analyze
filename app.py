@@ -31,6 +31,7 @@ import ssl
 import urllib.request
 import urllib.error
 import importlib
+import concurrent.futures as cf
 
 # 🪤 python.org 빌드는 CA 인증서가 비어 있어 SSL 검증이 실패한다 (맥 로컬 시험에서 실제 발생).
 #    certifi 가 있으면 그걸 쓴다 — Render(리눅스)는 시스템 인증서로도 되지만 이중 안전.
@@ -54,6 +55,8 @@ BUCKET = "https://ricochet-replays-production.s3.us-east-1.amazonaws.com"
 REPLAY_DIR = os.path.join(BASE, "replays")
 CODE_RE = re.compile(r"^[A-Z0-9]{6,12}$")
 SEARCH_DAYS = 41                 # 리플레이는 S3에서 약 40일 뒤 삭제된다
+# 경기 종류별 S3 경로 — 게임 문자열 상수(dump.cs)에 있는 셋. 흔한 순서대로 둔다.
+S3_PREFIXES = ("rating", "training", "custom")
 MIN_OK_RATIO = 0.85              # 프레임 완주율이 이보다 낮으면 "버전 불일치"로 친다
 
 REFDATA = json.load(open(os.path.join(BASE, "tools", "refdata.json"), encoding="utf-8"))
@@ -75,23 +78,47 @@ def _http(url, method="GET", timeout=30):
 def find_on_s3(code):
     """날짜를 몰라 최근부터 거꾸로 HEAD 로 찾는다. 찾으면 (키, 날짜문자열).
 
+    🪤 **경기 종류마다 경로가 다르다** (2026-08-08 실측: MAMMON 경기 TYW12FB7 은
+       `training/` 에 있었고 `rating/` 만 뒤지던 서버는 "못 찾음"을 냈다).
+       게임 문자열 상수에 있는 종류는 `rating`·`training`·`custom` 셋 — 전부 뒤진다.
     ⚠️ "없음(404)" 과 "네트워크 고장" 을 구분한다 — SSL/연결 오류를 조용히 넘기면
-       진짜 존재하는 리플레이도 not_found 로 오판한다(로컬 시험에서 실제 발생)."""
+       진짜 존재하는 리플레이도 not_found 로 오판한다(로컬 시험에서 실제 발생).
+    """
     today = datetime.datetime.now(datetime.timezone.utc).date()
-    net_fail = 0
+    # 하루당 3경로 × 41일 = 123번이라 순차로는 느리다 → 날짜를 묶어 병렬로 확인하고
+    # **결과는 원래 순서대로** 본다(가장 최근·가장 앞 경로가 이기도록).
+    cands = []
     for back in range(SEARCH_DAYS):
         d = today - datetime.timedelta(days=back)
-        key = f"rating/{d.year}/{d.month:02d}/{d.day:02d}/{code}.rsrpl.gz"
+        for pre in S3_PREFIXES:
+            cands.append((f"{pre}/{d.year}/{d.month:02d}/{d.day:02d}/{code}.rsrpl.gz",
+                          d.isoformat()))
+
+    def probe(item):
+        key, iso = item
         try:
             _http(f"{BUCKET}/{key}", method="HEAD", timeout=10)
-            return key, d.isoformat()
+            return (key, iso, None)
         except urllib.error.HTTPError as e:
-            if e.code not in (403, 404):
-                raise
+            if e.code in (403, 404):
+                return None
+            return (None, None, e)
         except urllib.error.URLError as e:
-            net_fail += 1
-            if net_fail >= 3:                 # 계속 고장이면 탐색 실패가 아니라 통신 실패다
-                raise RuntimeError(f"S3 통신 실패: {e.reason}")
+            return (None, None, e)
+
+    net_fail = 0
+    with cf.ThreadPoolExecutor(max_workers=12) as pool:
+        for i in range(0, len(cands), 12):
+            chunk = cands[i:i + 12]
+            for res in list(pool.map(probe, chunk)):   # map 은 입력 순서를 지킨다
+                if res is None:
+                    continue
+                key, iso, exc = res
+                if key:
+                    return key, iso
+                net_fail += 1
+                if net_fail >= 6:            # 계속 고장이면 탐색 실패가 아니라 통신 실패다
+                    raise RuntimeError(f"S3 통신 실패: {exc}")
     return None, None
 
 

@@ -2681,5 +2681,299 @@
     "TriggerParameters": 18
    }
   }
+ },
+ "TYW12FB7": {
+  "완주율": 99,
+  "엔티티별_영웅": {
+   "2": "Magnus/Sejin",
+   "15": "Fury",
+   "37": "Khan",
+   "52": "Vector",
+   "71": "Oni",
+   "79": "Remedy",
+   "98": "Twinkle",
+   "137": "Jagger",
+   "165": "Vector",
+   "175": "Leo",
+   "193": "Vector",
+   "208": "Twinkle",
+   "216": "Vector",
+   "224": "Twinkle",
+   "237": "Fury",
+   "259": "Khan",
+   "274": "Vector",
+   "293": "Oni",
+   "301": "Remedy",
+   "320": "Twinkle",
+   "359": "Jagger",
+   "387": "Vector",
+   "397": "Leo",
+   "415": "Vector",
+   "430": "Twinkle",
+   "438": "Dread"
+  },
+  "엔티티별_후보": {
+   "2": [
+    "Magnus/Sejin"
+   ],
+   "15": [
+    "Fury"
+   ],
+   "37": [
+    "Khan"
+   ],
+   "52": [
+    "Vector",
+    "Dread",
+    "Calibri/Nova"
+   ],
+   "71": [
+    "Oni"
+   ],
+   "79": [
+    "Remedy",
+    "Leo"
+   ],
+   "98": [
+    "Twinkle",
+    "Magnus/Sejin",
+    "Fury"
+   ],
+   "137": [
+    "Jagger"
+   ],
+   "165": [
+    "Vector",
+    "Dread",
+    "Calibri/Nova"
+   ],
+   "175": [
+    "Leo"
+   ],
+   "193": [
+    "Vector",
+    "Dread",
+    "Calibri/Nova"
+   ],
+   "208": [
+    "Twinkle",
+    "Magnus/Sejin",
+    "Fury"
+   ],
+   "216": [
+    "Vector",
+    "Dread",
+    "Calibri/Nova"
+   ],
+   "224": [
+    "Twinkle",
+    "Magnus/Sejin",
+    "Fury"
+   ],
+   "237": [
+    "Fury"
+   ],
+   "259": [
+    "Khan"
+   ],
+   "274": [
+    "Vector",
+    "Dread",
+    "Calibri/Nova"
+   ],
+   "293": [
+    "Oni"
+   ],
+   "301": [
+    "Remedy"
+   ],
+   "320": [
+    "Twinkle",
+    "Magnus/Sejin",
+    "Fury"
+   ],
+   "359": [
+    "Jagger"
+   ],
+   "387": [
+    "Vector",
+    "Dread",
+    "Calibri/Nova"
+   ],
+   "397": [
+    "Leo"
+   ],
+   "415": [
+    "Vector",
+    "Dread",
+    "Calibri/Nova"
+   ],
+   "430": [
+    "Twinkle",
+    "Magnus/Sejin",
+    "Fury"
+   ],
+   "438": [
+    "Dread"
+   ]
+  },
+  "항목수": {
+   "37": {
+    "BoolParameters": 2,
+    "FloatParameters": 9,
+    "IntParameters": 2,
+    "TriggerParameters": 12
+   },
+   "259": {
+    "BoolParameters": 2,
+    "FloatParameters": 9,
+    "IntParameters": 2,
+    "TriggerParameters": 12
+   },
+   "2": {
+    "BoolParameters": 1,
+    "FloatParameters": 8,
+    "IntParameters": 2,
+    "TriggerParameters": 15
+   },
+   "15": {
+    "BoolParameters": 1,
+    "FloatParameters": 8,
+    "IntParameters": 2,
+    "TriggerParameters": 17
+   },
+   "52": {
+    "BoolParameters": 1,
+    "FloatParameters": 9,
+    "IntParameters": 2,
+    "TriggerParameters": 16
+   },
+   "71": {
+    "BoolParameters": 3,
+    "FloatParameters": 5,
+    "IntParameters": 2,
+    "TriggerParameters": 13
+   },
+   "79": {
+    "BoolParameters": 2,
+    "FloatParameters": 8,
+    "IntParameters": 2,
+    "TriggerParameters": 12
+   },
+   "98": {
+    "BoolParameters": 1,
+    "FloatParameters": 8,
+    "IntParameters": 2,
+    "TriggerParameters": 14
+   },
+   "137": {
+    "BoolParameters": 3,
+    "FloatParameters": 8,
+    "IntParameters": 2,
+    "TriggerParameters": 13
+   },
+   "165": {
+    "BoolParameters": 1,
+    "FloatParameters": 9,
+    "IntParameters": 2,
+    "TriggerParameters": 16
+   },
+   "175": {
+    "BoolParameters": 2,
+    "FloatParameters": 8,
+    "IntParameters": 2,
+    "TriggerParameters": 13
+   },
+   "193": {
+    "BoolParameters": 1,
+    "FloatParameters": 9,
+    "IntParameters": 2,
+    "TriggerParameters": 16
+   },
+   "208": {
+    "BoolParameters": 1,
+    "FloatParameters": 8,
+    "IntParameters": 2,
+    "TriggerParameters": 14
+   },
+   "216": {
+    "BoolParameters": 1,
+    "FloatParameters": 9,
+    "IntParameters": 2,
+    "TriggerParameters": 16
+   },
+   "224": {
+    "BoolParameters": 1,
+    "FloatParameters": 8,
+    "IntParameters": 2,
+    "TriggerParameters": 14
+   },
+   "237": {
+    "BoolParameters": 1,
+    "FloatParameters": 8,
+    "IntParameters": 2,
+    "TriggerParameters": 17
+   },
+   "274": {
+    "BoolParameters": 1,
+    "FloatParameters": 9,
+    "IntParameters": 2,
+    "TriggerParameters": 16
+   },
+   "293": {
+    "BoolParameters": 3,
+    "FloatParameters": 5,
+    "IntParameters": 2,
+    "TriggerParameters": 13
+   },
+   "301": {
+    "BoolParameters": 2,
+    "FloatParameters": 8,
+    "IntParameters": 2,
+    "TriggerParameters": 12
+   },
+   "320": {
+    "BoolParameters": 1,
+    "FloatParameters": 8,
+    "IntParameters": 2,
+    "TriggerParameters": 14
+   },
+   "359": {
+    "BoolParameters": 3,
+    "FloatParameters": 8,
+    "IntParameters": 2,
+    "TriggerParameters": 13
+   },
+   "387": {
+    "BoolParameters": 1,
+    "FloatParameters": 9,
+    "IntParameters": 2,
+    "TriggerParameters": 16
+   },
+   "397": {
+    "BoolParameters": 2,
+    "FloatParameters": 8,
+    "IntParameters": 2,
+    "TriggerParameters": 13
+   },
+   "415": {
+    "BoolParameters": 1,
+    "FloatParameters": 9,
+    "IntParameters": 2,
+    "TriggerParameters": 16
+   },
+   "430": {
+    "BoolParameters": 1,
+    "FloatParameters": 8,
+    "IntParameters": 2,
+    "TriggerParameters": 14
+   },
+   "438": {
+    "BoolParameters": 1,
+    "FloatParameters": 9,
+    "IntParameters": 2,
+    "TriggerParameters": 18
+   }
+  }
  }
 }
