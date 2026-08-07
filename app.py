@@ -41,9 +41,9 @@ except ImportError:
     _SSL_CTX = ssl.create_default_context()
 
 BASE = os.path.dirname(os.path.abspath(__file__))
-sys.path.insert(0, os.path.join(BASE, "도구"))
-S = importlib.import_module("초기상태")
-A = importlib.import_module("경기분석")
+sys.path.insert(0, os.path.join(BASE, "tools"))
+S = importlib.import_module("restore_state")
+A = importlib.import_module("match_report")
 R = importlib.import_module("replay_stream")
 
 from flask import Flask, jsonify, request  # noqa: E402  (경로 세팅 뒤에)
@@ -51,12 +51,12 @@ from flask import Flask, jsonify, request  # noqa: E402  (경로 세팅 뒤에)
 app = Flask(__name__)
 
 BUCKET = "https://ricochet-replays-production.s3.us-east-1.amazonaws.com"
-REPLAY_DIR = os.path.join(BASE, "리플레이")
+REPLAY_DIR = os.path.join(BASE, "replays")
 CODE_RE = re.compile(r"^[A-Z0-9]{6,12}$")
 SEARCH_DAYS = 41                 # 리플레이는 S3에서 약 40일 뒤 삭제된다
 MIN_OK_RATIO = 0.85              # 프레임 완주율이 이보다 낮으면 "버전 불일치"로 친다
 
-REFDATA = json.load(open(os.path.join(BASE, "도구", "refdata.json"), encoding="utf-8"))
+REFDATA = json.load(open(os.path.join(BASE, "tools", "refdata.json"), encoding="utf-8"))
 MODS = {int(k): v.get("official") or "?" for k, v in REFDATA.get("modifiers", {}).items()
         if v.get("bit") is not None}
 MOD_BITS = {int(k): v["bit"] for k, v in REFDATA.get("modifiers", {}).items()

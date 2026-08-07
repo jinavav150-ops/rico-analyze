@@ -1,0 +1,2685 @@
+{
+ "TLJXLVAF": {
+  "완주율": 99,
+  "엔티티별_영웅": {
+   "67": "Fury",
+   "89": "Khan",
+   "104": "Magnus/Sejin",
+   "117": "Fury",
+   "139": "Leo",
+   "157": "Calibri/Nova"
+  },
+  "엔티티별_후보": {
+   "67": [
+    "Fury"
+   ],
+   "89": [
+    "Khan"
+   ],
+   "104": [
+    "Magnus/Sejin"
+   ],
+   "117": [
+    "Fury"
+   ],
+   "139": [
+    "Leo"
+   ],
+   "157": [
+    "Calibri/Nova"
+   ]
+  },
+  "항목수": {
+   "67": {
+    "BoolParameters": 1,
+    "FloatParameters": 8,
+    "IntParameters": 2,
+    "TriggerParameters": 17
+   },
+   "89": {
+    "BoolParameters": 2,
+    "FloatParameters": 9,
+    "IntParameters": 2,
+    "TriggerParameters": 12
+   },
+   "104": {
+    "BoolParameters": 1,
+    "FloatParameters": 8,
+    "IntParameters": 2,
+    "TriggerParameters": 15
+   },
+   "117": {
+    "BoolParameters": 1,
+    "FloatParameters": 8,
+    "IntParameters": 2,
+    "TriggerParameters": 17
+   },
+   "139": {
+    "BoolParameters": 2,
+    "FloatParameters": 8,
+    "IntParameters": 2,
+    "TriggerParameters": 13
+   },
+   "157": {
+    "BoolParameters": 1,
+    "FloatParameters": 9,
+    "IntParameters": 2,
+    "TriggerParameters": 14
+   }
+  }
+ },
+ "R4A7SZ4A": {
+  "완주율": 99,
+  "엔티티별_영웅": {
+   "67": "Twinkle",
+   "106": "Dread",
+   "114": "Oni",
+   "122": "Fury",
+   "144": "Twinkle",
+   "183": "Magnus/Sejin"
+  },
+  "엔티티별_후보": {
+   "67": [
+    "Twinkle"
+   ],
+   "106": [
+    "Dread"
+   ],
+   "114": [
+    "Oni"
+   ],
+   "122": [
+    "Fury"
+   ],
+   "144": [
+    "Twinkle"
+   ],
+   "183": [
+    "Magnus/Sejin"
+   ]
+  },
+  "항목수": {
+   "67": {
+    "BoolParameters": 1,
+    "FloatParameters": 8,
+    "IntParameters": 2,
+    "TriggerParameters": 14
+   },
+   "106": {
+    "BoolParameters": 1,
+    "FloatParameters": 9,
+    "IntParameters": 2,
+    "TriggerParameters": 18
+   },
+   "114": {
+    "BoolParameters": 3,
+    "FloatParameters": 5,
+    "IntParameters": 2,
+    "TriggerParameters": 13
+   },
+   "122": {
+    "BoolParameters": 1,
+    "FloatParameters": 8,
+    "IntParameters": 2,
+    "TriggerParameters": 17
+   },
+   "144": {
+    "BoolParameters": 1,
+    "FloatParameters": 8,
+    "IntParameters": 2,
+    "TriggerParameters": 14
+   },
+   "183": {
+    "BoolParameters": 1,
+    "FloatParameters": 8,
+    "IntParameters": 2,
+    "TriggerParameters": 15
+   }
+  }
+ },
+ "Q6TSVQ8B": {
+  "완주율": 99,
+  "엔티티별_영웅": {
+   "2": "Magnus/Sejin",
+   "15": "Fury",
+   "37": "Khan",
+   "52": "Calibri/Nova",
+   "71": "Oni",
+   "79": "Remedy",
+   "98": "Twinkle",
+   "137": "Jagger",
+   "165": "Vector",
+   "175": "Remedy",
+   "193": "Vector",
+   "208": "Twinkle",
+   "216": "Vector",
+   "224": "Twinkle",
+   "237": "Fury",
+   "259": "Khan",
+   "274": "Calibri/Nova",
+   "293": "Oni",
+   "301": "Remedy",
+   "320": "Twinkle",
+   "359": "Jagger",
+   "387": "Vector",
+   "397": "Remedy",
+   "415": "Vector",
+   "430": "Twinkle",
+   "438": "Vector"
+  },
+  "엔티티별_후보": {
+   "2": [
+    "Magnus/Sejin"
+   ],
+   "15": [
+    "Fury"
+   ],
+   "37": [
+    "Khan"
+   ],
+   "52": [
+    "Calibri/Nova"
+   ],
+   "71": [
+    "Oni"
+   ],
+   "79": [
+    "Remedy"
+   ],
+   "98": [
+    "Twinkle",
+    "Magnus/Sejin",
+    "Fury"
+   ],
+   "137": [
+    "Jagger"
+   ],
+   "165": [
+    "Vector",
+    "Dread",
+    "Calibri/Nova"
+   ],
+   "175": [
+    "Remedy",
+    "Leo"
+   ],
+   "193": [
+    "Vector",
+    "Dread",
+    "Calibri/Nova"
+   ],
+   "208": [
+    "Twinkle",
+    "Magnus/Sejin",
+    "Fury"
+   ],
+   "216": [
+    "Vector",
+    "Dread",
+    "Calibri/Nova"
+   ],
+   "224": [
+    "Twinkle",
+    "Magnus/Sejin",
+    "Fury"
+   ],
+   "237": [
+    "Fury"
+   ],
+   "259": [
+    "Khan"
+   ],
+   "274": [
+    "Calibri/Nova"
+   ],
+   "293": [
+    "Oni"
+   ],
+   "301": [
+    "Remedy"
+   ],
+   "320": [
+    "Twinkle",
+    "Magnus/Sejin",
+    "Fury"
+   ],
+   "359": [
+    "Jagger"
+   ],
+   "387": [
+    "Vector",
+    "Dread",
+    "Calibri/Nova"
+   ],
+   "397": [
+    "Remedy",
+    "Leo"
+   ],
+   "415": [
+    "Vector",
+    "Dread",
+    "Calibri/Nova"
+   ],
+   "430": [
+    "Twinkle",
+    "Magnus/Sejin",
+    "Fury"
+   ],
+   "438": [
+    "Vector",
+    "Dread",
+    "Calibri/Nova"
+   ]
+  },
+  "항목수": {
+   "37": {
+    "BoolParameters": 2,
+    "FloatParameters": 9,
+    "IntParameters": 2,
+    "TriggerParameters": 12
+   },
+   "259": {
+    "BoolParameters": 2,
+    "FloatParameters": 9,
+    "IntParameters": 2,
+    "TriggerParameters": 12
+   },
+   "2": {
+    "BoolParameters": 1,
+    "FloatParameters": 8,
+    "IntParameters": 2,
+    "TriggerParameters": 15
+   },
+   "15": {
+    "BoolParameters": 1,
+    "FloatParameters": 8,
+    "IntParameters": 2,
+    "TriggerParameters": 17
+   },
+   "52": {
+    "BoolParameters": 1,
+    "FloatParameters": 9,
+    "IntParameters": 2,
+    "TriggerParameters": 14
+   },
+   "71": {
+    "BoolParameters": 3,
+    "FloatParameters": 5,
+    "IntParameters": 2,
+    "TriggerParameters": 13
+   },
+   "79": {
+    "BoolParameters": 2,
+    "FloatParameters": 8,
+    "IntParameters": 2,
+    "TriggerParameters": 12
+   },
+   "98": {
+    "BoolParameters": 1,
+    "FloatParameters": 8,
+    "IntParameters": 2,
+    "TriggerParameters": 14
+   },
+   "137": {
+    "BoolParameters": 3,
+    "FloatParameters": 8,
+    "IntParameters": 2,
+    "TriggerParameters": 13
+   },
+   "165": {
+    "BoolParameters": 1,
+    "FloatParameters": 9,
+    "IntParameters": 2,
+    "TriggerParameters": 16
+   },
+   "175": {
+    "BoolParameters": 2,
+    "FloatParameters": 8,
+    "IntParameters": 2,
+    "TriggerParameters": 12
+   },
+   "193": {
+    "BoolParameters": 1,
+    "FloatParameters": 9,
+    "IntParameters": 2,
+    "TriggerParameters": 16
+   },
+   "208": {
+    "BoolParameters": 1,
+    "FloatParameters": 8,
+    "IntParameters": 2,
+    "TriggerParameters": 14
+   },
+   "216": {
+    "BoolParameters": 1,
+    "FloatParameters": 9,
+    "IntParameters": 2,
+    "TriggerParameters": 16
+   },
+   "224": {
+    "BoolParameters": 1,
+    "FloatParameters": 8,
+    "IntParameters": 2,
+    "TriggerParameters": 14
+   },
+   "237": {
+    "BoolParameters": 1,
+    "FloatParameters": 8,
+    "IntParameters": 2,
+    "TriggerParameters": 17
+   },
+   "274": {
+    "BoolParameters": 1,
+    "FloatParameters": 9,
+    "IntParameters": 2,
+    "TriggerParameters": 14
+   },
+   "293": {
+    "BoolParameters": 3,
+    "FloatParameters": 5,
+    "IntParameters": 2,
+    "TriggerParameters": 13
+   },
+   "301": {
+    "BoolParameters": 2,
+    "FloatParameters": 8,
+    "IntParameters": 2,
+    "TriggerParameters": 12
+   },
+   "320": {
+    "BoolParameters": 1,
+    "FloatParameters": 8,
+    "IntParameters": 2,
+    "TriggerParameters": 14
+   },
+   "359": {
+    "BoolParameters": 3,
+    "FloatParameters": 8,
+    "IntParameters": 2,
+    "TriggerParameters": 13
+   },
+   "387": {
+    "BoolParameters": 1,
+    "FloatParameters": 9,
+    "IntParameters": 2,
+    "TriggerParameters": 16
+   },
+   "397": {
+    "BoolParameters": 2,
+    "FloatParameters": 8,
+    "IntParameters": 2,
+    "TriggerParameters": 12
+   },
+   "415": {
+    "BoolParameters": 1,
+    "FloatParameters": 9,
+    "IntParameters": 2,
+    "TriggerParameters": 16
+   },
+   "430": {
+    "BoolParameters": 1,
+    "FloatParameters": 8,
+    "IntParameters": 2,
+    "TriggerParameters": 14
+   },
+   "438": {
+    "BoolParameters": 1,
+    "FloatParameters": 9,
+    "IntParameters": 2,
+    "TriggerParameters": 16
+   }
+  }
+ },
+ "J2VRV3D4": {
+  "완주율": 99,
+  "엔티티별_영웅": {
+   "13": "Twinkle",
+   "26": "Fury",
+   "48": "Khan",
+   "63": "Calibri/Nova",
+   "82": "Oni",
+   "90": "Remedy",
+   "109": "Twinkle",
+   "148": "Jagger",
+   "176": "Vector",
+   "186": "Remedy",
+   "204": "Vector",
+   "219": "Twinkle",
+   "227": "Vector",
+   "235": "Twinkle",
+   "248": "Fury",
+   "270": "Khan",
+   "285": "Vector",
+   "304": "Oni",
+   "312": "Remedy",
+   "331": "Twinkle",
+   "370": "Jagger",
+   "398": "Vector",
+   "408": "Leo",
+   "426": "Vector",
+   "441": "Twinkle",
+   "449": "Vector"
+  },
+  "엔티티별_후보": {
+   "13": [
+    "Twinkle",
+    "Magnus/Sejin",
+    "Fury"
+   ],
+   "26": [
+    "Fury"
+   ],
+   "48": [
+    "Khan"
+   ],
+   "63": [
+    "Calibri/Nova"
+   ],
+   "82": [
+    "Oni"
+   ],
+   "90": [
+    "Remedy"
+   ],
+   "109": [
+    "Twinkle",
+    "Magnus/Sejin",
+    "Fury"
+   ],
+   "148": [
+    "Jagger"
+   ],
+   "176": [
+    "Vector",
+    "Dread",
+    "Calibri/Nova"
+   ],
+   "186": [
+    "Remedy",
+    "Leo"
+   ],
+   "204": [
+    "Vector",
+    "Dread",
+    "Calibri/Nova"
+   ],
+   "219": [
+    "Twinkle",
+    "Magnus/Sejin",
+    "Fury"
+   ],
+   "227": [
+    "Vector",
+    "Dread",
+    "Calibri/Nova"
+   ],
+   "235": [
+    "Twinkle",
+    "Magnus/Sejin",
+    "Fury"
+   ],
+   "248": [
+    "Fury"
+   ],
+   "270": [
+    "Khan"
+   ],
+   "285": [
+    "Vector",
+    "Dread",
+    "Calibri/Nova"
+   ],
+   "304": [
+    "Oni"
+   ],
+   "312": [
+    "Remedy"
+   ],
+   "331": [
+    "Twinkle",
+    "Magnus/Sejin",
+    "Fury"
+   ],
+   "370": [
+    "Jagger"
+   ],
+   "398": [
+    "Vector",
+    "Dread",
+    "Calibri/Nova"
+   ],
+   "408": [
+    "Leo"
+   ],
+   "426": [
+    "Vector",
+    "Dread",
+    "Calibri/Nova"
+   ],
+   "441": [
+    "Twinkle",
+    "Magnus/Sejin",
+    "Fury"
+   ],
+   "449": [
+    "Vector",
+    "Dread",
+    "Calibri/Nova"
+   ]
+  },
+  "항목수": {
+   "48": {
+    "BoolParameters": 2,
+    "FloatParameters": 9,
+    "IntParameters": 2,
+    "TriggerParameters": 12
+   },
+   "270": {
+    "BoolParameters": 2,
+    "FloatParameters": 9,
+    "IntParameters": 2,
+    "TriggerParameters": 12
+   },
+   "13": {
+    "BoolParameters": 1,
+    "FloatParameters": 8,
+    "IntParameters": 2,
+    "TriggerParameters": 14
+   },
+   "26": {
+    "BoolParameters": 1,
+    "FloatParameters": 8,
+    "IntParameters": 2,
+    "TriggerParameters": 17
+   },
+   "63": {
+    "BoolParameters": 1,
+    "FloatParameters": 9,
+    "IntParameters": 2,
+    "TriggerParameters": 14
+   },
+   "82": {
+    "BoolParameters": 3,
+    "FloatParameters": 5,
+    "IntParameters": 2,
+    "TriggerParameters": 13
+   },
+   "90": {
+    "BoolParameters": 2,
+    "FloatParameters": 8,
+    "IntParameters": 2,
+    "TriggerParameters": 12
+   },
+   "109": {
+    "BoolParameters": 1,
+    "FloatParameters": 8,
+    "IntParameters": 2,
+    "TriggerParameters": 14
+   },
+   "148": {
+    "BoolParameters": 3,
+    "FloatParameters": 8,
+    "IntParameters": 2,
+    "TriggerParameters": 13
+   },
+   "176": {
+    "BoolParameters": 1,
+    "FloatParameters": 9,
+    "IntParameters": 2,
+    "TriggerParameters": 16
+   },
+   "186": {
+    "BoolParameters": 2,
+    "FloatParameters": 8,
+    "IntParameters": 2,
+    "TriggerParameters": 12
+   },
+   "204": {
+    "BoolParameters": 1,
+    "FloatParameters": 9,
+    "IntParameters": 2,
+    "TriggerParameters": 16
+   },
+   "219": {
+    "BoolParameters": 1,
+    "FloatParameters": 8,
+    "IntParameters": 2,
+    "TriggerParameters": 14
+   },
+   "227": {
+    "BoolParameters": 1,
+    "FloatParameters": 9,
+    "IntParameters": 2,
+    "TriggerParameters": 16
+   },
+   "235": {
+    "BoolParameters": 1,
+    "FloatParameters": 8,
+    "IntParameters": 2,
+    "TriggerParameters": 14
+   },
+   "248": {
+    "BoolParameters": 1,
+    "FloatParameters": 8,
+    "IntParameters": 2,
+    "TriggerParameters": 17
+   },
+   "285": {
+    "BoolParameters": 1,
+    "FloatParameters": 9,
+    "IntParameters": 2,
+    "TriggerParameters": 16
+   },
+   "304": {
+    "BoolParameters": 3,
+    "FloatParameters": 5,
+    "IntParameters": 2,
+    "TriggerParameters": 13
+   },
+   "312": {
+    "BoolParameters": 2,
+    "FloatParameters": 8,
+    "IntParameters": 2,
+    "TriggerParameters": 12
+   },
+   "331": {
+    "BoolParameters": 1,
+    "FloatParameters": 8,
+    "IntParameters": 2,
+    "TriggerParameters": 14
+   },
+   "370": {
+    "BoolParameters": 3,
+    "FloatParameters": 8,
+    "IntParameters": 2,
+    "TriggerParameters": 13
+   },
+   "398": {
+    "BoolParameters": 1,
+    "FloatParameters": 9,
+    "IntParameters": 2,
+    "TriggerParameters": 16
+   },
+   "408": {
+    "BoolParameters": 2,
+    "FloatParameters": 8,
+    "IntParameters": 2,
+    "TriggerParameters": 13
+   },
+   "426": {
+    "BoolParameters": 1,
+    "FloatParameters": 9,
+    "IntParameters": 2,
+    "TriggerParameters": 16
+   },
+   "441": {
+    "BoolParameters": 1,
+    "FloatParameters": 8,
+    "IntParameters": 2,
+    "TriggerParameters": 14
+   },
+   "449": {
+    "BoolParameters": 1,
+    "FloatParameters": 9,
+    "IntParameters": 2,
+    "TriggerParameters": 16
+   }
+  }
+ },
+ "AQA3W547": {
+  "완주율": 99,
+  "엔티티별_영웅": {
+   "11": "Twinkle",
+   "24": "Fury",
+   "46": "Khan",
+   "61": "Calibri/Nova",
+   "80": "Oni",
+   "88": "Remedy",
+   "107": "Twinkle",
+   "146": "Jagger",
+   "174": "Vector",
+   "184": "Remedy",
+   "202": "Vector",
+   "217": "Twinkle",
+   "225": "Vector",
+   "233": "Twinkle",
+   "246": "Fury",
+   "268": "Khan",
+   "283": "Vector",
+   "302": "Oni",
+   "310": "Remedy",
+   "329": "Twinkle",
+   "368": "Jagger",
+   "396": "Vector",
+   "406": "Leo",
+   "424": "Vector",
+   "439": "Twinkle",
+   "447": "Vector"
+  },
+  "엔티티별_후보": {
+   "11": [
+    "Twinkle",
+    "Magnus/Sejin",
+    "Fury"
+   ],
+   "24": [
+    "Fury"
+   ],
+   "46": [
+    "Khan"
+   ],
+   "61": [
+    "Calibri/Nova"
+   ],
+   "80": [
+    "Oni"
+   ],
+   "88": [
+    "Remedy"
+   ],
+   "107": [
+    "Twinkle",
+    "Magnus/Sejin",
+    "Fury"
+   ],
+   "146": [
+    "Jagger"
+   ],
+   "174": [
+    "Vector",
+    "Dread",
+    "Calibri/Nova"
+   ],
+   "184": [
+    "Remedy",
+    "Leo"
+   ],
+   "202": [
+    "Vector",
+    "Dread",
+    "Calibri/Nova"
+   ],
+   "217": [
+    "Twinkle",
+    "Magnus/Sejin",
+    "Fury"
+   ],
+   "225": [
+    "Vector",
+    "Dread",
+    "Calibri/Nova"
+   ],
+   "233": [
+    "Twinkle",
+    "Magnus/Sejin",
+    "Fury"
+   ],
+   "246": [
+    "Fury"
+   ],
+   "268": [
+    "Khan"
+   ],
+   "283": [
+    "Vector",
+    "Dread",
+    "Calibri/Nova"
+   ],
+   "302": [
+    "Oni"
+   ],
+   "310": [
+    "Remedy"
+   ],
+   "329": [
+    "Twinkle",
+    "Magnus/Sejin",
+    "Fury"
+   ],
+   "368": [
+    "Jagger"
+   ],
+   "396": [
+    "Vector",
+    "Dread",
+    "Calibri/Nova"
+   ],
+   "406": [
+    "Leo"
+   ],
+   "424": [
+    "Vector",
+    "Dread",
+    "Calibri/Nova"
+   ],
+   "439": [
+    "Twinkle",
+    "Magnus/Sejin",
+    "Fury"
+   ],
+   "447": [
+    "Vector",
+    "Dread",
+    "Calibri/Nova"
+   ]
+  },
+  "항목수": {
+   "46": {
+    "BoolParameters": 2,
+    "FloatParameters": 9,
+    "IntParameters": 2,
+    "TriggerParameters": 12
+   },
+   "268": {
+    "BoolParameters": 2,
+    "FloatParameters": 9,
+    "IntParameters": 2,
+    "TriggerParameters": 12
+   },
+   "11": {
+    "BoolParameters": 1,
+    "FloatParameters": 8,
+    "IntParameters": 2,
+    "TriggerParameters": 14
+   },
+   "24": {
+    "BoolParameters": 1,
+    "FloatParameters": 8,
+    "IntParameters": 2,
+    "TriggerParameters": 17
+   },
+   "61": {
+    "BoolParameters": 1,
+    "FloatParameters": 9,
+    "IntParameters": 2,
+    "TriggerParameters": 14
+   },
+   "80": {
+    "BoolParameters": 3,
+    "FloatParameters": 5,
+    "IntParameters": 2,
+    "TriggerParameters": 13
+   },
+   "88": {
+    "BoolParameters": 2,
+    "FloatParameters": 8,
+    "IntParameters": 2,
+    "TriggerParameters": 12
+   },
+   "107": {
+    "BoolParameters": 1,
+    "FloatParameters": 8,
+    "IntParameters": 2,
+    "TriggerParameters": 14
+   },
+   "146": {
+    "BoolParameters": 3,
+    "FloatParameters": 8,
+    "IntParameters": 2,
+    "TriggerParameters": 13
+   },
+   "174": {
+    "BoolParameters": 1,
+    "FloatParameters": 9,
+    "IntParameters": 2,
+    "TriggerParameters": 16
+   },
+   "184": {
+    "BoolParameters": 2,
+    "FloatParameters": 8,
+    "IntParameters": 2,
+    "TriggerParameters": 12
+   },
+   "202": {
+    "BoolParameters": 1,
+    "FloatParameters": 9,
+    "IntParameters": 2,
+    "TriggerParameters": 16
+   },
+   "217": {
+    "BoolParameters": 1,
+    "FloatParameters": 8,
+    "IntParameters": 2,
+    "TriggerParameters": 14
+   },
+   "225": {
+    "BoolParameters": 1,
+    "FloatParameters": 9,
+    "IntParameters": 2,
+    "TriggerParameters": 16
+   },
+   "233": {
+    "BoolParameters": 1,
+    "FloatParameters": 8,
+    "IntParameters": 2,
+    "TriggerParameters": 14
+   },
+   "246": {
+    "BoolParameters": 1,
+    "FloatParameters": 8,
+    "IntParameters": 2,
+    "TriggerParameters": 17
+   },
+   "283": {
+    "BoolParameters": 1,
+    "FloatParameters": 9,
+    "IntParameters": 2,
+    "TriggerParameters": 16
+   },
+   "302": {
+    "BoolParameters": 3,
+    "FloatParameters": 5,
+    "IntParameters": 2,
+    "TriggerParameters": 13
+   },
+   "310": {
+    "BoolParameters": 2,
+    "FloatParameters": 8,
+    "IntParameters": 2,
+    "TriggerParameters": 12
+   },
+   "329": {
+    "BoolParameters": 1,
+    "FloatParameters": 8,
+    "IntParameters": 2,
+    "TriggerParameters": 14
+   },
+   "368": {
+    "BoolParameters": 3,
+    "FloatParameters": 8,
+    "IntParameters": 2,
+    "TriggerParameters": 13
+   },
+   "396": {
+    "BoolParameters": 1,
+    "FloatParameters": 9,
+    "IntParameters": 2,
+    "TriggerParameters": 16
+   },
+   "406": {
+    "BoolParameters": 2,
+    "FloatParameters": 8,
+    "IntParameters": 2,
+    "TriggerParameters": 13
+   },
+   "424": {
+    "BoolParameters": 1,
+    "FloatParameters": 9,
+    "IntParameters": 2,
+    "TriggerParameters": 16
+   },
+   "439": {
+    "BoolParameters": 1,
+    "FloatParameters": 8,
+    "IntParameters": 2,
+    "TriggerParameters": 14
+   },
+   "447": {
+    "BoolParameters": 1,
+    "FloatParameters": 9,
+    "IntParameters": 2,
+    "TriggerParameters": 16
+   }
+  }
+ },
+ "3FNRLV56": {
+  "완주율": 100,
+  "엔티티별_영웅": {
+   "17": "Remedy",
+   "36": "Calibri/Nova",
+   "46": "Oni",
+   "54": "Remedy",
+   "73": "Fury",
+   "95": "Dread"
+  },
+  "엔티티별_후보": {
+   "17": [
+    "Remedy"
+   ],
+   "36": [
+    "Calibri/Nova"
+   ],
+   "46": [
+    "Oni"
+   ],
+   "54": [
+    "Remedy"
+   ],
+   "73": [
+    "Fury"
+   ],
+   "95": [
+    "Dread"
+   ]
+  },
+  "항목수": {
+   "17": {
+    "BoolParameters": 2,
+    "FloatParameters": 8,
+    "IntParameters": 2,
+    "TriggerParameters": 12
+   },
+   "36": {
+    "BoolParameters": 1,
+    "FloatParameters": 9,
+    "IntParameters": 2,
+    "TriggerParameters": 14
+   },
+   "46": {
+    "BoolParameters": 3,
+    "FloatParameters": 5,
+    "IntParameters": 2,
+    "TriggerParameters": 13
+   },
+   "54": {
+    "BoolParameters": 2,
+    "FloatParameters": 8,
+    "IntParameters": 2,
+    "TriggerParameters": 12
+   },
+   "73": {
+    "BoolParameters": 1,
+    "FloatParameters": 8,
+    "IntParameters": 2,
+    "TriggerParameters": 17
+   },
+   "95": {
+    "BoolParameters": 1,
+    "FloatParameters": 9,
+    "IntParameters": 2,
+    "TriggerParameters": 18
+   }
+  }
+ },
+ "AY2AE1JK": {
+  "완주율": 99,
+  "엔티티별_영웅": {
+   "2": "Twinkle",
+   "15": "Twinkle",
+   "37": "Khan",
+   "52": "Vector",
+   "71": "Oni",
+   "79": "Remedy",
+   "98": "Twinkle",
+   "137": "Jagger",
+   "165": "Calibri/Nova",
+   "175": "Leo",
+   "193": "Vector",
+   "208": "Twinkle",
+   "216": "Vector",
+   "224": "Magnus/Sejin",
+   "237": "Fury",
+   "259": "Khan",
+   "274": "Vector",
+   "293": "Oni",
+   "301": "Remedy",
+   "320": "Twinkle",
+   "359": "Jagger",
+   "387": "Vector",
+   "397": "Leo",
+   "415": "Vector",
+   "430": "Twinkle",
+   "438": "Dread"
+  },
+  "엔티티별_후보": {
+   "2": [
+    "Twinkle",
+    "Magnus/Sejin",
+    "Fury"
+   ],
+   "15": [
+    "Twinkle",
+    "Magnus/Sejin",
+    "Fury"
+   ],
+   "37": [
+    "Khan"
+   ],
+   "52": [
+    "Vector",
+    "Dread",
+    "Calibri/Nova"
+   ],
+   "71": [
+    "Oni"
+   ],
+   "79": [
+    "Remedy"
+   ],
+   "98": [
+    "Twinkle",
+    "Magnus/Sejin",
+    "Fury"
+   ],
+   "137": [
+    "Jagger"
+   ],
+   "165": [
+    "Calibri/Nova"
+   ],
+   "175": [
+    "Leo"
+   ],
+   "193": [
+    "Vector",
+    "Dread",
+    "Calibri/Nova"
+   ],
+   "208": [
+    "Twinkle",
+    "Magnus/Sejin",
+    "Fury"
+   ],
+   "216": [
+    "Vector",
+    "Dread",
+    "Calibri/Nova"
+   ],
+   "224": [
+    "Magnus/Sejin"
+   ],
+   "237": [
+    "Fury"
+   ],
+   "259": [
+    "Khan"
+   ],
+   "274": [
+    "Vector",
+    "Dread",
+    "Calibri/Nova"
+   ],
+   "293": [
+    "Oni"
+   ],
+   "301": [
+    "Remedy",
+    "Leo"
+   ],
+   "320": [
+    "Twinkle",
+    "Magnus/Sejin",
+    "Fury"
+   ],
+   "359": [
+    "Jagger"
+   ],
+   "387": [
+    "Vector",
+    "Dread",
+    "Calibri/Nova"
+   ],
+   "397": [
+    "Leo"
+   ],
+   "415": [
+    "Vector",
+    "Dread",
+    "Calibri/Nova"
+   ],
+   "430": [
+    "Twinkle",
+    "Magnus/Sejin",
+    "Fury"
+   ],
+   "438": [
+    "Dread"
+   ]
+  },
+  "항목수": {
+   "37": {
+    "BoolParameters": 2,
+    "FloatParameters": 9,
+    "IntParameters": 2,
+    "TriggerParameters": 12
+   },
+   "259": {
+    "BoolParameters": 2,
+    "FloatParameters": 9,
+    "IntParameters": 2,
+    "TriggerParameters": 12
+   },
+   "2": {
+    "BoolParameters": 1,
+    "FloatParameters": 8,
+    "IntParameters": 2,
+    "TriggerParameters": 14
+   },
+   "15": {
+    "BoolParameters": 1,
+    "FloatParameters": 8,
+    "IntParameters": 2,
+    "TriggerParameters": 14
+   },
+   "52": {
+    "BoolParameters": 1,
+    "FloatParameters": 9,
+    "IntParameters": 2,
+    "TriggerParameters": 16
+   },
+   "71": {
+    "BoolParameters": 3,
+    "FloatParameters": 5,
+    "IntParameters": 2,
+    "TriggerParameters": 13
+   },
+   "79": {
+    "BoolParameters": 2,
+    "FloatParameters": 8,
+    "IntParameters": 2,
+    "TriggerParameters": 12
+   },
+   "98": {
+    "BoolParameters": 1,
+    "FloatParameters": 8,
+    "IntParameters": 2,
+    "TriggerParameters": 14
+   },
+   "137": {
+    "BoolParameters": 3,
+    "FloatParameters": 8,
+    "IntParameters": 2,
+    "TriggerParameters": 13
+   },
+   "165": {
+    "BoolParameters": 1,
+    "FloatParameters": 9,
+    "IntParameters": 2,
+    "TriggerParameters": 14
+   },
+   "175": {
+    "BoolParameters": 2,
+    "FloatParameters": 8,
+    "IntParameters": 2,
+    "TriggerParameters": 13
+   },
+   "193": {
+    "BoolParameters": 1,
+    "FloatParameters": 9,
+    "IntParameters": 2,
+    "TriggerParameters": 16
+   },
+   "208": {
+    "BoolParameters": 1,
+    "FloatParameters": 8,
+    "IntParameters": 2,
+    "TriggerParameters": 14
+   },
+   "216": {
+    "BoolParameters": 1,
+    "FloatParameters": 9,
+    "IntParameters": 2,
+    "TriggerParameters": 16
+   },
+   "224": {
+    "BoolParameters": 1,
+    "FloatParameters": 8,
+    "IntParameters": 2,
+    "TriggerParameters": 15
+   },
+   "237": {
+    "BoolParameters": 1,
+    "FloatParameters": 8,
+    "IntParameters": 2,
+    "TriggerParameters": 17
+   },
+   "274": {
+    "BoolParameters": 1,
+    "FloatParameters": 9,
+    "IntParameters": 2,
+    "TriggerParameters": 16
+   },
+   "293": {
+    "BoolParameters": 3,
+    "FloatParameters": 5,
+    "IntParameters": 2,
+    "TriggerParameters": 13
+   },
+   "301": {
+    "BoolParameters": 2,
+    "FloatParameters": 8,
+    "IntParameters": 2,
+    "TriggerParameters": 12
+   },
+   "320": {
+    "BoolParameters": 1,
+    "FloatParameters": 8,
+    "IntParameters": 2,
+    "TriggerParameters": 14
+   },
+   "359": {
+    "BoolParameters": 3,
+    "FloatParameters": 8,
+    "IntParameters": 2,
+    "TriggerParameters": 13
+   },
+   "387": {
+    "BoolParameters": 1,
+    "FloatParameters": 9,
+    "IntParameters": 2,
+    "TriggerParameters": 16
+   },
+   "397": {
+    "BoolParameters": 2,
+    "FloatParameters": 8,
+    "IntParameters": 2,
+    "TriggerParameters": 13
+   },
+   "415": {
+    "BoolParameters": 1,
+    "FloatParameters": 9,
+    "IntParameters": 2,
+    "TriggerParameters": 16
+   },
+   "430": {
+    "BoolParameters": 1,
+    "FloatParameters": 8,
+    "IntParameters": 2,
+    "TriggerParameters": 14
+   },
+   "438": {
+    "BoolParameters": 1,
+    "FloatParameters": 9,
+    "IntParameters": 2,
+    "TriggerParameters": 18
+   }
+  }
+ },
+ "BYDPH6ZM": {
+  "완주율": 99,
+  "엔티티별_영웅": {
+   "20": "Remedy",
+   "39": "Fury",
+   "61": "Dread",
+   "69": "Calibri/Nova",
+   "79": "Remedy",
+   "98": "Leo"
+  },
+  "엔티티별_후보": {
+   "20": [
+    "Remedy"
+   ],
+   "39": [
+    "Fury"
+   ],
+   "61": [
+    "Dread"
+   ],
+   "69": [
+    "Calibri/Nova"
+   ],
+   "79": [
+    "Remedy"
+   ],
+   "98": [
+    "Leo"
+   ]
+  },
+  "항목수": {
+   "20": {
+    "BoolParameters": 2,
+    "FloatParameters": 8,
+    "IntParameters": 2,
+    "TriggerParameters": 12
+   },
+   "39": {
+    "BoolParameters": 1,
+    "FloatParameters": 8,
+    "IntParameters": 2,
+    "TriggerParameters": 17
+   },
+   "61": {
+    "BoolParameters": 1,
+    "FloatParameters": 9,
+    "IntParameters": 2,
+    "TriggerParameters": 18
+   },
+   "69": {
+    "BoolParameters": 1,
+    "FloatParameters": 9,
+    "IntParameters": 2,
+    "TriggerParameters": 14
+   },
+   "79": {
+    "BoolParameters": 2,
+    "FloatParameters": 8,
+    "IntParameters": 2,
+    "TriggerParameters": 12
+   },
+   "98": {
+    "BoolParameters": 2,
+    "FloatParameters": 8,
+    "IntParameters": 2,
+    "TriggerParameters": 13
+   }
+  }
+ },
+ "UNAVFHLU": {
+  "완주율": 99,
+  "엔티티별_영웅": {
+   "35": "Twinkle",
+   "48": "Twinkle",
+   "70": "Khan",
+   "85": "Calibri/Nova",
+   "104": "Oni",
+   "112": "Remedy",
+   "131": "Twinkle",
+   "170": "Jagger",
+   "198": "Vector",
+   "208": "Leo",
+   "226": "Vector",
+   "241": "Twinkle",
+   "249": "Vector",
+   "257": "Magnus/Sejin",
+   "270": "Twinkle",
+   "292": "Khan",
+   "307": "Vector",
+   "326": "Oni",
+   "334": "Remedy",
+   "353": "Twinkle",
+   "392": "Jagger",
+   "420": "Vector",
+   "430": "Remedy",
+   "448": "Vector",
+   "463": "Magnus/Sejin",
+   "471": "Vector"
+  },
+  "엔티티별_후보": {
+   "35": [
+    "Twinkle",
+    "Magnus/Sejin",
+    "Fury"
+   ],
+   "48": [
+    "Twinkle",
+    "Magnus/Sejin",
+    "Fury"
+   ],
+   "70": [
+    "Khan"
+   ],
+   "85": [
+    "Calibri/Nova"
+   ],
+   "104": [
+    "Oni"
+   ],
+   "112": [
+    "Remedy",
+    "Leo"
+   ],
+   "131": [
+    "Twinkle",
+    "Magnus/Sejin",
+    "Fury"
+   ],
+   "170": [
+    "Jagger"
+   ],
+   "198": [
+    "Vector",
+    "Dread",
+    "Calibri/Nova"
+   ],
+   "208": [
+    "Leo"
+   ],
+   "226": [
+    "Vector"
+   ],
+   "241": [
+    "Twinkle",
+    "Magnus/Sejin",
+    "Fury"
+   ],
+   "249": [
+    "Vector",
+    "Dread",
+    "Calibri/Nova"
+   ],
+   "257": [
+    "Magnus/Sejin"
+   ],
+   "270": [
+    "Twinkle",
+    "Magnus/Sejin",
+    "Fury"
+   ],
+   "292": [
+    "Khan"
+   ],
+   "307": [
+    "Vector",
+    "Dread",
+    "Calibri/Nova"
+   ],
+   "326": [
+    "Oni"
+   ],
+   "334": [
+    "Remedy",
+    "Leo"
+   ],
+   "353": [
+    "Twinkle",
+    "Magnus/Sejin",
+    "Fury"
+   ],
+   "392": [
+    "Jagger"
+   ],
+   "420": [
+    "Vector",
+    "Dread",
+    "Calibri/Nova"
+   ],
+   "430": [
+    "Remedy",
+    "Leo"
+   ],
+   "448": [
+    "Vector",
+    "Dread",
+    "Calibri/Nova"
+   ],
+   "463": [
+    "Magnus/Sejin"
+   ],
+   "471": [
+    "Vector",
+    "Dread",
+    "Calibri/Nova"
+   ]
+  },
+  "항목수": {
+   "35": {
+    "BoolParameters": 1,
+    "FloatParameters": 8,
+    "IntParameters": 2,
+    "TriggerParameters": 14
+   },
+   "48": {
+    "BoolParameters": 1,
+    "FloatParameters": 8,
+    "IntParameters": 2,
+    "TriggerParameters": 14
+   },
+   "70": {
+    "BoolParameters": 2,
+    "FloatParameters": 9,
+    "IntParameters": 2,
+    "TriggerParameters": 12
+   },
+   "85": {
+    "BoolParameters": 1,
+    "FloatParameters": 9,
+    "IntParameters": 2,
+    "TriggerParameters": 14
+   },
+   "104": {
+    "BoolParameters": 3,
+    "FloatParameters": 5,
+    "IntParameters": 2,
+    "TriggerParameters": 13
+   },
+   "112": {
+    "BoolParameters": 2,
+    "FloatParameters": 8,
+    "IntParameters": 2,
+    "TriggerParameters": 12
+   },
+   "131": {
+    "BoolParameters": 1,
+    "FloatParameters": 8,
+    "IntParameters": 2,
+    "TriggerParameters": 14
+   },
+   "170": {
+    "BoolParameters": 3,
+    "FloatParameters": 8,
+    "IntParameters": 2,
+    "TriggerParameters": 13
+   },
+   "198": {
+    "BoolParameters": 1,
+    "FloatParameters": 9,
+    "IntParameters": 2,
+    "TriggerParameters": 16
+   },
+   "208": {
+    "BoolParameters": 2,
+    "FloatParameters": 8,
+    "IntParameters": 2,
+    "TriggerParameters": 13
+   },
+   "226": {
+    "BoolParameters": 1,
+    "FloatParameters": 9,
+    "IntParameters": 2,
+    "TriggerParameters": 16
+   },
+   "241": {
+    "BoolParameters": 1,
+    "FloatParameters": 8,
+    "IntParameters": 2,
+    "TriggerParameters": 14
+   },
+   "249": {
+    "BoolParameters": 1,
+    "FloatParameters": 9,
+    "IntParameters": 2,
+    "TriggerParameters": 16
+   },
+   "257": {
+    "BoolParameters": 1,
+    "FloatParameters": 8,
+    "IntParameters": 2,
+    "TriggerParameters": 15
+   },
+   "270": {
+    "BoolParameters": 1,
+    "FloatParameters": 8,
+    "IntParameters": 2,
+    "TriggerParameters": 14
+   },
+   "292": {
+    "BoolParameters": 2,
+    "FloatParameters": 9,
+    "IntParameters": 2,
+    "TriggerParameters": 12
+   },
+   "307": {
+    "BoolParameters": 1,
+    "FloatParameters": 9,
+    "IntParameters": 2,
+    "TriggerParameters": 16
+   },
+   "326": {
+    "BoolParameters": 3,
+    "FloatParameters": 5,
+    "IntParameters": 2,
+    "TriggerParameters": 13
+   },
+   "334": {
+    "BoolParameters": 2,
+    "FloatParameters": 8,
+    "IntParameters": 2,
+    "TriggerParameters": 12
+   },
+   "353": {
+    "BoolParameters": 1,
+    "FloatParameters": 8,
+    "IntParameters": 2,
+    "TriggerParameters": 14
+   },
+   "392": {
+    "BoolParameters": 3,
+    "FloatParameters": 8,
+    "IntParameters": 2,
+    "TriggerParameters": 13
+   },
+   "420": {
+    "BoolParameters": 1,
+    "FloatParameters": 9,
+    "IntParameters": 2,
+    "TriggerParameters": 16
+   },
+   "430": {
+    "BoolParameters": 2,
+    "FloatParameters": 8,
+    "IntParameters": 2,
+    "TriggerParameters": 12
+   },
+   "448": {
+    "BoolParameters": 1,
+    "FloatParameters": 9,
+    "IntParameters": 2,
+    "TriggerParameters": 16
+   },
+   "463": {
+    "BoolParameters": 1,
+    "FloatParameters": 8,
+    "IntParameters": 2,
+    "TriggerParameters": 15
+   },
+   "471": {
+    "BoolParameters": 1,
+    "FloatParameters": 9,
+    "IntParameters": 2,
+    "TriggerParameters": 16
+   }
+  }
+ },
+ "7RGTWKER": {
+  "완주율": 99,
+  "엔티티별_영웅": {
+   "12": "Twinkle",
+   "25": "Fury",
+   "47": "Khan",
+   "62": "Vector",
+   "81": "Oni",
+   "89": "Remedy",
+   "108": "Twinkle",
+   "147": "Jagger",
+   "175": "Calibri/Nova",
+   "185": "Leo",
+   "203": "Vector",
+   "218": "Magnus/Sejin",
+   "226": "Vector",
+   "234": "Twinkle",
+   "247": "Twinkle",
+   "269": "Khan",
+   "284": "Calibri/Nova",
+   "303": "Oni",
+   "311": "Remedy",
+   "330": "Twinkle",
+   "369": "Jagger",
+   "397": "Vector",
+   "407": "Leo",
+   "425": "Vector",
+   "440": "Magnus/Sejin",
+   "448": "Vector"
+  },
+  "엔티티별_후보": {
+   "12": [
+    "Twinkle",
+    "Magnus/Sejin",
+    "Fury"
+   ],
+   "25": [
+    "Fury"
+   ],
+   "47": [
+    "Khan"
+   ],
+   "62": [
+    "Vector",
+    "Dread",
+    "Calibri/Nova"
+   ],
+   "81": [
+    "Oni"
+   ],
+   "89": [
+    "Remedy",
+    "Leo"
+   ],
+   "108": [
+    "Twinkle",
+    "Magnus/Sejin",
+    "Fury"
+   ],
+   "147": [
+    "Jagger"
+   ],
+   "175": [
+    "Calibri/Nova"
+   ],
+   "185": [
+    "Leo"
+   ],
+   "203": [
+    "Vector"
+   ],
+   "218": [
+    "Magnus/Sejin"
+   ],
+   "226": [
+    "Vector",
+    "Dread",
+    "Calibri/Nova"
+   ],
+   "234": [
+    "Twinkle",
+    "Magnus/Sejin",
+    "Fury"
+   ],
+   "247": [
+    "Twinkle",
+    "Magnus/Sejin",
+    "Fury"
+   ],
+   "269": [
+    "Khan"
+   ],
+   "284": [
+    "Calibri/Nova"
+   ],
+   "303": [
+    "Oni"
+   ],
+   "311": [
+    "Remedy",
+    "Leo"
+   ],
+   "330": [
+    "Twinkle",
+    "Magnus/Sejin",
+    "Fury"
+   ],
+   "369": [
+    "Jagger"
+   ],
+   "397": [
+    "Vector",
+    "Dread",
+    "Calibri/Nova"
+   ],
+   "407": [
+    "Leo"
+   ],
+   "425": [
+    "Vector",
+    "Dread",
+    "Calibri/Nova"
+   ],
+   "440": [
+    "Magnus/Sejin"
+   ],
+   "448": [
+    "Vector",
+    "Dread",
+    "Calibri/Nova"
+   ]
+  },
+  "항목수": {
+   "12": {
+    "BoolParameters": 1,
+    "FloatParameters": 8,
+    "IntParameters": 2,
+    "TriggerParameters": 14
+   },
+   "25": {
+    "BoolParameters": 1,
+    "FloatParameters": 8,
+    "IntParameters": 2,
+    "TriggerParameters": 17
+   },
+   "47": {
+    "BoolParameters": 2,
+    "FloatParameters": 9,
+    "IntParameters": 2,
+    "TriggerParameters": 12
+   },
+   "62": {
+    "BoolParameters": 1,
+    "FloatParameters": 9,
+    "IntParameters": 2,
+    "TriggerParameters": 16
+   },
+   "81": {
+    "BoolParameters": 3,
+    "FloatParameters": 5,
+    "IntParameters": 2,
+    "TriggerParameters": 13
+   },
+   "89": {
+    "BoolParameters": 2,
+    "FloatParameters": 8,
+    "IntParameters": 2,
+    "TriggerParameters": 12
+   },
+   "108": {
+    "BoolParameters": 1,
+    "FloatParameters": 8,
+    "IntParameters": 2,
+    "TriggerParameters": 14
+   },
+   "147": {
+    "BoolParameters": 3,
+    "FloatParameters": 8,
+    "IntParameters": 2,
+    "TriggerParameters": 13
+   },
+   "175": {
+    "BoolParameters": 1,
+    "FloatParameters": 9,
+    "IntParameters": 2,
+    "TriggerParameters": 14
+   },
+   "185": {
+    "BoolParameters": 2,
+    "FloatParameters": 8,
+    "IntParameters": 2,
+    "TriggerParameters": 13
+   },
+   "203": {
+    "BoolParameters": 1,
+    "FloatParameters": 9,
+    "IntParameters": 2,
+    "TriggerParameters": 16
+   },
+   "218": {
+    "BoolParameters": 1,
+    "FloatParameters": 8,
+    "IntParameters": 2,
+    "TriggerParameters": 15
+   },
+   "226": {
+    "BoolParameters": 1,
+    "FloatParameters": 9,
+    "IntParameters": 2,
+    "TriggerParameters": 16
+   },
+   "234": {
+    "BoolParameters": 1,
+    "FloatParameters": 8,
+    "IntParameters": 2,
+    "TriggerParameters": 14
+   },
+   "247": {
+    "BoolParameters": 1,
+    "FloatParameters": 8,
+    "IntParameters": 2,
+    "TriggerParameters": 14
+   },
+   "269": {
+    "BoolParameters": 2,
+    "FloatParameters": 9,
+    "IntParameters": 2,
+    "TriggerParameters": 12
+   },
+   "284": {
+    "BoolParameters": 1,
+    "FloatParameters": 9,
+    "IntParameters": 2,
+    "TriggerParameters": 14
+   },
+   "303": {
+    "BoolParameters": 3,
+    "FloatParameters": 5,
+    "IntParameters": 2,
+    "TriggerParameters": 13
+   },
+   "311": {
+    "BoolParameters": 2,
+    "FloatParameters": 8,
+    "IntParameters": 2,
+    "TriggerParameters": 12
+   },
+   "330": {
+    "BoolParameters": 1,
+    "FloatParameters": 8,
+    "IntParameters": 2,
+    "TriggerParameters": 14
+   },
+   "369": {
+    "BoolParameters": 3,
+    "FloatParameters": 8,
+    "IntParameters": 2,
+    "TriggerParameters": 13
+   },
+   "397": {
+    "BoolParameters": 1,
+    "FloatParameters": 9,
+    "IntParameters": 2,
+    "TriggerParameters": 16
+   },
+   "407": {
+    "BoolParameters": 2,
+    "FloatParameters": 8,
+    "IntParameters": 2,
+    "TriggerParameters": 13
+   },
+   "425": {
+    "BoolParameters": 1,
+    "FloatParameters": 9,
+    "IntParameters": 2,
+    "TriggerParameters": 16
+   },
+   "440": {
+    "BoolParameters": 1,
+    "FloatParameters": 8,
+    "IntParameters": 2,
+    "TriggerParameters": 15
+   },
+   "448": {
+    "BoolParameters": 1,
+    "FloatParameters": 9,
+    "IntParameters": 2,
+    "TriggerParameters": 16
+   }
+  }
+ },
+ "EEAVGNPL": {
+  "완주율": 99,
+  "엔티티별_영웅": {
+   "12": "Jagger",
+   "40": "Leo",
+   "58": "Vector",
+   "73": "Leo",
+   "91": "Magnus/Sejin",
+   "99": "Remedy"
+  },
+  "엔티티별_후보": {
+   "12": [
+    "Jagger"
+   ],
+   "40": [
+    "Leo"
+   ],
+   "58": [
+    "Vector"
+   ],
+   "73": [
+    "Leo"
+   ],
+   "91": [
+    "Magnus/Sejin"
+   ],
+   "99": [
+    "Remedy"
+   ]
+  },
+  "항목수": {
+   "12": {
+    "BoolParameters": 3,
+    "FloatParameters": 8,
+    "IntParameters": 2,
+    "TriggerParameters": 13
+   },
+   "40": {
+    "BoolParameters": 2,
+    "FloatParameters": 8,
+    "IntParameters": 2,
+    "TriggerParameters": 13
+   },
+   "58": {
+    "BoolParameters": 1,
+    "FloatParameters": 9,
+    "IntParameters": 2,
+    "TriggerParameters": 16
+   },
+   "73": {
+    "BoolParameters": 2,
+    "FloatParameters": 8,
+    "IntParameters": 2,
+    "TriggerParameters": 13
+   },
+   "91": {
+    "BoolParameters": 1,
+    "FloatParameters": 8,
+    "IntParameters": 2,
+    "TriggerParameters": 15
+   },
+   "99": {
+    "BoolParameters": 2,
+    "FloatParameters": 8,
+    "IntParameters": 2,
+    "TriggerParameters": 12
+   }
+  }
+ },
+ "AAZPTDR7": {
+  "완주율": 99,
+  "엔티티별_영웅": {
+   "29": "Jagger",
+   "57": "Calibri/Nova",
+   "67": "Magnus/Sejin",
+   "75": "Leo",
+   "93": "Vector",
+   "108": "Fury"
+  },
+  "엔티티별_후보": {
+   "29": [
+    "Jagger"
+   ],
+   "57": [
+    "Calibri/Nova"
+   ],
+   "67": [
+    "Magnus/Sejin"
+   ],
+   "75": [
+    "Leo"
+   ],
+   "93": [
+    "Vector"
+   ],
+   "108": [
+    "Fury"
+   ]
+  },
+  "항목수": {
+   "29": {
+    "BoolParameters": 3,
+    "FloatParameters": 8,
+    "IntParameters": 2,
+    "TriggerParameters": 13
+   },
+   "57": {
+    "BoolParameters": 1,
+    "FloatParameters": 9,
+    "IntParameters": 2,
+    "TriggerParameters": 14
+   },
+   "67": {
+    "BoolParameters": 1,
+    "FloatParameters": 8,
+    "IntParameters": 2,
+    "TriggerParameters": 15
+   },
+   "75": {
+    "BoolParameters": 2,
+    "FloatParameters": 8,
+    "IntParameters": 2,
+    "TriggerParameters": 13
+   },
+   "93": {
+    "BoolParameters": 1,
+    "FloatParameters": 9,
+    "IntParameters": 2,
+    "TriggerParameters": 16
+   },
+   "108": {
+    "BoolParameters": 1,
+    "FloatParameters": 8,
+    "IntParameters": 2,
+    "TriggerParameters": 17
+   }
+  }
+ },
+ "NDT4V7GT": {
+  "완주율": 99,
+  "엔티티별_영웅": {
+   "2": "Magnus/Sejin",
+   "10": "Vector",
+   "25": "Jagger",
+   "53": "Khan",
+   "68": "Oni",
+   "76": "Calibri/Nova"
+  },
+  "엔티티별_후보": {
+   "2": [
+    "Magnus/Sejin"
+   ],
+   "10": [
+    "Vector"
+   ],
+   "25": [
+    "Jagger"
+   ],
+   "53": [
+    "Khan"
+   ],
+   "68": [
+    "Oni"
+   ],
+   "76": [
+    "Calibri/Nova"
+   ]
+  },
+  "항목수": {
+   "2": {
+    "BoolParameters": 1,
+    "FloatParameters": 8,
+    "IntParameters": 2,
+    "TriggerParameters": 15
+   },
+   "10": {
+    "BoolParameters": 1,
+    "FloatParameters": 9,
+    "IntParameters": 2,
+    "TriggerParameters": 16
+   },
+   "25": {
+    "BoolParameters": 3,
+    "FloatParameters": 8,
+    "IntParameters": 2,
+    "TriggerParameters": 13
+   },
+   "53": {
+    "BoolParameters": 2,
+    "FloatParameters": 9,
+    "IntParameters": 2,
+    "TriggerParameters": 12
+   },
+   "68": {
+    "BoolParameters": 3,
+    "FloatParameters": 5,
+    "IntParameters": 2,
+    "TriggerParameters": 13
+   },
+   "76": {
+    "BoolParameters": 1,
+    "FloatParameters": 9,
+    "IntParameters": 2,
+    "TriggerParameters": 14
+   }
+  }
+ },
+ "WX57C1JU": {
+  "완주율": 99,
+  "엔티티별_영웅": {
+   "53": "Twinkle",
+   "66": "Twinkle",
+   "88": "Khan",
+   "103": "Calibri/Nova",
+   "122": "Oni",
+   "130": "Remedy",
+   "149": "Twinkle",
+   "188": "Jagger",
+   "216": "Calibri/Nova",
+   "226": "Remedy",
+   "244": "Vector",
+   "259": "Twinkle",
+   "267": "Vector",
+   "275": "Twinkle",
+   "288": "Twinkle",
+   "310": "Khan",
+   "325": "Calibri/Nova",
+   "344": "Oni",
+   "352": "Remedy",
+   "371": "Twinkle",
+   "410": "Jagger",
+   "438": "Calibri/Nova",
+   "448": "Leo",
+   "466": "Vector",
+   "481": "Twinkle",
+   "489": "Vector"
+  },
+  "엔티티별_후보": {
+   "53": [
+    "Twinkle",
+    "Magnus/Sejin",
+    "Fury"
+   ],
+   "66": [
+    "Twinkle",
+    "Magnus/Sejin",
+    "Fury"
+   ],
+   "88": [
+    "Khan"
+   ],
+   "103": [
+    "Calibri/Nova"
+   ],
+   "122": [
+    "Oni"
+   ],
+   "130": [
+    "Remedy",
+    "Leo"
+   ],
+   "149": [
+    "Twinkle",
+    "Magnus/Sejin",
+    "Fury"
+   ],
+   "188": [
+    "Jagger"
+   ],
+   "216": [
+    "Calibri/Nova"
+   ],
+   "226": [
+    "Remedy",
+    "Leo"
+   ],
+   "244": [
+    "Vector",
+    "Dread",
+    "Calibri/Nova"
+   ],
+   "259": [
+    "Twinkle",
+    "Magnus/Sejin",
+    "Fury"
+   ],
+   "267": [
+    "Vector",
+    "Dread",
+    "Calibri/Nova"
+   ],
+   "275": [
+    "Twinkle",
+    "Magnus/Sejin",
+    "Fury"
+   ],
+   "288": [
+    "Twinkle",
+    "Magnus/Sejin",
+    "Fury"
+   ],
+   "310": [
+    "Khan"
+   ],
+   "325": [
+    "Calibri/Nova"
+   ],
+   "344": [
+    "Oni"
+   ],
+   "352": [
+    "Remedy",
+    "Leo"
+   ],
+   "371": [
+    "Twinkle",
+    "Magnus/Sejin",
+    "Fury"
+   ],
+   "410": [
+    "Jagger"
+   ],
+   "438": [
+    "Calibri/Nova"
+   ],
+   "448": [
+    "Leo"
+   ],
+   "466": [
+    "Vector",
+    "Dread",
+    "Calibri/Nova"
+   ],
+   "481": [
+    "Twinkle",
+    "Magnus/Sejin",
+    "Fury"
+   ],
+   "489": [
+    "Vector",
+    "Dread",
+    "Calibri/Nova"
+   ]
+  },
+  "항목수": {
+   "53": {
+    "BoolParameters": 1,
+    "FloatParameters": 8,
+    "IntParameters": 2,
+    "TriggerParameters": 14
+   },
+   "66": {
+    "BoolParameters": 1,
+    "FloatParameters": 8,
+    "IntParameters": 2,
+    "TriggerParameters": 14
+   },
+   "88": {
+    "BoolParameters": 2,
+    "FloatParameters": 9,
+    "IntParameters": 2,
+    "TriggerParameters": 12
+   },
+   "103": {
+    "BoolParameters": 1,
+    "FloatParameters": 9,
+    "IntParameters": 2,
+    "TriggerParameters": 14
+   },
+   "122": {
+    "BoolParameters": 3,
+    "FloatParameters": 5,
+    "IntParameters": 2,
+    "TriggerParameters": 13
+   },
+   "130": {
+    "BoolParameters": 2,
+    "FloatParameters": 8,
+    "IntParameters": 2,
+    "TriggerParameters": 12
+   },
+   "149": {
+    "BoolParameters": 1,
+    "FloatParameters": 8,
+    "IntParameters": 2,
+    "TriggerParameters": 14
+   },
+   "188": {
+    "BoolParameters": 3,
+    "FloatParameters": 8,
+    "IntParameters": 2,
+    "TriggerParameters": 13
+   },
+   "216": {
+    "BoolParameters": 1,
+    "FloatParameters": 9,
+    "IntParameters": 2,
+    "TriggerParameters": 14
+   },
+   "226": {
+    "BoolParameters": 2,
+    "FloatParameters": 8,
+    "IntParameters": 2,
+    "TriggerParameters": 12
+   },
+   "244": {
+    "BoolParameters": 1,
+    "FloatParameters": 9,
+    "IntParameters": 2,
+    "TriggerParameters": 16
+   },
+   "259": {
+    "BoolParameters": 1,
+    "FloatParameters": 8,
+    "IntParameters": 2,
+    "TriggerParameters": 14
+   },
+   "267": {
+    "BoolParameters": 1,
+    "FloatParameters": 9,
+    "IntParameters": 2,
+    "TriggerParameters": 16
+   },
+   "275": {
+    "BoolParameters": 1,
+    "FloatParameters": 8,
+    "IntParameters": 2,
+    "TriggerParameters": 14
+   },
+   "288": {
+    "BoolParameters": 1,
+    "FloatParameters": 8,
+    "IntParameters": 2,
+    "TriggerParameters": 14
+   },
+   "310": {
+    "BoolParameters": 2,
+    "FloatParameters": 9,
+    "IntParameters": 2,
+    "TriggerParameters": 12
+   },
+   "325": {
+    "BoolParameters": 1,
+    "FloatParameters": 9,
+    "IntParameters": 2,
+    "TriggerParameters": 14
+   },
+   "344": {
+    "BoolParameters": 3,
+    "FloatParameters": 5,
+    "IntParameters": 2,
+    "TriggerParameters": 13
+   },
+   "352": {
+    "BoolParameters": 2,
+    "FloatParameters": 8,
+    "IntParameters": 2,
+    "TriggerParameters": 12
+   },
+   "371": {
+    "BoolParameters": 1,
+    "FloatParameters": 8,
+    "IntParameters": 2,
+    "TriggerParameters": 14
+   },
+   "410": {
+    "BoolParameters": 3,
+    "FloatParameters": 8,
+    "IntParameters": 2,
+    "TriggerParameters": 13
+   },
+   "438": {
+    "BoolParameters": 1,
+    "FloatParameters": 9,
+    "IntParameters": 2,
+    "TriggerParameters": 14
+   },
+   "448": {
+    "BoolParameters": 2,
+    "FloatParameters": 8,
+    "IntParameters": 2,
+    "TriggerParameters": 13
+   },
+   "466": {
+    "BoolParameters": 1,
+    "FloatParameters": 9,
+    "IntParameters": 2,
+    "TriggerParameters": 16
+   },
+   "481": {
+    "BoolParameters": 1,
+    "FloatParameters": 8,
+    "IntParameters": 2,
+    "TriggerParameters": 14
+   },
+   "489": {
+    "BoolParameters": 1,
+    "FloatParameters": 9,
+    "IntParameters": 2,
+    "TriggerParameters": 16
+   }
+  }
+ },
+ "FZ4Y6HCL": {
+  "완주율": 99,
+  "엔티티별_영웅": {
+   "40": "Calibri/Nova",
+   "59": "Dread",
+   "67": "Jagger",
+   "95": "Khan",
+   "110": "Magnus/Sejin",
+   "123": "Twinkle"
+  },
+  "엔티티별_후보": {
+   "40": [
+    "Calibri/Nova"
+   ],
+   "59": [
+    "Dread"
+   ],
+   "67": [
+    "Jagger"
+   ],
+   "95": [
+    "Khan"
+   ],
+   "110": [
+    "Magnus/Sejin"
+   ],
+   "123": [
+    "Twinkle"
+   ]
+  },
+  "항목수": {
+   "40": {
+    "BoolParameters": 1,
+    "FloatParameters": 9,
+    "IntParameters": 2,
+    "TriggerParameters": 14
+   },
+   "59": {
+    "BoolParameters": 1,
+    "FloatParameters": 9,
+    "IntParameters": 2,
+    "TriggerParameters": 18
+   },
+   "67": {
+    "BoolParameters": 3,
+    "FloatParameters": 8,
+    "IntParameters": 2,
+    "TriggerParameters": 13
+   },
+   "95": {
+    "BoolParameters": 2,
+    "FloatParameters": 9,
+    "IntParameters": 2,
+    "TriggerParameters": 12
+   },
+   "110": {
+    "BoolParameters": 1,
+    "FloatParameters": 8,
+    "IntParameters": 2,
+    "TriggerParameters": 15
+   },
+   "123": {
+    "BoolParameters": 1,
+    "FloatParameters": 8,
+    "IntParameters": 2,
+    "TriggerParameters": 14
+   }
+  }
+ },
+ "QHMCNGDP": {
+  "완주율": 99,
+  "엔티티별_영웅": {
+   "2": "Khan",
+   "17": "Dread",
+   "25": "Calibri/Nova",
+   "35": "Fury",
+   "57": "Leo",
+   "75": "Dread"
+  },
+  "엔티티별_후보": {
+   "2": [
+    "Khan"
+   ],
+   "17": [
+    "Dread"
+   ],
+   "25": [
+    "Calibri/Nova"
+   ],
+   "35": [
+    "Fury"
+   ],
+   "57": [
+    "Leo"
+   ],
+   "75": [
+    "Dread"
+   ]
+  },
+  "항목수": {
+   "2": {
+    "BoolParameters": 2,
+    "FloatParameters": 9,
+    "IntParameters": 2,
+    "TriggerParameters": 12
+   },
+   "17": {
+    "BoolParameters": 1,
+    "FloatParameters": 9,
+    "IntParameters": 2,
+    "TriggerParameters": 18
+   },
+   "25": {
+    "BoolParameters": 1,
+    "FloatParameters": 9,
+    "IntParameters": 2,
+    "TriggerParameters": 14
+   },
+   "35": {
+    "BoolParameters": 1,
+    "FloatParameters": 8,
+    "IntParameters": 2,
+    "TriggerParameters": 17
+   },
+   "57": {
+    "BoolParameters": 2,
+    "FloatParameters": 8,
+    "IntParameters": 2,
+    "TriggerParameters": 13
+   },
+   "75": {
+    "BoolParameters": 1,
+    "FloatParameters": 9,
+    "IntParameters": 2,
+    "TriggerParameters": 18
+   }
+  }
+ }
+}
