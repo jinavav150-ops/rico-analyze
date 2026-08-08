@@ -197,9 +197,13 @@ def build_report(code, s3date):
             for ms, h in d["logs"]
             if h[0] in (8, 29) and h[1] in d["players"]]
     # ⚔️ 교전 일지 — 누가 열었고 몇대몇으로 시작했나 (fight_story)
+    # 🔁 revives = 그 교전 구간 안에서 죽었다 부활해 다시 싸운 횟수(팀별) — 2026-08-09 14차.
+    #    "3명뿐인데 4명을 잡았다"는 혼란을 없애려고 사이트가 문장에 접어 넣는다.
+    #    옛 캐시 리포트에는 이 키가 없다 — 없으면 사이트가 조용히 옛 문장으로 떨어진다.
     fights_out = [{"a": _sec(f["a"], t0), "b": _sec(f["b"], t0), "dmg": f["tot"],
                    "lost": {str(k): v for k, v in f["lost"].items()}, "win": f["win"],
-                   "opener": f.get("opener"), "nums": f.get("nums")}
+                   "opener": f.get("opener"), "nums": f.get("nums"),
+                   "revives": {str(k): v for k, v in f.get("revives", {}).items()}}
                   for f in A.fight_story(d)]
     # 💚 힐 분배 (kind 1 회복의 자기/아군 나눔) → 선수 stats에 추가 필드로
     #    healA=아군에게 준 힐 · healR=아군에게서 받은 힐 (사이트 명단 표는 이 둘만 씀)
@@ -256,7 +260,11 @@ def build_report(code, s3date):
         "scenes": [{"s": _sec(x["ms"], t0), "kind": "setup", "pid": x["pid"],
                     "skill": x["skill"], "skill_i18n": x.get("skill_i18n"),
                     "tgt": x["target"], "n": len(x["dealers"]),
-                    "kills": len(x.get("targets") or [x["target"]])}
+                    "kills": len(x.get("targets") or [x["target"]]),
+                    # 효과 종류(stun/bind/pull/mark) — "kind" 는 이미 장면 종류(setup/ult)로 쓰고
+                    # 있으므로 이름이 겹치지 않게 "setup_kind" 로 따로 보낸다. 옛 스킬표엔 없어서
+                    # None 이 나올 수 있고, 사이트는 그때 기존 sc_setup 문장으로 떨어진다.
+                    "setup_kind": x.get("kind")}
                    for x in A.focus_after_setup(d)]
                   + [{"s": _sec(c["ms"], t0), "kind": "ult", "pid": c["pids"][0],
                       "pids": c["pids"], "skills": [x for x in c["skills"] if x],

@@ -20,7 +20,8 @@
       "ru": "Пистолет"
      },
      "desc_ko": "짧은 시간 동안 자동 권총으로 교체합니다.",
-     "setup": false
+     "setup": false,
+     "setup_kind": null
     },
     "4": {
      "id": 1863147,
@@ -39,7 +40,8 @@
       "ru": "Пистолет"
      },
      "desc_ko": "짧은 시간 동안 자동 권총으로 교체합니다.",
-     "setup": false
+     "setup": false,
+     "setup_kind": null
     },
     "5": {
      "id": 8385753,
@@ -58,7 +60,8 @@
       "ru": "Невидимость"
      },
      "desc_ko": "시간 제한 없이 투명화됩니다.",
-     "setup": false
+     "setup": false,
+     "setup_kind": null
     },
     "6": {
      "id": 7969655,
@@ -77,7 +80,8 @@
       "ru": "Грави-вихрь"
      },
      "desc_ko": "주위의 모든 것을 공중에 띄웁니다.",
-     "setup": false
+     "setup": false,
+     "setup_kind": null
     }
    },
    "pairs": {
@@ -103,7 +107,8 @@
       "ru": "Щит"
      },
      "desc_ko": "피해를 흡수하고 라이벌에게 던질 수 있는 방패를 전개합니다.",
-     "setup": false
+     "setup": false,
+     "setup_kind": null
     },
     "3": {
      "id": 108213008,
@@ -122,7 +127,8 @@
       "ru": "Прыжок"
      },
      "desc_ko": "강력한 점프를 충전합니다.",
-     "setup": false
+     "setup": false,
+     "setup_kind": null
     },
     "4": {
      "id": 108824021,
@@ -141,7 +147,8 @@
       "ru": "Захват"
      },
      "desc_ko": "주변 적을 결박하여 끌고 가는 영역을 생성합니다.",
-     "setup": true
+     "setup": true,
+     "setup_kind": "bind"
     }
    },
    "pairs": {}
@@ -165,7 +172,8 @@
       "ru": "Пинок"
      },
      "desc_ko": "라이벌에게 피해를 입히고 기절시키는 강력한 타격을 가합니다.",
-     "setup": true
+     "setup": true,
+     "setup_kind": "stun"
     },
     "3": {
      "id": 92064185,
@@ -184,7 +192,8 @@
       "ru": "Перегрузка"
      },
      "desc_ko": "받는 피해를 방어막으로 전환합니다.",
-     "setup": false
+     "setup": false,
+     "setup_kind": null
     },
     "5": {
      "id": 97335716,
@@ -203,7 +212,8 @@
       "ru": "Разделитель"
      },
      "desc_ko": "에너지를 땅으로 흘려보내 전방에 바위 장애물을 생성합니다.",
-     "setup": false
+     "setup": false,
+     "setup_kind": null
     }
    },
    "pairs": {}
@@ -227,7 +237,8 @@
       "ru": "Стена"
      },
      "desc_ko": "영웅 앞에 벽을 세워 공격을 막습니다.",
-     "setup": false
+     "setup": false,
+     "setup_kind": null
     },
     "9": {
      "id": 36096774,
@@ -246,7 +257,8 @@
       "ru": "Шар"
      },
      "desc_ko": "빠르게 굴러가는 구체로 변신해 적을 기절시킵니다.",
-     "setup": true
+     "setup": true,
+     "setup_kind": "stun"
     },
     "11": {
      "id": 8516094,
@@ -265,7 +277,8 @@
       "ru": "Минное поле"
      },
      "desc_ko": "주위에 지뢰를 뿌립니다.",
-     "setup": false
+     "setup": false,
+     "setup_kind": null
     }
    },
    "pairs": {}
@@ -289,7 +302,8 @@
       "ru": "Ищейка"
      },
      "desc_ko": "라이벌을 추적하고 충격 시 피해를 입히는 구체를 방출합니다.",
-     "setup": false
+     "setup": false,
+     "setup_kind": null
     },
     "10": {
      "id": 80932086,
@@ -308,7 +322,8 @@
       "ru": "Щит-матрица"
      },
      "desc_ko": "충격을 일으켜 범위 내 아군에게 방어막을 부여합니다.",
-     "setup": false
+     "setup": false,
+     "setup_kind": null
     },
     "11": {
      "id": 80932042,
@@ -327,7 +342,8 @@
       "ru": "Турель"
      },
      "desc_ko": "어깨에 장착한 자동 발사 포탑을 배치합니다.",
-     "setup": false
+     "setup": false,
+     "setup_kind": null
     }
    },
    "pairs": {}
@@ -351,7 +367,8 @@
       "ru": "Взлет"
      },
      "desc_ko": "강력한 제트팩 점프를 활성화합니다.",
-     "setup": false
+     "setup": false,
+     "setup_kind": null
     },
     "4": {
      "id": 3526628,
@@ -370,7 +387,8 @@
       "ru": "Отскок"
      },
      "desc_ko": "선택한 방향으로 짧게 돌진합니다.",
-     "setup": false
+     "setup": false,
+     "setup_kind": null
     },
     "5": {
      "id": 1244267,
@@ -389,7 +407,8 @@
       "ru": "Ударные гранаты"
      },
      "desc_ko": "적을 기절시키는 수류탄을 던집니다.",
-     "setup": true
+     "setup": true,
+     "setup_kind": "stun"
     }
    },
    "pairs": {}
@@ -413,7 +432,8 @@
       "ru": "Захват"
      },
      "desc_ko": "라이벌을 자신의 위치로 끌어당깁니다.",
-     "setup": true
+     "setup": true,
+     "setup_kind": "pull"
     },
     "3": {
      "id": 48254321,
@@ -432,7 +452,8 @@
       "ru": "Грави-удар"
      },
      "desc_ko": "전방으로 몸을 당긴 다음 물체를 밀어냅니다.",
-     "setup": false
+     "setup": false,
+     "setup_kind": null
     },
     "5": {
      "id": 48438735,
@@ -451,7 +472,8 @@
       "ru": "Несокрушимость"
      },
      "desc_ko": "짧은 시간 동안 무적이 됩니다.",
-     "setup": false
+     "setup": false,
+     "setup_kind": null
     }
    },
    "pairs": {}
@@ -475,7 +497,8 @@
       "ru": "Сковка"
      },
      "desc_ko": "탄환을 발사하여 목표를 범위 내에 있는 가장 가까운 물체에 묶습니다.",
-     "setup": true
+     "setup": true,
+     "setup_kind": "bind"
     },
     "5": {
      "id": 67015127,
@@ -494,7 +517,8 @@
       "ru": "Сковка"
      },
      "desc_ko": "피해량이 높은 저격소총",
-     "setup": false
+     "setup": false,
+     "setup_kind": null
     },
     "6": {
      "id": 67086738,
@@ -513,7 +537,8 @@
       "ru": "Энергоядра "
      },
      "desc_ko": "획득 시 아군은 치유되고 라이벌은 피해를 받는 셀을 뿌립니다.",
-     "setup": false
+     "setup": false,
+     "setup_kind": null
     },
     "15": {
      "id": 65985131,
@@ -532,7 +557,8 @@
       "ru": "Сверхновая"
      },
      "desc_ko": "짧은 충전 후 폭발합니다.",
-     "setup": false
+     "setup": false,
+     "setup_kind": null
     }
    },
    "pairs": {
@@ -558,7 +584,8 @@
       "ru": "Телекинез"
      },
      "desc_ko": "모든 물질을 들어 올려서 던집니다.",
-     "setup": false
+     "setup": false,
+     "setup_kind": null
     },
     "3": {
      "id": 8861095,
@@ -577,7 +604,8 @@
       "ru": "Телепорт"
      },
      "desc_ko": "짧은 범위 내 모든 물체 사이를 순간이동합니다.",
-     "setup": false
+     "setup": false,
+     "setup_kind": null
     },
     "4": {
      "id": 9039954,
@@ -596,7 +624,8 @@
       "ru": "Всплеск"
      },
      "desc_ko": "모든 것을 밀어내고 라이벌을 기절시킵니다.",
-     "setup": true
+     "setup": true,
+     "setup_kind": "stun"
     }
    },
    "pairs": {}
@@ -620,7 +649,8 @@
       "ru": "Первая помощь"
      },
      "desc_ko": "체력을 회복하는 수류탄을 던집니다.",
-     "setup": false
+     "setup": false,
+     "setup_kind": null
     },
     "12": {
      "id": 5881195,
@@ -639,7 +669,8 @@
       "ru": "Батут"
      },
      "desc_ko": "지상에 점프 패드를 설치합니다.",
-     "setup": false
+     "setup": false,
+     "setup_kind": null
     },
     "14": {
      "id": 6700832,
@@ -658,7 +689,8 @@
       "ru": "Грави-воронка"
      },
      "desc_ko": "범위 내 모든 것을 빨아들이는 깔때기를 생성합니다.",
-     "setup": false
+     "setup": false,
+     "setup_kind": null
     }
    },
    "pairs": {}
@@ -682,7 +714,8 @@
       "ru": "Электроволна"
      },
      "desc_ko": "라이벌이 세진에게서 받는 피해를 증가시키는 표식을 적용합니다.",
-     "setup": true
+     "setup": true,
+     "setup_kind": "mark"
     },
     "6": {
      "id": 98642044,
@@ -701,7 +734,8 @@
       "ru": "Транслокатор"
      },
      "desc_ko": "순간이동기를 던진 위치로 순간이동합니다.",
-     "setup": false
+     "setup": false,
+     "setup_kind": null
     },
     "8": {
      "id": 97251826,
@@ -720,7 +754,8 @@
       "ru": "Сверхзаряд"
      },
      "desc_ko": "충전하여 강력한 에너지 광선을 방출합니다.",
-     "setup": false
+     "setup": false,
+     "setup_kind": null
     }
    },
    "pairs": {}
@@ -744,7 +779,8 @@
       "ru": "Кластер-граната"
      },
      "desc_ko": "작은 수류탄으로 쪼개지는 수류탄을 던집니다.",
-     "setup": false
+     "setup": false,
+     "setup_kind": null
     },
     "17": {
      "id": 3501126,
@@ -763,7 +799,8 @@
       "ru": "Мины-липучки"
      },
      "desc_ko": "모든 표면에 달라붙는 지뢰를 던집니다.",
-     "setup": false
+     "setup": false,
+     "setup_kind": null
     },
     "24": {
      "id": 4877555,
@@ -782,7 +819,8 @@
       "ru": "Ракетный залп"
      },
      "desc_ko": "강력한 유도 미사일을 발사합니다.",
-     "setup": false
+     "setup": false,
+     "setup_kind": null
     }
    },
    "pairs": {}
@@ -806,7 +844,8 @@
       "ru": "Детонатор"
      },
      "desc_ko": "명령에 따라 폭발하는 접착 지뢰를 던집니다.",
-     "setup": false
+     "setup": false,
+     "setup_kind": null
     },
     "5": {
      "id": 66313816,
@@ -825,7 +864,8 @@
       "ru": "Поток"
      },
      "desc_ko": "기류를 만들어 속도와 발사체를 한 방향으로 가속화합니다.",
-     "setup": false
+     "setup": false,
+     "setup_kind": null
     },
     "11": {
      "id": 66396624,
@@ -844,7 +884,8 @@
       "ru": "Резонанс"
      },
      "desc_ko": "근접 피해 지팡이로 교체합니다.",
-     "setup": false
+     "setup": false,
+     "setup_kind": null
     }
    },
    "pairs": {}

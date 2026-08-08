@@ -952,7 +952,10 @@ def focus_after_setup(d, window_ms=4000, min_dealers=2):
                         # 사이트가 보는 언어로 고르도록 이름 사전을 통째로 넘긴다
                         "skill_i18n": _names4(e),
                         "target": hit[0], "targets": sorted(hit),
-                        "dealers": sorted(dealers_all), "team": team})
+                        "dealers": sorted(dealers_all), "team": team,
+                        # 효과 종류(stun/bind/pull/mark) — 스킬표생성.py 가 공식 설명문에서
+                        # 자동 분류한 값을 그대로 옮긴다. 옛 스킬표(필드 없음)면 None → 옛 문장 폴백.
+                        "kind": e.get("setup_kind")})
     # 🪤 두 가지 중복을 걷어낸다:
     #    ① 모드 전환 쌍(노바 바인드샷)은 두 오프셋이 각각 트리거돼 같은 장면이 두 번 잡힌다.
     #    ② 한 교전에서 여러 명이 각자 판을 깔면 같은 처치가 사람 수만큼 반복된다
@@ -1030,6 +1033,14 @@ def fight_story(d):
     """⚔️ 교전 일지 — 구간마다 "누가 열었고, 몇대몇으로 시작했고, 결과가 어땠나".
 
     유저 요청(2026-08-09): "어떤 판단으로 졌는지"는 교전 단위로 읽힌다.
+
+    🪤 2026-08-09 14차 — "3명뿐인데 4명을 어떻게 잡았나" (MAMMON 제보).
+       `fights()` 는 6초 넘게 조용해야 끊는데, 계속 치고받는 공방은 24초·86초·113초짜리가
+       "한 번의 교전"으로 묶인다. 그 안에서 죽은 사람이 **부활해 또 죽으면** 3명뿐인 팀에서
+       4킬·6킬이 나온다 — `lost`(구간 전체 합계)와 `nums`(교전 시작 순간 스냅샷)가
+       서로 다른 시간 범위를 말하는데 한 문장에 붙어 있어서 생기는 혼란이다.
+       `fights()` 자체는 손대지 않는다(교전 개수에 의존하는 8곳 이상이 재사용한다).
+       대신 **그 교전 구간 안에서 실제로 부활이 몇 번 있었는지** 세어 문장 쪽에서 밝힌다.
     """
     spans = _death_spans(d)
     rows = []
@@ -1038,8 +1049,21 @@ def fight_story(d):
         ac = alive_counts(d, spans, a - 100)
         order = fb.get((a, b)) or []
         opener = order[0][0] if order else None
+        # 🔁 부활 횟수 — "죽었던 사람이 부활해 다시 싸운" 것 = 사망·부활이 **둘 다** 이
+        #    교전 구간(±1.5초, `fight_rounds`가 `lost`를 셀 때 쓰는 것과 같은 범위) 안에
+        #    들어오는 경우만 센다. 부활이 구간 밖(다음 교전)에서 일어났다면 "이 교전에서
+        #    다시 싸웠다"고 할 수 없으니 빼야 한다 — 실제로 위 사례의 두 번째 죽음(85.6초)의
+        #    부활(95.6초)은 구간 밖이라 안 세어진다(그건 다음 교전 몫이다).
+        #    팀별로 나눠 담는다 — "부활한 게 어느 팀 선수인지"가 문장의 핵심이다.
+        revives = collections.Counter()
+        for pid, sp in spans.items():
+            team = d["players"][pid]["team"]
+            for dms, rms in sp:
+                if a - 1500 <= dms <= b + 1500 and a - 1500 <= rms <= b + 1500:
+                    revives[team] += 1
         rows.append({"a": a, "b": b, "tot": tot, "lost": lost, "win": win,
-                     "opener": opener, "nums": [ac.get(1, 0), ac.get(2, 0)]})
+                     "opener": opener, "nums": [ac.get(1, 0), ac.get(2, 0)],
+                     "revives": dict(revives)})
     return rows
 
 
@@ -1111,11 +1135,17 @@ def positioning(d, warmup_ms=3000):
 
 def heat_grid(d, n=26):
     """🗺️ 팀별 **장악 히트맵** 격자 — 어느 팀이 맵 어디서 시간을 보냈나."""
-    allpos = [q for tr in d["pos"].values() for _, q in tr]
-    if not allpos:
+    # 2026-08-09: bounds 도 반드시 선수(hero_entity) 좌표만으로 잡는다.
+    # 예전엔 d["pos"].values() 전체(차량·터렛·소품 포함)로 min/max를 구했는데,
+    # 격자를 "채우는" 쪽은 이미 hero_entity만 쓰고 있어서 축이 채워지는 데이터보다
+    # 넓게 잡혔다(실측: 용광로 맵 선수 x 활동폭 60.4 vs 전체 엔티티 70.8 — 17% 헐거움).
+    # 지도 좌표는 어디서든 선수 것만 쓴다는 원칙대로, bounds도 같은 좌표 집합을 쓴다.
+    heropos = [q for pid, p in d["players"].items()
+               for _, q in d["pos"].get(p["hero_entity"], [])]
+    if not heropos:
         return None
-    xs = [q[0] for q in allpos]
-    zs = [q[2] for q in allpos]
+    xs = [q[0] for q in heropos]
+    zs = [q[2] for q in heropos]
     x0, x1, z0, z1 = min(xs), max(xs), min(zs), max(zs)
     grid = {}
     for pid, p in d["players"].items():
@@ -1354,6 +1384,9 @@ def coach(d):
         out.append({"k": "p_setupkill", "sev": "good", "pid": x["pid"],
                     "skill": x["skill"], "skill_i18n": x.get("skill_i18n"),
                     "n": len(x["dealers"]),
+                    # 효과 종류(stun/bind/pull/mark) — coach_lines()가 이걸로 문장을 고른다.
+                    # 옛 스킬표(필드 없음)면 None → coach_lines()가 기존 중립 문장으로 폴백.
+                    "kind": x.get("kind"),
                     "ex": [round((x["ms"] - t0) / 1000, 1)]})
 
     # ② 궁 연계 — 아군 궁이 겹쳐 들어가고 처치가 따라온 장면
@@ -1443,7 +1476,15 @@ COACH_KO = {
     "p_goodheal": "🟢 {name}: 아군 회복 {ally} — 팀을 살리는 힐 분배가 좋았어요.",
     "p_ultgood": "🟢 {name}: 궁 {n}번 뒤에 처치 {got}회가 이어졌어요 — 궁 타이밍이 좋습니다.",
     "p_carry":   "🟢 {name}: 처치 {k_n} · 팀 최고 딜({dmg}) — 이 경기의 에이스였어요.",
+    # 🎯 종류별 4가지 + 종류를 모를 때(옛 데이터)를 위한 중립 폴백("p_setupkill").
+    #    coach_lines() 가 c["kind"](stun/bind/pull/mark)를 보고 "p_setupkill_{kind}" 를 먼저
+    #    찾고, 없으면 이 중립 문장으로 떨어진다. 효과가 다른 스킬을 전부 "잡아둔 뒤"로
+    #    뭉뚱그리던 버그(2026-08-09 MAMMON 제보)의 수정 — 반드시 사실과 맞는 동사를 쓸 것.
     "p_setupkill": "🟢 {name}: '{skill}'{jo} 상대를 잡아둔 뒤 {n}명이 몰아쳐 처치했어요 — 좋은 시작이었습니다.",
+    "p_setupkill_stun": "🟢 {name}: '{skill}'{jo} 상대를 기절시킨 뒤 {n}명이 몰아쳐 처치했어요 — 좋은 시작이었습니다.",
+    "p_setupkill_bind": "🟢 {name}: '{skill}'{jo} 상대를 묶어둔 뒤 {n}명이 몰아쳐 처치했어요 — 좋은 시작이었습니다.",
+    "p_setupkill_pull": "🟢 {name}: '{skill}'{jo} 상대를 끌어당긴 뒤 {n}명이 몰아쳐 처치했어요 — 좋은 시작이었습니다.",
+    "p_setupkill_mark": "🟢 {name}: '{skill}'{jo} 상대가 받는 피해를 늘려놓은 뒤 {n}명이 몰아쳐 처치했어요 — 좋은 시작이었습니다.",
     "p_ultcombo": "🟢 {name}: 아군과 궁을 겹쳐 넣어({skills}) 처치 {got}회로 이어졌어요 — 좋은 연계입니다.",
     "p_tooclose": "🔴 {name}: 이 영웅 평균({base})보다 훨씬 붙어서({mine}) 싸우다 {n}번 죽었어요 — 사거리 이점을 살려 한 발짝 물러서서 싸워 보세요.",
 }
@@ -1477,6 +1518,8 @@ def coach_lines(d, tpl=None):
     lines = []
     for c in coach(d):
         t = tpl.get(c["k"])
+        if c.get("kind"):                      # 종류별 문장이 있으면 그걸 먼저 쓴다
+            t = tpl.get(f"{c['k']}_{c['kind']}", t)
         if not t:
             continue
         vals = dict(c)
@@ -1778,10 +1821,14 @@ def render_html(name, d):
 
     # ── 사망 위치 지도 ────────────────────────────────────────────────
     spots = [x for x in death_spots(d) if x[3]]
-    allpos = [p for tr in d["pos"].values() for _, p in tr]
-    if spots and allpos:
-        xs = [p[0] for p in allpos]
-        zs = [p[2] for p in allpos]
+    # 2026-08-09: 뷰박스 범위도 heat_grid() bounds와 같은 원칙 — 선수(hero_entity)
+    # 좌표만으로 잡는다. 차량·터렛·소품 좌표가 섞이면 축이 실제 활동 범위보다
+    # 넓어져 그림이 뭉뚝해진다(18경기 실측 평균 14.3% 헐거움).
+    heropos = [q for pid, p in d["players"].items()
+               for _, q in d["pos"].get(p["hero_entity"], [])]
+    if spots and heropos:
+        xs = [p[0] for p in heropos]
+        zs = [p[2] for p in heropos]
         x0, x1 = min(xs), max(xs)
         z0, z1 = min(zs), max(zs)
         W, H = 560, 560 * max(1e-6, (z1 - z0)) / max(1e-6, (x1 - x0))
@@ -1809,8 +1856,11 @@ def render_html(name, d):
                     op = min(0.42, (cnt / peak) ** 0.5 * 0.42)
                     h.append(f'<rect x="{20+i*cw:.0f}" y="{20+j*ch:.0f}" width="{cw:.1f}" '
                              f'height="{ch:.1f}" fill="rgba({color},{op:.2f})"/>')
-        for tr in d["pos"].values():                      # 이동 흔적을 옅게 깔아 맵 모양을 낸다
-            pts = " ".join(f"{sx(p[0]):.0f},{sy(p[2]):.0f}" for _, p in tr[::12])
+        for pid, p in d["players"].items():               # 선수 이동 흔적만 (소품 제외)
+            # 2026-08-09: 전체 엔티티를 그리면 소품 경로가 그림 밖으로 나간다.
+            # 실측: viewBox 560×560 인데 점 1.30% 밖(x: -83~645, y: -83~540).
+            tr = d["pos"].get(p["hero_entity"], [])
+            pts = " ".join(f"{sx(q[0]):.0f},{sy(q[2]):.0f}" for _, q in tr[::12])
             if pts:
                 h.append(f'<polyline points="{pts}" fill=none stroke="#2b3240" stroke-width=1/>')
         for i, (ms, tgt, who, p) in enumerate(spots, 1):
