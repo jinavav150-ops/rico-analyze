@@ -1,0 +1,853 @@
+{
+ "_생성": "도구/스킬표생성.py — 오프셋은 리플레이 18경기 108명 실측, 이름은 게임원본_스냅샷/2.1.4_build380 로케일(공식 번역)",
+ "heroes": {
+  "calibri": {
+   "offsets": {
+    "2": {
+     "id": 3422041,
+     "ult": false,
+     "mode": false,
+     "conf": "CONFIRMED",
+     "names": {
+      "ko": "총기 모드",
+      "en": "Gun Mode",
+      "ja": "ガンモード",
+      "zh": "槍械模式",
+      "fr": "Mode pistolet",
+      "de": "Pistolenmodus",
+      "es": "Modo de arma",
+      "pt": "Modo de Arma",
+      "ru": "Пистолет"
+     },
+     "desc_ko": "짧은 시간 동안 자동 권총으로 교체합니다.",
+     "setup": false
+    },
+    "4": {
+     "id": 1863147,
+     "ult": false,
+     "mode": true,
+     "conf": "LIKELY",
+     "names": {
+      "ko": "권총",
+      "en": "Handgun",
+      "ja": "ハンドガン",
+      "zh": "手槍",
+      "fr": "Pistolet",
+      "de": "Pistole",
+      "es": "Pistola",
+      "pt": "Pistola",
+      "ru": "Пистолет"
+     },
+     "desc_ko": "짧은 시간 동안 자동 권총으로 교체합니다.",
+     "setup": false
+    },
+    "5": {
+     "id": 8385753,
+     "ult": false,
+     "mode": false,
+     "conf": "CONFIRMED",
+     "names": {
+      "ko": "페이드",
+      "en": "Fade",
+      "ja": "フェイド",
+      "zh": "隱匿",
+      "fr": "Disparition",
+      "de": "Verblassen",
+      "es": "Esfumación",
+      "pt": "Desaparecer",
+      "ru": "Невидимость"
+     },
+     "desc_ko": "시간 제한 없이 투명화됩니다.",
+     "setup": false
+    },
+    "6": {
+     "id": 7969655,
+     "ult": true,
+     "mode": false,
+     "conf": "CONFIRMED",
+     "names": {
+      "ko": "소용돌이",
+      "en": "Vortex",
+      "ja": "ボルテックス",
+      "zh": "重力漩渦",
+      "fr": "Vortex",
+      "de": "Vortex",
+      "es": "Vórtice",
+      "pt": "Vórtex",
+      "ru": "Грави-вихрь"
+     },
+     "desc_ko": "주위의 모든 것을 공중에 띄웁니다.",
+     "setup": false
+    }
+   },
+   "pairs": {
+    "4": 2
+   }
+  },
+  "dread": {
+   "offsets": {
+    "1": {
+     "id": 108140581,
+     "ult": false,
+     "mode": false,
+     "conf": "CONFIRMED",
+     "names": {
+      "ko": "방패",
+      "en": "Shield",
+      "ja": "シールド",
+      "zh": "護盾",
+      "fr": "Bouclier",
+      "de": "Schild",
+      "es": "Escudo",
+      "pt": "Escudo",
+      "ru": "Щит"
+     },
+     "desc_ko": "피해를 흡수하고 라이벌에게 던질 수 있는 방패를 전개합니다.",
+     "setup": false
+    },
+    "3": {
+     "id": 108213008,
+     "ult": false,
+     "mode": false,
+     "conf": "CONFIRMED",
+     "names": {
+      "ko": "도약",
+      "en": "Leap",
+      "ja": "リープ",
+      "zh": "躍擊",
+      "fr": "Propulsion",
+      "de": "Sprung",
+      "es": "Salto",
+      "pt": "Salto",
+      "ru": "Прыжок"
+     },
+     "desc_ko": "강력한 점프를 충전합니다.",
+     "setup": false
+    },
+    "4": {
+     "id": 108824021,
+     "ult": true,
+     "mode": false,
+     "conf": "CONFIRMED",
+     "names": {
+      "ko": "봉쇄",
+      "en": "Lockdown",
+      "ja": "ロックダウン",
+      "zh": "封鎖",
+      "fr": "Contention",
+      "de": "Sperre",
+      "es": "Confinamiento",
+      "pt": "Confinamento",
+      "ru": "Захват"
+     },
+     "desc_ko": "주변 적을 결박하여 끌고 가는 영역을 생성합니다.",
+     "setup": true
+    }
+   },
+   "pairs": {}
+  },
+  "fury": {
+   "offsets": {
+    "2": {
+     "id": 92064156,
+     "ult": false,
+     "mode": false,
+     "conf": "CONFIRMED",
+     "names": {
+      "ko": "킥",
+      "en": "Kick",
+      "ja": "キック",
+      "zh": "踢擊",
+      "fr": "Coup de pied",
+      "de": "Tritt",
+      "es": "Patada",
+      "pt": "Bicuda",
+      "ru": "Пинок"
+     },
+     "desc_ko": "라이벌에게 피해를 입히고 기절시키는 강력한 타격을 가합니다.",
+     "setup": true
+    },
+    "3": {
+     "id": 92064185,
+     "ult": false,
+     "mode": false,
+     "conf": "CONFIRMED",
+     "names": {
+      "ko": "오버드라이브",
+      "en": "Overdrive",
+      "ja": "オーバードライブ",
+      "zh": "超載",
+      "fr": "Surcharge",
+      "de": "Übersteuerung",
+      "es": "A toda máquina",
+      "pt": "Sobrecarga",
+      "ru": "Перегрузка"
+     },
+     "desc_ko": "받는 피해를 방어막으로 전환합니다.",
+     "setup": false
+    },
+    "5": {
+     "id": 97335716,
+     "ult": true,
+     "mode": false,
+     "conf": "CONFIRMED",
+     "names": {
+      "ko": "지진의 분열",
+      "en": "Seismic Divide",
+      "ja": "デバイド",
+      "zh": "震裂分界",
+      "fr": "Scission sismique",
+      "de": "Seismische Kluft",
+      "es": "División sísmica",
+      "pt": "Divisor Sísmico",
+      "ru": "Разделитель"
+     },
+     "desc_ko": "에너지를 땅으로 흘려보내 전방에 바위 장애물을 생성합니다.",
+     "setup": false
+    }
+   },
+   "pairs": {}
+  },
+  "jagger": {
+   "offsets": {
+    "2": {
+     "id": 33838561,
+     "ult": false,
+     "mode": false,
+     "conf": "CONFIRMED",
+     "names": {
+      "ko": "강화 벽",
+      "en": "Fortified Wall",
+      "ja": "強化ウォール",
+      "zh": "防禦壁壘",
+      "fr": "Mur fortifié",
+      "de": "Befestigte Mauer",
+      "es": "Muralla",
+      "pt": "Muralha",
+      "ru": "Стена"
+     },
+     "desc_ko": "영웅 앞에 벽을 세워 공격을 막습니다.",
+     "setup": false
+    },
+    "9": {
+     "id": 36096774,
+     "ult": false,
+     "mode": false,
+     "conf": "CONFIRMED",
+     "names": {
+      "ko": "레킹 볼",
+      "en": "Wrecking Ball",
+      "ja": "レッキングボール",
+      "zh": "破壞球",
+      "fr": "Boule de démolition",
+      "de": "Abrissbirne",
+      "es": "Bola de demolición",
+      "pt": "Bola de Demolição",
+      "ru": "Шар"
+     },
+     "desc_ko": "빠르게 굴러가는 구체로 변신해 적을 기절시킵니다.",
+     "setup": true
+    },
+    "11": {
+     "id": 8516094,
+     "ult": true,
+     "mode": false,
+     "conf": "CONFIRMED",
+     "names": {
+      "ko": "접근 금지 구역",
+      "en": "No-go Zone",
+      "ja": "ノーゴーゾーン",
+      "zh": "禁入地帶",
+      "fr": "Zone interdite",
+      "de": "Sperrzone",
+      "es": "Zona prohibida",
+      "pt": "Área Restrita",
+      "ru": "Минное поле"
+     },
+     "desc_ko": "주위에 지뢰를 뿌립니다.",
+     "setup": false
+    }
+   },
+   "pairs": {}
+  },
+  "khan": {
+   "offsets": {
+    "3": {
+     "id": 80932120,
+     "ult": false,
+     "mode": false,
+     "conf": "CONFIRMED",
+     "names": {
+      "ko": "추적기",
+      "en": "Seeker",
+      "ja": "シーカー",
+      "zh": "追獵球",
+      "fr": "Chercheur",
+      "de": "Sucher",
+      "es": "Buscador",
+      "pt": "Rastreador",
+      "ru": "Ищейка"
+     },
+     "desc_ko": "라이벌을 추적하고 충격 시 피해를 입히는 구체를 방출합니다.",
+     "setup": false
+    },
+    "10": {
+     "id": 80932086,
+     "ult": false,
+     "mode": false,
+     "conf": "CONFIRMED",
+     "names": {
+      "ko": "실드 매트릭스",
+      "en": "Shield Matrix",
+      "ja": "シールド",
+      "zh": "護盾矩陣",
+      "fr": "Matriz protectora",
+      "de": "Schildmatrix",
+      "es": "Matriz de escudos",
+      "pt": "Campo de escudo",
+      "ru": "Щит-матрица"
+     },
+     "desc_ko": "충격을 일으켜 범위 내 아군에게 방어막을 부여합니다.",
+     "setup": false
+    },
+    "11": {
+     "id": 80932042,
+     "ult": true,
+     "mode": false,
+     "conf": "CONFIRMED",
+     "names": {
+      "ko": "포탑",
+      "en": "Turret",
+      "ja": "タレット",
+      "zh": "砲塔",
+      "fr": "Tourelle",
+      "de": "Geschütz",
+      "es": "Torreta",
+      "pt": "Torreta",
+      "ru": "Турель"
+     },
+     "desc_ko": "어깨에 장착한 자동 발사 포탑을 배치합니다.",
+     "setup": false
+    }
+   },
+   "pairs": {}
+  },
+  "leo": {
+   "offsets": {
+    "2": {
+     "id": 3440448,
+     "ult": false,
+     "mode": false,
+     "conf": "CONFIRMED",
+     "names": {
+      "ko": "제트 서지",
+      "en": "Jet Surge",
+      "ja": "ジェットサージ",
+      "zh": "噴射衝擊",
+      "fr": "Jet puissant",
+      "de": "Raketenantrieb",
+      "es": "Propulsión",
+      "pt": "Pulo a Jato",
+      "ru": "Взлет"
+     },
+     "desc_ko": "강력한 제트팩 점프를 활성화합니다.",
+     "setup": false
+    },
+    "4": {
+     "id": 3526628,
+     "ult": false,
+     "mode": false,
+     "conf": "CONFIRMED",
+     "names": {
+      "ko": "스프링",
+      "en": "Spring",
+      "ja": "スプリング",
+      "zh": "爆衝",
+      "fr": "Ressort",
+      "de": "Feder",
+      "es": "Resorte",
+      "pt": "Mola",
+      "ru": "Отскок"
+     },
+     "desc_ko": "선택한 방향으로 짧게 돌진합니다.",
+     "setup": false
+    },
+    "5": {
+     "id": 1244267,
+     "ult": true,
+     "mode": false,
+     "conf": "CONFIRMED",
+     "names": {
+      "ko": "때려눕히기",
+      "en": "Knock ‘Em Down",
+      "ja": "ノックダウン",
+      "zh": "全面擊倒",
+      "fr": "Au tapis",
+      "de": "Runter mit ihnen",
+      "es": "Al suelo",
+      "pt": "Acabe com Eles",
+      "ru": "Ударные гранаты"
+     },
+     "desc_ko": "적을 기절시키는 수류탄을 던집니다.",
+     "setup": true
+    }
+   },
+   "pairs": {}
+  },
+  "magnus": {
+   "offsets": {
+    "2": {
+     "id": 46018119,
+     "ult": false,
+     "mode": false,
+     "conf": "CONFIRMED",
+     "names": {
+      "ko": "그래플",
+      "en": "Grapple",
+      "ja": "グラップル",
+      "zh": "鐵鉤牽引",
+      "fr": "Attraction",
+      "de": "Haken",
+      "es": "Agarre",
+      "pt": "Arpéu",
+      "ru": "Захват"
+     },
+     "desc_ko": "라이벌을 자신의 위치로 끌어당깁니다.",
+     "setup": true
+    },
+    "3": {
+     "id": 48254321,
+     "ult": false,
+     "mode": false,
+     "conf": "CONFIRMED",
+     "names": {
+      "ko": "앵커 버스트",
+      "en": "Anchor Burst",
+      "ja": "アンカーブースト",
+      "zh": "錨擊爆發",
+      "fr": "Éclate-ancrage",
+      "de": "Ankerbersten",
+      "es": "Anclaje",
+      "pt": "Impulso Âncora",
+      "ru": "Грави-удар"
+     },
+     "desc_ko": "전방으로 몸을 당긴 다음 물체를 밀어냅니다.",
+     "setup": false
+    },
+    "5": {
+     "id": 48438735,
+     "ult": true,
+     "mode": false,
+     "conf": "CONFIRMED",
+     "names": {
+      "ko": "불굴의 의지",
+      "en": "Iron Resolve",
+      "ja": "鉄の意志",
+      "zh": "鋼鐵意志",
+      "fr": "Volonté de fer",
+      "de": "Eiserner Wille",
+      "es": "Invencibilidad",
+      "pt": "Invencibilidade",
+      "ru": "Несокрушимость"
+     },
+     "desc_ko": "짧은 시간 동안 무적이 됩니다.",
+     "setup": false
+    }
+   },
+   "pairs": {}
+  },
+  "nova": {
+   "offsets": {
+    "2": {
+     "id": 67014970,
+     "ult": false,
+     "mode": false,
+     "conf": "CONFIRMED",
+     "names": {
+      "ko": "바인드샷",
+      "en": "Bindshot",
+      "ja": "バインドショット",
+      "zh": "束縛射擊",
+      "fr": "Tir liant",
+      "de": "Bindungsschuss",
+      "es": "Tiro de unión",
+      "pt": "Grilhões",
+      "ru": "Сковка"
+     },
+     "desc_ko": "탄환을 발사하여 목표를 범위 내에 있는 가장 가까운 물체에 묶습니다.",
+     "setup": true
+    },
+    "5": {
+     "id": 67015127,
+     "ult": false,
+     "mode": true,
+     "conf": "LIKELY",
+     "names": {
+      "ko": "바인드샷",
+      "en": "Bindshot",
+      "ja": "バインドショット",
+      "zh": "束縛射擊",
+      "fr": "Tir liant",
+      "de": "Fesselschuss",
+      "es": "Tiro unidor",
+      "pt": "Tiro vinculado",
+      "ru": "Сковка"
+     },
+     "desc_ko": "피해량이 높은 저격소총",
+     "setup": false
+    },
+    "6": {
+     "id": 67086738,
+     "ult": false,
+     "mode": false,
+     "conf": "CONFIRMED",
+     "names": {
+      "ko": "에너지 셀",
+      "en": "Energy Cells",
+      "ja": "エネルギーセル",
+      "zh": "能量核心",
+      "fr": "Cellules d'énergie",
+      "de": "Energiezellen",
+      "es": "Celdas de energía",
+      "pt": "Células de Energia",
+      "ru": "Энергоядра "
+     },
+     "desc_ko": "획득 시 아군은 치유되고 라이벌은 피해를 받는 셀을 뿌립니다.",
+     "setup": false
+    },
+    "15": {
+     "id": 65985131,
+     "ult": true,
+     "mode": false,
+     "conf": "CONFIRMED",
+     "names": {
+      "ko": "초신성",
+      "en": "Supernova",
+      "ja": "超新星",
+      "zh": "超新星",
+      "fr": "Supernova",
+      "de": "Supernova",
+      "es": "Supernova",
+      "pt": "Supernova",
+      "ru": "Сверхновая"
+     },
+     "desc_ko": "짧은 충전 후 폭발합니다.",
+     "setup": false
+    }
+   },
+   "pairs": {
+    "5": 2
+   }
+  },
+  "oni": {
+   "offsets": {
+    "2": {
+     "id": 24063354,
+     "ult": false,
+     "mode": false,
+     "conf": "CONFIRMED",
+     "names": {
+      "ko": "유령의 손아귀",
+      "en": "Phantom grasp",
+      "ja": "ファントムガスプ",
+      "zh": "幽影之握",
+      "fr": "Saisie fantôme",
+      "de": "Phantomgriff",
+      "es": "Agarre fantasma",
+      "pt": "Telecinesia",
+      "ru": "Телекинез"
+     },
+     "desc_ko": "모든 물질을 들어 올려서 던집니다.",
+     "setup": false
+    },
+    "3": {
+     "id": 8861095,
+     "ult": false,
+     "mode": false,
+     "conf": "CONFIRMED",
+     "names": {
+      "ko": "영적 돌진",
+      "en": "Astral Dash",
+      "ja": "ダッシュ",
+      "zh": "星移衝刺",
+      "fr": "Ruée astrale",
+      "de": "Astralsprint",
+      "es": "Salto astral",
+      "pt": "Investida Astral",
+      "ru": "Телепорт"
+     },
+     "desc_ko": "짧은 범위 내 모든 물체 사이를 순간이동합니다.",
+     "setup": false
+    },
+    "4": {
+     "id": 9039954,
+     "ult": true,
+     "mode": false,
+     "conf": "CONFIRMED",
+     "names": {
+      "ko": "공허 전하",
+      "en": "Void Charge",
+      "ja": "ヴォイドチャージ",
+      "zh": "虛能爆衝",
+      "fr": "Charge du vide",
+      "de": "Ladung der Leere",
+      "es": "Carga de vacío",
+      "pt": "Carga Sombria",
+      "ru": "Всплеск"
+     },
+     "desc_ko": "모든 것을 밀어내고 라이벌을 기절시킵니다.",
+     "setup": true
+    }
+   },
+   "pairs": {}
+  },
+  "remedy": {
+   "offsets": {
+    "3": {
+     "id": 5406105,
+     "ult": false,
+     "mode": false,
+     "conf": "CONFIRMED",
+     "names": {
+      "ko": "응급처치",
+      "en": "First Aid",
+      "ja": "応急処置",
+      "zh": "緊急治療",
+      "fr": "Premiers secours",
+      "de": "Erste Hilfe",
+      "es": "Primeros auxilios",
+      "pt": "Primeiros Socorros",
+      "ru": "Первая помощь"
+     },
+     "desc_ko": "체력을 회복하는 수류탄을 던집니다.",
+     "setup": false
+    },
+    "12": {
+     "id": 5881195,
+     "ult": false,
+     "mode": false,
+     "conf": "CONFIRMED",
+     "names": {
+      "ko": "점프 패드",
+      "en": "Jump Pad",
+      "ja": "ジャンプパッド",
+      "zh": "彈跳墊",
+      "fr": "Trampoline",
+      "de": "Sprungbrett",
+      "es": "Trampolín",
+      "pt": "Trampolim",
+      "ru": "Батут"
+     },
+     "desc_ko": "지상에 점프 패드를 설치합니다.",
+     "setup": false
+    },
+    "14": {
+     "id": 6700832,
+     "ult": true,
+     "mode": false,
+     "conf": "CONFIRMED",
+     "names": {
+      "ko": "중력 깔때기",
+      "en": "Gravity Funnel",
+      "ja": "重力ファンネル",
+      "zh": "重力漩吸",
+      "fr": "Entonnoir à gravité",
+      "de": "Gravitationsloch",
+      "es": "Embudo de gravedad",
+      "pt": "Funil de Gravidade",
+      "ru": "Грави-воронка"
+     },
+     "desc_ko": "범위 내 모든 것을 빨아들이는 깔때기를 생성합니다.",
+     "setup": false
+    }
+   },
+   "pairs": {}
+  },
+  "sejin": {
+   "offsets": {
+    "2": {
+     "id": 97252558,
+     "ult": false,
+     "mode": false,
+     "conf": "CONFIRMED",
+     "names": {
+      "ko": "전도파",
+      "en": "Conductive Wave",
+      "ja": "電気伝導波",
+      "zh": "導電波",
+      "fr": "Onde conductrice",
+      "de": "Leitende Welle",
+      "es": "Onda conductora",
+      "pt": "Onda Condutora",
+      "ru": "Электроволна"
+     },
+     "desc_ko": "라이벌이 세진에게서 받는 피해를 증가시키는 표식을 적용합니다.",
+     "setup": true
+    },
+    "6": {
+     "id": 98642044,
+     "ult": false,
+     "mode": false,
+     "conf": "CONFIRMED",
+     "names": {
+      "ko": "순간이동기",
+      "en": "Translocator",
+      "ja": "テレポーター",
+      "zh": "定位傳送器",
+      "fr": "Translocateur",
+      "de": "Translokator",
+      "es": "Transubicador",
+      "pt": "Translocador",
+      "ru": "Транслокатор"
+     },
+     "desc_ko": "순간이동기를 던진 위치로 순간이동합니다.",
+     "setup": false
+    },
+    "8": {
+     "id": 97251826,
+     "ult": true,
+     "mode": false,
+     "conf": "CONFIRMED",
+     "names": {
+      "ko": "과부하 광선",
+      "en": "Overload Beam",
+      "ja": "超充電",
+      "zh": "超載光束",
+      "fr": "Surcharge",
+      "de": "Überspannung",
+      "es": "Sobrecarga",
+      "pt": "​Sobrecarga",
+      "ru": "Сверхзаряд"
+     },
+     "desc_ko": "충전하여 강력한 에너지 광선을 방출합니다.",
+     "setup": false
+    }
+   },
+   "pairs": {}
+  },
+  "twinkle": {
+   "offsets": {
+    "2": {
+     "id": 4125816,
+     "ult": false,
+     "mode": false,
+     "conf": "LIKELY",
+     "names": {
+      "ko": "집속 수류탄",
+      "en": "Cluster Grenade",
+      "ja": "クラスタグレネ",
+      "zh": "集束手榴彈",
+      "fr": "Grenade en grappe",
+      "de": "Clustergranate",
+      "es": "Granada de racimo",
+      "pt": "Granada Múltipla",
+      "ru": "Кластер-граната"
+     },
+     "desc_ko": "작은 수류탄으로 쪼개지는 수류탄을 던집니다.",
+     "setup": false
+    },
+    "17": {
+     "id": 3501126,
+     "ult": false,
+     "mode": false,
+     "conf": "LIKELY",
+     "names": {
+      "ko": "접착 지뢰",
+      "en": "Sticky Mines",
+      "ja": "粘着マイン",
+      "zh": "黏附地雷",
+      "fr": "Mines collantes",
+      "de": "Haftminen",
+      "es": "Minas adhesivas",
+      "pt": "Minas Adesivas",
+      "ru": "Мины-липучки"
+     },
+     "desc_ko": "모든 표면에 달라붙는 지뢰를 던집니다.",
+     "setup": false
+    },
+    "24": {
+     "id": 4877555,
+     "ult": true,
+     "mode": false,
+     "conf": "CONFIRMED",
+     "names": {
+      "ko": "로켓 세례",
+      "en": "Rocket Volley",
+      "ja": "ロケットボレー",
+      "zh": "齊射飛彈",
+      "fr": "Volée de fusées",
+      "de": "Raketensalve",
+      "es": "Cohete dirigido",
+      "pt": "Salva de foguetes",
+      "ru": "Ракетный залп"
+     },
+     "desc_ko": "강력한 유도 미사일을 발사합니다.",
+     "setup": false
+    }
+   },
+   "pairs": {}
+  },
+  "vector": {
+   "offsets": {
+    "2": {
+     "id": 65880141,
+     "ult": false,
+     "mode": false,
+     "conf": "CONFIRMED",
+     "names": {
+      "ko": "지뢰 발동",
+      "en": "Trigger Mine",
+      "ja": "トリガーマイン",
+      "zh": "遙控地雷",
+      "fr": "Détonateur",
+      "de": "Zündermine",
+      "es": "Detonador",
+      "pt": "Mina de Ativação",
+      "ru": "Детонатор"
+     },
+     "desc_ko": "명령에 따라 폭발하는 접착 지뢰를 던집니다.",
+     "setup": false
+    },
+    "5": {
+     "id": 66313816,
+     "ult": false,
+     "mode": false,
+     "conf": "CONFIRMED",
+     "names": {
+      "ko": "윈드게이트",
+      "en": "Windgate",
+      "ja": "ウィンドゲート",
+      "zh": "風壓之門",
+      "fr": "Bouche d'aération",
+      "de": "Windtor",
+      "es": "Compuertas de aire",
+      "pt": "Portal de Vento",
+      "ru": "Поток"
+     },
+     "desc_ko": "기류를 만들어 속도와 발사체를 한 방향으로 가속화합니다.",
+     "setup": false
+    },
+    "11": {
+     "id": 66396624,
+     "ult": true,
+     "mode": false,
+     "conf": "CONFIRMED",
+     "names": {
+      "ko": "공명",
+      "en": "Resonance",
+      "ja": "レゾナンス",
+      "zh": "共鳴",
+      "fr": "Résonance",
+      "de": "Resonanz",
+      "es": "Resonancia",
+      "pt": "Ressonância",
+      "ru": "Резонанс"
+     },
+     "desc_ko": "근접 피해 지팡이로 교체합니다.",
+     "setup": false
+    }
+   },
+   "pairs": {}
+  }
+ }
+}

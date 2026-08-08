@@ -145,7 +145,7 @@ def build_report(code, s3date):
     rows, nok = A.selfcheck(d)
     check = {pid: (k == mk and dd == md) for pid, k, dd, mk, md in rows}
     import collections as _c
-    sk = _c.Counter((pid, k) for _, pid, k in d.get("skills", []))
+    sk = _c.Counter((pid, k) for _, pid, k, _off in d.get("skills", []))
 
     start = d.get("start") or {}
     modbits = start.get("ModifierType") or 0
@@ -155,8 +155,17 @@ def build_report(code, s3date):
         n, tot = fp[pid]
         players.append({
             "pid": pid, "name": p.get("name") or f"P{pid}", "bot": bool(p.get("bot")),
-            "team": p.get("team"), "hero": (p.get("hero") or "?").capitalize(),
+            # 🪤 `hero` 는 **정규화 키**(소문자·하이픈 없음)를 그대로 보낸다.
+            #    예전엔 capitalize() 해서 보냈는데 'Se-Jin' → 'Se-jin' 이 되고
+            #    사이트 초상화 키('sejin')와 어긋나 **세진 초상화가 늘 "?" 로 깨졌다**.
+            #    화면에 쓸 표기는 `hero_disp` 로 따로 보낸다.
+            "team": p.get("team"), "hero": p.get("hero") or "?",
+            "hero_disp": p.get("hero_disp") or "?",
             "level": p.get("hero_level"), "sure": bool(p.get("hero_sure")),
+            # 🎽 로드아웃 — 레이팅·파티·퍽 빌드 (StartData 에 있다, 2026-08-09 발견)
+            "rating": p.get("rating"),
+            "squad": p.get("squad") if not p.get("bot") else None,
+            "perks": [n for n in (A.perk_name(x) for x in (p.get("perks") or [])) if n],
             "stats": {"k": c["처치"], "d": c["죽음"], "a": c["어시"], "dmg": c["준피해"],
                       "taken": c["받은피해"], "obj": c["구조물피해"], "heal": c["회복"],
                       "shield": c["실드"], "skill": sk[(pid, "스킬")], "ult": sk[(pid, "궁")]},
@@ -183,7 +192,7 @@ def build_report(code, s3date):
                            "hp0": (round(ev["hp0"], 2) if ev.get("hp0") is not None else None),
                            "nums": ev.get("nums")})
     ults = [{"s": _sec(ms, t0), "pid": pid}
-            for ms, pid, kind in d.get("skills", []) if kind == "궁"]
+            for ms, pid, kind, _off in d.get("skills", []) if kind == "궁"]
     objs = [{"s": _sec(ms, t0), "kind": h[0], "by": h[1]}
             for ms, h in d["logs"]
             if h[0] in (8, 29) and h[1] in d["players"]]
@@ -243,6 +252,17 @@ def build_report(code, s3date):
         "fights": fights_out, "spots": spots, "traces": traces, "heat": heat,
         # 🎓 코칭 판정 — 서버는 (키+숫자)만 보내고 문장은 사이트가 언어별 템플릿으로 만든다
         "coach": A.coach(d),
+        # ✨ 명장면 — "판 깔고 점사"·"궁 연계" (사이트가 타임라인처럼 보여 준다)
+        "scenes": [{"s": _sec(x["ms"], t0), "kind": "setup", "pid": x["pid"],
+                    "skill": x["skill"], "skill_i18n": x.get("skill_i18n"),
+                    "tgt": x["target"], "n": len(x["dealers"]),
+                    "kills": len(x.get("targets") or [x["target"]])}
+                   for x in A.focus_after_setup(d)]
+                  + [{"s": _sec(c["ms"], t0), "kind": "ult", "pid": c["pids"][0],
+                      "pids": c["pids"], "skills": [x for x in c["skills"] if x],
+                      "skills_i18n": [x for x in (c.get("skills_i18n") or []) if x],
+                      "got": c["kills"]}
+                     for c in A.ult_combos(d) if c["kills"] > 0],
     }
     return report, ok_ratio
 

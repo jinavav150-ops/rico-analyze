@@ -1,0 +1,1669 @@
+{
+ "_생성": "도구/퍽표생성.py — 게임원본_스냅샷/2.1.4_build380 perks_static + 로케일(공식 번역). 표시값은 퍽 '효과 설명'(퍽에는 이름 항목이 없다)",
+ "perks": {
+  "49043876": {
+   "names": {
+    "ko": "이동 속도 증가",
+    "en": "Increased movement speed",
+    "ja": "移動速度が増加",
+    "zh": "提升移動速度",
+    "fr": "Vitesse de mouvement augmentée",
+    "de": "Erhöhte Bewegungsgeschwindigkeit",
+    "es": "Más velocidad de movimiento",
+    "pt": "Vel. movimento maior",
+    "ru": "Повышена скорость передвижения"
+   },
+   "hero_id": 631045,
+   "slot_id": 48961367,
+   "type": 3
+  },
+  "97863783": {
+   "names": {
+    "ko": "마지막 명중 후 킥 대기 시간 초기화",
+    "en": "Kick cooldown resets after last hit",
+    "ja": "最後のヒット後、キックのクールダウンがリセット",
+    "zh": "最後一擊後重置踢擊冷卻時間",
+    "fr": "Temps de recharge de coup de pied réinitialisé après la dernière utilisation",
+    "de": "Tritt-Abklingzeit wird nach letztem Treffer zurückgesetzt",
+    "es": "La recarga de la patada se reinicia tras el último golpe.",
+    "pt": "A recarga da bicuda é zerada após o último acerto",
+    "ru": "Перезарядка Пинка после добиваний"
+   },
+   "hero_id": 91887043,
+   "slot_id": 48961378,
+   "type": 6
+  },
+  "97863784": {
+   "names": {
+    "ko": "방어막 생성 중 속도 증가",
+    "en": "Increased speed while generating shields",
+    "ja": "シールド生成中、移動速度が増加",
+    "zh": "獲得護盾期間，移動速度提升。",
+    "fr": "Vitesse augmentée pendant la génération de boucliers",
+    "de": "Erhöhte Geschw. während Schildgeneration",
+    "es": "Aumenta la velocidad durante la generación de escudos.",
+    "pt": "Velocidade maior ao gerar escudos",
+    "ru": "Увеличена скорость во время генерации щитов"
+   },
+   "hero_id": 91887043,
+   "slot_id": 48961386,
+   "type": 3
+  },
+  "49554034": {
+   "names": {
+    "ko": "발사할 때마다 페이드 대기 시간 감소",
+    "en": "Each shot reduces Fade cooldown",
+    "ja": "ショットごとにフェイドのクールダウン減少",
+    "zh": "每次射擊都會縮短隱匿冷卻時間",
+    "fr": "Chaque tir réduit le temps de recharge de disparition",
+    "de": "Jeder Schuss verringert Verblassen-Abklingzeit",
+    "es": "Cada tiro reduce la recarga de esfumación.",
+    "pt": "Menos recarga de desaparecer por tiro",
+    "ru": "Выстрелы снижают перезарядку Невидимости"
+   },
+   "hero_id": 631040,
+   "slot_id": 48961378,
+   "type": 6
+  },
+  "70291701": {
+   "names": {
+    "ko": "사격 피해 증가",
+    "en": "Increased shot damage",
+    "ja": "ショットダメージが増加",
+    "zh": "提升射擊傷害",
+    "fr": "Dégâts de tir augmentés",
+    "de": "Erhöhter Schussschaden",
+    "es": "Más daño de disparo",
+    "pt": "Mais dano de tiro",
+    "ru": "Повышенный урон выстрелов"
+   },
+   "hero_id": 65893852,
+   "slot_id": 48961378,
+   "type": null
+  },
+  "97251828": {
+   "names": {
+    "ko": "전도파를 발동합니다.",
+    "en": "Activates Conductive Wave",
+    "ja": "電気伝導波を発動する",
+    "zh": "啟動導電波",
+    "fr": "Active une onde conductrice",
+    "de": "Aktiviert leitfähige Welle",
+    "es": "Activa la onda conductora.",
+    "pt": "Ativa a Onda Condutora",
+    "ru": "Запускает Электроволну"
+   },
+   "hero_id": 97251807,
+   "slot_id": 48961396,
+   "type": 5
+  },
+  "70291666": {
+   "names": {
+    "ko": "체력 80% 미만 시 속도 증가",
+    "en": "Increased speed below 80% health",
+    "ja": "HP80%未満で速度が増加",
+    "zh": "生命值低於 80% 時提升移動速度",
+    "fr": "Vitesse augmentée à moins de 80 % de santé",
+    "de": "Erhöhte Geschwindigkeit bei unter 80 % Gesundheit",
+    "es": "Más velocidad con menos de un 80 % de salud",
+    "pt": "Mais velocidade com menos de 80% de vida",
+    "ru": "Повышенная скорость при HP ниже 80%"
+   },
+   "hero_id": 65893852,
+   "slot_id": 48961367,
+   "type": 3
+  },
+  "82739293": {
+   "names": {
+    "ko": "구체 충격 시 폭발",
+    "en": "Orb explodes on impact",
+    "ja": "オーブが接触で爆発",
+    "zh": "能量球命中時爆炸",
+    "fr": "L'orbe explose à l'impact",
+    "de": "Kugel explodiert bei Aufprall",
+    "es": "El orbe explota al impactar.",
+    "pt": "Orbe explode com impacto",
+    "ru": "Сфера взрывается при попадании"
+   },
+   "hero_id": 80931949,
+   "slot_id": 48961378,
+   "type": null
+  },
+  "49553929": {
+   "names": {
+    "ko": "페이드 중 이동 속도 증가",
+    "en": "Increased move speed while in Fade",
+    "ja": "フェイド中の移動速度が増加",
+    "zh": "提升隱匿狀態下的移動速度",
+    "fr": "Vitesse de mouvement augmentée en cours de disparition",
+    "de": "Erhöhte Bewegungsgeschw. während Verblassen",
+    "es": "Más velocidad de movimiento con esfumación",
+    "pt": "Mais vel. de mov. ao desaparecer",
+    "ru": "Повышена скорость передвижения в Невидимости"
+   },
+   "hero_id": 631040,
+   "slot_id": 48961386,
+   "type": 3
+  },
+  "60377456": {
+   "names": {
+    "ko": "라이벌을 당길 때마다 체력 회복",
+    "en": "HP restoration for each rival pulled",
+    "ja": "引き寄せたライバル1体ごとに一定量HP回復",
+    "zh": "每拉中一名敵人可恢復生命值",
+    "fr": "Restauration des PV pour chaque adversaire attiré",
+    "de": "Angezogene Gegner stellen LP wieder her",
+    "es": "Recuperación de PS por cada rival atraído.",
+    "pt": "Cura de PV por rival atraído",
+    "ru": "Восстановление HP за каждого притянутого противника"
+   },
+   "hero_id": 45850136,
+   "slot_id": 48961378,
+   "type": 1
+  },
+  "49554264": {
+   "names": {
+    "ko": "사격 피해 증가",
+    "en": "Increased shooting damage",
+    "ja": "射撃ダメージが増加",
+    "zh": "提升射擊傷害",
+    "fr": "Dégâts de tir augmentés",
+    "de": "Erhöhter Schussschaden",
+    "es": "Más daño de disparo",
+    "pt": "Mais dano de tiro",
+    "ru": "Повышенный урон от стрельбы"
+   },
+   "hero_id": 631040,
+   "slot_id": 48961396,
+   "type": null
+  },
+  "49044226": {
+   "names": {
+    "ko": "수류탄 투척 속도 증가",
+    "en": "Increased grenade throwing speed",
+    "ja": "グレネードの投てき速度が増加",
+    "zh": "提升手榴彈投擲速度",
+    "fr": "Vitesse de lancer de grenade augmentée",
+    "de": "Erhöhte Granatwurf-Geschwindigkeit",
+    "es": "Mayor velocidad de lanzamiento de granadas",
+    "pt": "Mais vel. arremesso de granada",
+    "ru": "Повышена скорость броска гранаты"
+   },
+   "hero_id": 631045,
+   "slot_id": 48961378,
+   "type": 3
+  },
+  "49553695": {
+   "names": {
+    "ko": "활성 상태에서 피해를 입힘",
+    "en": "Deals damage while active",
+    "ja": "発動中、ダメージが増加",
+    "zh": "啟動期間造成傷害",
+    "fr": "Inflige des dégâts si actif",
+    "de": "Fügt Schaden zu, wenn aktiv",
+    "es": "Inflige daño mientras está activa",
+    "pt": "Causa dano quando ativo",
+    "ru": "Наносит урон во время действия"
+   },
+   "hero_id": 631047,
+   "slot_id": 48961396,
+   "type": null
+  },
+  "49554525": {
+   "names": {
+    "ko": "파동 시 체력 회복",
+    "en": "HP restoration on blast",
+    "ja": "ブラストでHP回復",
+    "zh": "衝擊波命中時回復生命值",
+    "fr": "PV restaurés à l'explosion",
+    "de": "LP-Wiederherstellung bei Stoß",
+    "es": "La onda expansiva devuelve PS",
+    "pt": "Cura de PV na explosão",
+    "ru": "Восстановление HP при взрыве"
+   },
+   "hero_id": 631049,
+   "slot_id": 48961396,
+   "type": 1
+  },
+  "49044015": {
+   "names": {
+    "ko": "폭발 반경 증가",
+    "en": "Increased explosion radius",
+    "ja": "爆発範囲が増加",
+    "zh": "提升爆炸範圍",
+    "fr": "Rayon d'explosion augmenté",
+    "de": "Erhöhter Explosionsradius",
+    "es": "Mayor radio de explosión",
+    "pt": "Raio da explosão maior",
+    "ru": "Увеличен радиус взрыва"
+   },
+   "hero_id": 631045,
+   "slot_id": 48961367,
+   "type": 4
+  },
+  "97863781": {
+   "names": {
+    "ko": "기절한 라이벌에게 치명타 피해",
+    "en": "Deals critical damage to stunned rivals",
+    "ja": "スタン中のライバルにクリティカルダメージを与える",
+    "zh": "對暈眩敵人造成暴擊",
+    "fr": "Inflige des dégâts critiques aux adversaires étourdis",
+    "de": "Fügt betäubten Gegnern kritischen Schaden zu",
+    "es": "Inflige daño crítico a los rivales aturdidos.",
+    "pt": "Causa dano crítico em rivais atordoados",
+    "ru": "Крит. урон по оглушенным противникам"
+   },
+   "hero_id": 91887043,
+   "slot_id": 48961367,
+   "type": null
+  },
+  "97863782": {
+   "names": {
+    "ko": "기절 지속 시간 증가",
+    "en": "Increased stun duration",
+    "ja": "スタンの持続時間が増加",
+    "zh": "延長暈眩持續時間",
+    "fr": "Durée d'étourdissement augmentée",
+    "de": "Erhöhte Betäubungsdauer",
+    "es": "Aumenta la duración del aturdimiento.",
+    "pt": "Duração do atordoar maior",
+    "ru": "Увеличена длительность оглушения"
+   },
+   "hero_id": 91887043,
+   "slot_id": 48961378,
+   "type": 2
+  },
+  "82739310": {
+   "names": {
+    "ko": "첫 충격 시 무적",
+    "en": "First impulse grants invulnerability",
+    "ja": "最初の波動が攻撃耐性を付与",
+    "zh": "第一次衝擊波提供無敵效果",
+    "fr": "La première impulsion offre l'invulnérabilité",
+    "de": "Erster Impuls gewährt Unverwundbarkeit",
+    "es": "El primer impulso otorga invulnerabilidad.",
+    "pt": "Invulnerabilidade no primeiro impulso",
+    "ru": "Первый импульс дает неуязвимость"
+   },
+   "hero_id": 80931949,
+   "slot_id": 48961386,
+   "type": 1
+  },
+  "49554276": {
+   "names": {
+    "ko": "사격 범위 증가",
+    "en": "Increased shooting range",
+    "ja": "射程範囲が増加",
+    "zh": "增加射程",
+    "fr": "Portée de tir augmentée",
+    "de": "Erhöhte Schussreichweite",
+    "es": "Más alcance de disparo",
+    "pt": "Mais alcance do tiro",
+    "ru": "Увеличенная дальность стрельбы"
+   },
+   "hero_id": 631040,
+   "slot_id": 48961396,
+   "type": 4
+  },
+  "108140589": {
+   "names": {
+    "ko": "피해를 받으면 대기 시간 감소",
+    "en": "Taking damage reduces cooldown",
+    "ja": "ダメージを受けるとクールダウンが減少する",
+    "zh": "受到傷害時縮短冷卻時間",
+    "fr": "Encaisser des dégâts réduit le temps de recharge",
+    "de": "Erlittener Schaden verkürzt die Abklingzeit",
+    "es": "Recibir daño reduce el tiempo de recarga.",
+    "pt": "Receber dano reduz o tempo de recarga",
+    "ru": "Снижение кулдауна при получении урона"
+   },
+   "hero_id": 108140568,
+   "slot_id": 48961386,
+   "type": 6
+  },
+  "82739487": {
+   "names": {
+    "ko": "포탑이 파괴되지 않고 만료되면 얼티밋 충전",
+    "en": "Get Ult charge if turret expires undestroyed",
+    "ja": "タレットが破壊されずに終わった時、究極のチャージを獲得",
+    "zh": "砲塔未被摧毀的情況下結束時可回復終極技充能",
+    "fr": "Charge ultime reçue si la tourelle expire intacte",
+    "de": "Erhalte Ultimativ-Ladung, wenn Geschütz intakt bleibt",
+    "es": "Obtiene carga de suprema si la torreta desaparece sin sufrir daño.",
+    "pt": "Ganha carga de Suprema se a torre não for destruída",
+    "ru": "Получает заряд ульты, если турель не уничтожена"
+   },
+   "hero_id": 80931949,
+   "slot_id": 48961396,
+   "type": 2
+  },
+  "60377948": {
+   "names": {
+    "ko": "당기는 거리 증가",
+    "en": "Increased pull distance",
+    "ja": "引き寄せ距離が増加",
+    "zh": "提升牽引距離",
+    "fr": "Distance d'attraction augmentée",
+    "de": "Erhöhte Zieh-Distanz",
+    "es": "Más distancia de atracción",
+    "pt": "Distância da sucção maior",
+    "ru": "Увеличена дальность притяжения"
+   },
+   "hero_id": 45850136,
+   "slot_id": 48961386,
+   "type": 3
+  },
+  "49554458": {
+   "names": {
+    "ko": "범위 증가",
+    "en": "Increased range",
+    "ja": "範囲が増加",
+    "zh": "增加距離",
+    "fr": "Portée augmentée",
+    "de": "Erhöhte Reichweite",
+    "es": "Más alcance",
+    "pt": "Alcance maior",
+    "ru": "Увеличена дальность"
+   },
+   "hero_id": 631049,
+   "slot_id": 48961386,
+   "type": 3
+  },
+  "49554513": {
+   "names": {
+    "ko": "파동이 피해를 입힘",
+    "en": "The blast deals damage",
+    "ja": "ブラストがダメージを与える",
+    "zh": "衝擊波造成傷害",
+    "fr": "Le souffle inflige des dégâts",
+    "de": "Stoß fügt Schaden zu",
+    "es": "La onda expansiva inflige daño",
+    "pt": "Explosão causa dano",
+    "ru": "Взрыв наносит урон"
+   },
+   "hero_id": 631049,
+   "slot_id": 48961396,
+   "type": null
+  },
+  "49044140": {
+   "names": {
+    "ko": "소형 수류탄 수 증가",
+    "en": "Increased mini-grenade count",
+    "ja": "ミニグレネード数が増加",
+    "zh": "增加子手榴彈數量",
+    "fr": "Nombre de mini-grenades augmenté",
+    "de": "Erhöhte Minigranatenanzahl",
+    "es": "Más minigranadas",
+    "pt": "Mais minigranadas",
+    "ru": "Увеличено число мини-гранат"
+   },
+   "hero_id": 631045,
+   "slot_id": 48961378,
+   "type": 7
+  },
+  "108140595": {
+   "names": {
+    "ko": "적 결박 시 발사 속도 증가",
+    "en": "Increased fire rate when binding enemies",
+    "ja": "敵を拘束した時、発射速度が増加する",
+    "zh": "束縛敵人時提升射速",
+    "fr": "Cadence de tir augmentée lorsque des ennemis sont entravés",
+    "de": "Erhöhte Feuerrate beim Festhalten von Gegnern",
+    "es": "La cadencia de fuego aumenta al unir enemigos.",
+    "pt": "Cadência de tiro maior ao imobilizar inimigos",
+    "ru": "Увеличивается скорострельность при сковывании врага"
+   },
+   "hero_id": 108140568,
+   "slot_id": 48961396,
+   "type": null
+  },
+  "49549700": {
+   "names": {
+    "ko": "스프링 중 치명타 피해",
+    "en": "Critical damage during Spring",
+    "ja": "スプリング中クリティカルダメージ発生",
+    "zh": "在爆衝期間造成暴擊",
+    "fr": "Dégâts critiques avec le ressort",
+    "de": "Krit. Schaden bei Feder",
+    "es": "Daño crítico al usar Resorte",
+    "pt": "Dano crítico ao usar mola",
+    "ru": "Критический урон во время Отскока"
+   },
+   "hero_id": 631036,
+   "slot_id": 48961386,
+   "type": null
+  },
+  "60377027": {
+   "names": {
+    "ko": "무기 확산 감소",
+    "en": "Reduced weapon spread",
+    "ja": "武器拡散範囲を減少",
+    "zh": "減少武器散射範圍",
+    "fr": "Dispersion d'arme réduite",
+    "de": "Verringerte Waffenstreuung",
+    "es": "La dispersión de las armas se reduce",
+    "pt": "Menos alcance de arma",
+    "ru": "Снижен разброс оружия"
+   },
+   "hero_id": 45850136,
+   "slot_id": 48961367,
+   "type": null
+  },
+  "49549739": {
+   "names": {
+    "ko": "충전 수 증가",
+    "en": "Increased charges count",
+    "ja": "チャージ数が増加",
+    "zh": "增加充能次數",
+    "fr": "Nombre de charges augmenté",
+    "de": "Erhöhte Ladungsanzahl",
+    "es": "Más cargas",
+    "pt": "Mais cargas",
+    "ru": "Больше зарядов"
+   },
+   "hero_id": 631036,
+   "slot_id": 48961386,
+   "type": 5
+  },
+  "60378165": {
+   "names": {
+    "ko": "얼티밋 지속 시간 증가",
+    "en": "Increased Ultimate duration",
+    "ja": "究極の持続時間が増加",
+    "zh": "延長終極技持續時間",
+    "fr": "Durée d'ultime augmentée",
+    "de": "Erhöhte Ultimativ-Dauer",
+    "es": "La suprema dura más",
+    "pt": "Duração de Suprema maior",
+    "ru": "Увеличено время действия ульты"
+   },
+   "hero_id": 45850136,
+   "slot_id": 48961396,
+   "type": 2
+  },
+  "97251817": {
+   "names": {
+    "ko": "전도파가 피해 입힘",
+    "en": "Conductive wave deals damage",
+    "ja": "電気伝導波",
+    "zh": "導電波現在會造成傷害。",
+    "fr": "Une onde conductrice inflige des dégâts",
+    "de": "Leitende Welle verursacht Schaden.",
+    "es": "Onda conductora inflige daño.",
+    "pt": "A Onda Condutora causa dano",
+    "ru": "Электроволна наносит урон"
+   },
+   "hero_id": 97251807,
+   "slot_id": 48961378,
+   "type": null
+  },
+  "60378073": {
+   "names": {
+    "ko": "얼티밋 중 체력 회복",
+    "en": "HP regeneration during Ultimate",
+    "ja": "究極中にHP回復",
+    "zh": "終極技期間回復生命值",
+    "fr": "Régénération de PV avec l'ultime",
+    "de": "LP-Regeneration bei Ultimativ",
+    "es": "Regeneración de PS con la suprema",
+    "pt": "Cura de PV durante Suprema",
+    "ru": "Регенерация HP во время ульты"
+   },
+   "hero_id": 45850136,
+   "slot_id": 48961396,
+   "type": 1
+  },
+  "49553612": {
+   "names": {
+    "ko": "점프 패드로 치유 수류탄 투척",
+    "en": "Throws healing grenade with Jump Pad",
+    "ja": "ジャンプパッドと合わせて回復グレネードを投げる",
+    "zh": "使用彈跳墊時同時投出治療手榴彈",
+    "fr": "Lance grenade guérissante avec trampoline",
+    "de": "Wirft Heilgranate mit Sprungbrett",
+    "es": "Lanza una granada curativa con la plataforma de salto",
+    "pt": "Lança granada de cura com plataforma",
+    "ru": "Бросает гранату при установке трамплина"
+   },
+   "hero_id": 631047,
+   "slot_id": 48961386,
+   "type": 1
+  },
+  "67709867": {
+   "names": {
+    "ko": "지팡이로 타격할 때마다 체력 회복",
+    "en": "HP restoration on every Staff hit",
+    "ja": "スタッフのヒットのたびにHP回復",
+    "zh": "每次使用戰杖攻擊時回復生命值",
+    "fr": "Restauration des PV à chaque coup de bâton",
+    "de": "LP-Wiederherstellung bei jedem Stagbtreffer",
+    "es": "Recuperación de PS por cada golpe con báculo",
+    "pt": "Recupera PV a cada golpe do bastão",
+    "ru": "Восстановление HP при каждом ударе посохом"
+   },
+   "hero_id": 61223451,
+   "slot_id": 48961396,
+   "type": 1
+  },
+  "49551440": {
+   "names": {
+    "ko": "얼티밋 충전 속도 증가",
+    "en": "Increased Ultimate charge rate",
+    "ja": "究極のチャージ率が増加",
+    "zh": "提升終極技充能速度",
+    "fr": "Cadence de charge ultime augmentés",
+    "de": "Erhöhte Ultimativ-Ladungsrate",
+    "es": "Más velocidad de carga suprema",
+    "pt": "Mais taxa de carga Suprema",
+    "ru": "Повышена скорость заряда ульты"
+   },
+   "hero_id": 631042,
+   "slot_id": 48961367,
+   "type": 2
+  },
+  "49553817": {
+   "names": {
+    "ko": "영웅 체력 증가",
+    "en": "Increased hero HP",
+    "ja": "ヒーローのHPが増加",
+    "zh": "提升英雄生命值上限",
+    "fr": "PV de héros augmentés",
+    "de": "Erhöhte Helden-LP",
+    "es": "Más PS del héroe",
+    "pt": "Mais PV de herói",
+    "ru": "Увеличение здоровья"
+   },
+   "hero_id": 631040,
+   "slot_id": 48961367,
+   "type": 1
+  },
+  "108140588": {
+   "names": {
+    "ko": "충전 중 무적",
+    "en": "Gain invulnerability while charging",
+    "ja": "チャージ中に無敵状態になる",
+    "zh": "蓄力時獲得無敵",
+    "fr": "Confère l'invulnérabilité pendant la charge",
+    "de": "Erhalte Unverwundbarkeit beim Aufladen",
+    "es": "Obtiene invulnerabilidad mientras carga.",
+    "pt": "Ganha invulnerabilidade ao carregar",
+    "ru": "Получает неуязвимость во время зарядки"
+   },
+   "hero_id": 108140568,
+   "slot_id": 48961386,
+   "type": 1
+  },
+  "82739285": {
+   "names": {
+    "ko": "피해 시 실드 매트릭스 대기 시간 감소",
+    "en": "Damage reduces Shield Matrix cooldown",
+    "ja": "ダメージでシールドマトリックスのクールダウン減少",
+    "zh": "造成傷害時可縮短護盾矩陣冷卻時間",
+    "fr": "Les dégâts réduisent le temps de recharge de la matriz protectora",
+    "de": "Schaden verringert Schildmatrix-Abklingzeit",
+    "es": "El daño reduce la recarga de matriz de escudos.",
+    "pt": "Dano reduz recarga do campo de escudo",
+    "ru": "Урон сокращает откат Щита"
+   },
+   "hero_id": 80931949,
+   "slot_id": 48961378,
+   "type": 6
+  },
+  "49553354": {
+   "names": {
+    "ko": "레이저 냉각 감소",
+    "en": "Decreased laser cooling",
+    "ja": "レーザー冷却時間が減少",
+    "zh": "縮短雷射冷卻時間",
+    "fr": "Recharge de laser réduite",
+    "de": "Verringerte Laser-Abkühlung",
+    "es": "Menos recarga de láser",
+    "pt": "Recarga do laser reduzida",
+    "ru": "Снижена скорость остывания лазера"
+   },
+   "hero_id": 631047,
+   "slot_id": 48961367,
+   "type": 2
+  },
+  "49549182": {
+   "names": {
+    "ko": "이륙 시 피해 입힘",
+    "en": "Take off deals damage",
+    "ja": "離陸で敵へのダメージ発生",
+    "zh": "起飛時造成傷害",
+    "fr": "Dégâts infligés au décollage",
+    "de": "Abflug fügt Schaden zu",
+    "es": "El despegue inflige daño",
+    "pt": "Decolagem causa dano",
+    "ru": "Взлет наносит урон"
+   },
+   "hero_id": 631036,
+   "slot_id": 48961378,
+   "type": null
+  },
+  "108140597": {
+   "names": {
+    "ko": "적 결박 시 방패 획득",
+    "en": "Gain shields when binding enemies",
+    "ja": "敵を拘束した時、シールドを獲得する",
+    "zh": "束縛敵人時獲得護盾",
+    "fr": "Octroie des boucliers lorsque des ennemis sont entravés",
+    "de": "Erhält Schilde beim Festhalten von Gegnern",
+    "es": "Obtiene escudos al unir enemigos.",
+    "pt": "Ganha escudos ao imobilizar inimigos",
+    "ru": "Получает щиты при сковывании врага"
+   },
+   "hero_id": 108140568,
+   "slot_id": 48961396,
+   "type": 1
+  },
+  "108140584": {
+   "names": {
+    "ko": "방패 활성화 시 속도 증가",
+    "en": "Increased speed while shield is active",
+    "ja": "シールド有効中、移動速度が増加する",
+    "zh": "護盾啟用時增加移動速度",
+    "fr": "Vitesse augmentée tant que le bouclier est actif",
+    "de": "Erhöht das Tempo bei aktivem Schild",
+    "es": "Aumenta la velocidad mientras el escudo está activo.",
+    "pt": "Velocidade maior enquanto o escudo está ativo",
+    "ru": "Увеличивается скорость движения, пока активен щит"
+   },
+   "hero_id": 108140568,
+   "slot_id": 48961378,
+   "type": 3
+  },
+  "67709807": {
+   "names": {
+    "ko": "제거할 때마다 대기 시간 초기화",
+    "en": "Cooldown resets after every elimination",
+    "ja": "敵を撃破するたびにクールダウンがリセット",
+    "zh": "每次殲滅敵人後重置冷卻時間",
+    "fr": "Le temps de recharge se réinitialise après chaque élimination",
+    "de": "Abklingzeit wird nach jeder Eliminierung zurückgesetzt",
+    "es": "La recarga se restablece tras cada eliminación.",
+    "pt": "Eliminações zeram a recarga",
+    "ru": "Каждое устранение сбрасывает откаты"
+   },
+   "hero_id": 61223451,
+   "slot_id": 48961386,
+   "type": 6
+  },
+  "70291698": {
+   "names": {
+    "ko": "조준 시간 감소",
+    "en": "Decreased aiming time",
+    "ja": "照準時間が減少",
+    "zh": "縮短瞄準時間",
+    "fr": "Temps de visée réduit",
+    "de": "Verminderte Zielzeit",
+    "es": "Menos focalización",
+    "pt": "Menos tempo de mira",
+    "ru": "Снижено время прицеливания"
+   },
+   "hero_id": 65893852,
+   "slot_id": 48961378,
+   "type": 2
+  },
+  "97863780": {
+   "names": {
+    "ko": "제거 시 방어막 획득",
+    "en": "Gains shields upon elimination",
+    "ja": "ライバル撃破でシールドを獲得",
+    "zh": "消滅敵人時獲得護盾",
+    "fr": "Boucliers reçus après une élimination",
+    "de": "Erhält Schilde bei Eliminierung",
+    "es": "Obtiene escudos tras una eliminación.",
+    "pt": "Ganha escudo após uma eliminação",
+    "ru": "Получает щиты за устранения"
+   },
+   "hero_id": 91887043,
+   "slot_id": 48961367,
+   "type": 1
+  },
+  "67709627": {
+   "names": {
+    "ko": "점사의 마지막 샷이 치명타 피해를 입힘",
+    "en": "Last shot in the burst deals critical damage",
+    "ja": "連射の最後の1発にクリティカルヒット発生",
+    "zh": "連射的最後一發造成暴擊傷害",
+    "fr": "Dég crit infligés par le dernier tir d'une rafale",
+    "de": "Letzter Schuss der Salve fügt krit. Schaden zu",
+    "es": "El tiro final inflige daño crítico",
+    "pt": "O último tiro da rajada causa dano crítico",
+    "ru": "Последний выстрел наносит критический урон"
+   },
+   "hero_id": 61223451,
+   "slot_id": 48961367,
+   "type": null
+  },
+  "82736110": {
+   "names": {
+    "ko": "충격 시 이동 속도 증가",
+    "en": "Impulses increase movement speed",
+    "ja": "波動が移動速度を増加",
+    "zh": "衝擊波可提升移動速度",
+    "fr": "Les impulsions augmentent la vitesse de mouvement",
+    "de": "Impulse erhöhen Bewegungsgeschwindigkeit",
+    "es": "Genera más velocidad de movimiento.",
+    "pt": "Impulsos aumentam a velocidade de movimento",
+    "ru": "Импульсы увеличивают скорость передвижения"
+   },
+   "hero_id": 80931949,
+   "slot_id": 48961386,
+   "type": 3
+  },
+  "67709780": {
+   "names": {
+    "ko": "통과 후 공격 범위 증가",
+    "en": "Increased attack range after passing through",
+    "ja": "ゲート通り抜け後の攻撃範囲が増加",
+    "zh": "穿越後提升攻擊距離",
+    "fr": "Portée d'attaque augmentée après la traversée",
+    "de": "Erhöhter Angriffsradius nach Passieren",
+    "es": "Más alcance de ataque al pasar",
+    "pt": "Mais alcance de ataque após atravessar",
+    "ru": "Увеличен радиус атаки после прохождения"
+   },
+   "hero_id": 61223451,
+   "slot_id": 48961386,
+   "type": 4
+  },
+  "97251824": {
+   "names": {
+    "ko": "순간이동기 활성화 시 발사 속도 증가",
+    "en": "Increased fire rate with active Translocator",
+    "ja": "テレポーター発動中、発射速度が上昇する",
+    "zh": "定位傳送器啟動期間，射速提升",
+    "fr": "Cadence de tir augmentée avec un translocateur actif",
+    "de": "Erhöhe Feuerrate bei aktivem Translokator",
+    "es": "La cadencia de fuego aumenta cuando el transubicador está activo.",
+    "pt": "Taxa de tiro maior com Teletransportador ativo",
+    "ru": "Повышена скорость атаки при активном маяке"
+   },
+   "hero_id": 97251807,
+   "slot_id": 48961386,
+   "type": null
+  },
+  "97251818": {
+   "names": {
+    "ko": "표식 적용 시 속도 감소",
+    "en": "Applying marks reduces movement speed",
+    "ja": "マークを付けると速度が減少する",
+    "zh": "附加標記會降低移動速度",
+    "fr": "L'application de marques réduit la vitesse",
+    "de": "Das Anwenden von Malen verringert die Geschwindigkeit",
+    "es": "La colocación de marcas reduce la velocidad.",
+    "pt": "Aplicar marcas reduz a velocidade",
+    "ru": "Метки снижают скорость передвижения"
+   },
+   "hero_id": 97251807,
+   "slot_id": 48961378,
+   "type": 3
+  },
+  "70291760": {
+   "names": {
+    "ko": "폭발 후 체력 회복",
+    "en": "HP restoration after explosion",
+    "ja": "爆発後にHP回復",
+    "zh": "爆炸後回復生命值",
+    "fr": "Restauration des PV après explosion",
+    "de": "LP-Wiederherstellung nach Explosion",
+    "es": "Recuperación de PS tras una explosión",
+    "pt": "Cura de PV pós-explosão",
+    "ru": "Восстановление HP после взрыва"
+   },
+   "hero_id": 65893852,
+   "slot_id": 48961396,
+   "type": 1
+  },
+  "70291763": {
+   "names": {
+    "ko": "폭발 시 능력 대기 시간 초기화",
+    "en": "Explosion resets ability cooldowns",
+    "ja": "爆発でアビリティのクールダウンがリセット",
+    "zh": "爆炸重置技能冷卻時間",
+    "fr": "L'explosion annule le temps de recharge",
+    "de": "Explosion setzt Fähigkeiten-Abklingzeiten zurück",
+    "es": "La explosión restablece las recargas",
+    "pt": "Explodir zera a recarga da habilidade",
+    "ru": "Взрыв сбрасывает откаты способностей"
+   },
+   "hero_id": 65893852,
+   "slot_id": 48961396,
+   "type": 6
+  },
+  "60376888": {
+   "names": {
+    "ko": "모든 능력의 대기 시간 감소",
+    "en": "Reduced cooldowns for all abilites",
+    "ja": "全アビリティのクールダウン減少",
+    "zh": "縮短所有技能冷卻時間",
+    "fr": "Temps de recharge réduit avec toutes les capacités",
+    "de": "Verringerte Abklingzeit aller Fähigkeiten",
+    "es": "Recarga reducida de todas las habilidades",
+    "pt": "Menos recarga de todas habilidades",
+    "ru": "Снижены откаты всех способностей"
+   },
+   "hero_id": 45850136,
+   "slot_id": 48961367,
+   "type": 2
+  },
+  "82739510": {
+   "names": {
+    "ko": "연쇄 번개 볼트 발사",
+    "en": "Fires a chain lightning bolt",
+    "ja": "連鎖するデンゲキを発射",
+    "zh": "發射連鎖閃電",
+    "fr": "Tire une chaîne de foudre",
+    "de": "Feuert einen Kettenblitz an",
+    "es": "Dispara rayos en cadena.",
+    "pt": "Dispara uma corrente de raios",
+    "ru": "Выпускает цепную молнию"
+   },
+   "hero_id": 80931949,
+   "slot_id": 48961367,
+   "type": null
+  },
+  "49554365": {
+   "names": {
+    "ko": "체력 재생 지연 감소",
+    "en": "Decreased health regeneration delay",
+    "ja": "HP回復遅延が減少",
+    "zh": "縮短生命回復延遲",
+    "fr": "Délai de régénération de santé réduit",
+    "de": "Die Gesundheitsregeneration\nbeginnt früher",
+    "es": "Menos retardo de regeneración de salud",
+    "pt": "Menos atraso de cura da vida",
+    "ru": "Снижена задержка регенерации HP"
+   },
+   "hero_id": 631049,
+   "slot_id": 48961367,
+   "type": 1
+  },
+  "49044562": {
+   "names": {
+    "ko": "폭발 지연 감소",
+    "en": "Decreased explosion delay",
+    "ja": "爆発遅延が減少",
+    "zh": "縮短爆炸延遲時間",
+    "fr": "Délai d'explosion réduit",
+    "de": "Verringerte Explosionsverzögerung",
+    "es": "Menos retardo de explosión",
+    "pt": "Menos atraso da explosão",
+    "ru": "Снижена задержка взрыва"
+   },
+   "hero_id": 631045,
+   "slot_id": 48961386,
+   "type": 2
+  },
+  "49548997": {
+   "names": {
+    "ko": "공기 제어 향상",
+    "en": "Improved air control",
+    "ja": "空中制御が向上",
+    "zh": "提升空中操控能力",
+    "fr": "Meilleur contrôle en l'air",
+    "de": "Verbesserte Luftsteuerung",
+    "es": "Mejor control en el aire",
+    "pt": "Controle aéreo melhor",
+    "ru": "Улучшено управление в воздухе"
+   },
+   "hero_id": 631036,
+   "slot_id": 48961367,
+   "type": 3
+  },
+  "108140583": {
+   "names": {
+    "ko": "방패 체력 감소 시 방패 피해 증가",
+    "en": "Increases shield damage as shield HP decreases",
+    "ja": "シールド耐久値が減少するにつれシールドダメージが増加する",
+    "zh": "護盾血量越低，護盾傷害越高",
+    "fr": "Augmente les dégâts du bouclier à mesure que ses PV diminuent",
+    "de": "Erhöht den Schildschaden, je weiter die Schild-LP sinken",
+    "es": "El daño del escudo aumenta a medida que disminuyen sus PS.",
+    "pt": "Quanto menor a vida do escudo, maior o dano causado a escudos",
+    "ru": "Увеличивается урон щита по мере снижения его ХП"
+   },
+   "hero_id": 108140568,
+   "slot_id": 48961378,
+   "type": null
+  },
+  "60377728": {
+   "names": {
+    "ko": "밀친 물체가 라이벌을 목표로 삼음",
+    "en": "Pushed objects target rivals",
+    "ja": "押されたオブジェクトがライバルを狙う",
+    "zh": "被推動的物體會自動朝敵人飛去",
+    "fr": "Les objets poussés ciblent les adversaires",
+    "de": "Geschobene Objekte visieren Gegner an",
+    "es": "Los objetos empujados se dirigen hacia los rivales.",
+    "pt": "Objetos empurrados vão em direção a rivais",
+    "ru": "Объекты наводятся на противников"
+   },
+   "hero_id": 45850136,
+   "slot_id": 48961386,
+   "type": null
+  },
+  "49549052": {
+   "names": {
+    "ko": "공중에서 발사 속도 증가",
+    "en": "Increased fire rate while airborne",
+    "ja": "空中にいる間、発射速度が増加",
+    "zh": "在空中時提升射速",
+    "fr": "Cadence de feu augmentée en l'air",
+    "de": "Erhöhte Feuerrate in der Luft",
+    "es": "Más cadencia de fuego en el aire",
+    "pt": "Mais taxa de tiro aéreo",
+    "ru": "Повышена скорострельность в воздухе"
+   },
+   "hero_id": 631036,
+   "slot_id": 48961367,
+   "type": null
+  },
+  "49044493": {
+   "names": {
+    "ko": "충전 수 증가",
+    "en": "Increased charges count",
+    "ja": "チャージ数が増加",
+    "zh": "增加充能次數",
+    "fr": "Nombre de charges augmenté",
+    "de": "Erhöhte Ladungsanzahl",
+    "es": "Más cargas",
+    "pt": "Mais cargas",
+    "ru": "Увеличено количество зарядов"
+   },
+   "hero_id": 631045,
+   "slot_id": 48961386,
+   "type": 5
+  },
+  "49553600": {
+   "names": {
+    "ko": "대기 시간 감소",
+    "en": "Decreased cooldown",
+    "ja": "クールダウンが減少",
+    "zh": "縮短冷卻時間",
+    "fr": "Temps de recharge réduit",
+    "de": "Verringerte Abklingzeit",
+    "es": "Menos recarga",
+    "pt": "Recarga reduzida",
+    "ru": "Снижен откат"
+   },
+   "hero_id": 631047,
+   "slot_id": 48961386,
+   "type": 2
+  },
+  "97863786": {
+   "names": {
+    "ko": "배치 시 피해 입힘",
+    "en": "Deals damage on placement",
+    "ja": "配置時にダメージを与える",
+    "zh": "部署時造成傷害",
+    "fr": "Inflige des dégâts après le placement",
+    "de": "Fügt bei Platzierung Schaden zu",
+    "es": "Inflige daño al colocarlo.",
+    "pt": "Causa dano ao posicionar",
+    "ru": "Наносит урон при установке"
+   },
+   "hero_id": 91887043,
+   "slot_id": 48961396,
+   "type": null
+  },
+  "49554399": {
+   "names": {
+    "ko": "피해의 일부를 방어막으로 전환",
+    "en": "Part of damage gets converted into shields",
+    "ja": "ダメージの一部がシールドへ変換",
+    "zh": "部分造成的傷害轉化為護盾",
+    "fr": "Dégâts partiellement convertis en boucliers",
+    "de": "Teil des Schadens wird in Schilde umgewandelt",
+    "es": "Parte del daño se convierte en escudos",
+    "pt": "Parte do dano converte em escudo",
+    "ru": "Часть урона превращается в щиты"
+   },
+   "hero_id": 631049,
+   "slot_id": 48961378,
+   "type": 1
+  },
+  "49553076": {
+   "names": {
+    "ko": "벽 크기 및 체력 증가",
+    "en": "Increased wall size and HP",
+    "ja": "ウォールのサイズとHPが増加",
+    "zh": "提升牆體尺寸與生命值",
+    "fr": "Taille des murs et PV augmentés",
+    "de": "Erhöhte Mauergröße und -LP",
+    "es": "Mayor muro y más PS",
+    "pt": "Mais PV e tamanho da muralha",
+    "ru": "Увеличены размер и здоровье стены"
+   },
+   "hero_id": 631042,
+   "slot_id": 48961378,
+   "type": 4
+  },
+  "49549895": {
+   "names": {
+    "ko": "기절 지속 시간 증가",
+    "en": "Increased stun duration",
+    "ja": "スタンの持続時間が増加",
+    "zh": "延長暈眩持續時間",
+    "fr": "Durée d'étourdissement augmentée",
+    "de": "Erhöhte Betäubungsdauer",
+    "es": "Aumenta la duración del aturdimiento.",
+    "pt": "Duração do atordoar maior",
+    "ru": "Увеличено время оглушения"
+   },
+   "hero_id": 631036,
+   "slot_id": 48961396,
+   "type": 2
+  },
+  "49553399": {
+   "names": {
+    "ko": "착지 시 피해를 입힘",
+    "en": "Deals damage on landing",
+    "ja": "着地時に敵へダメージを与える",
+    "zh": "落地時造成傷害",
+    "fr": "Dégâts infligés à l'atterrissage",
+    "de": "Fügt bei Landung Schaden zu",
+    "es": "Inflige daño al aterrizar",
+    "pt": "Causa dano ao pousar",
+    "ru": "Наносит урон при приземлении"
+   },
+   "hero_id": 631047,
+   "slot_id": 48961367,
+   "type": null
+  },
+  "49553708": {
+   "names": {
+    "ko": "반경 증가",
+    "en": "Increased radius",
+    "ja": "範囲が増加",
+    "zh": "提升範圍",
+    "fr": "Rayon augmenté",
+    "de": "Erhöhter Radius",
+    "es": "Mayor radio",
+    "pt": "Raio maior",
+    "ru": "Увеличен радиус"
+   },
+   "hero_id": 631047,
+   "slot_id": 48961396,
+   "type": 4
+  },
+  "49553062": {
+   "names": {
+    "ko": "충전 수 증가",
+    "en": "Increased charges count",
+    "ja": "チャージ数が増加",
+    "zh": "增加充能次數",
+    "fr": "Nombre de charges augmenté",
+    "de": "Erhöhte Ladungsanzahl",
+    "es": "Más cargas",
+    "pt": "Mais cargas",
+    "ru": "Увеличено количество зарядов"
+   },
+   "hero_id": 631042,
+   "slot_id": 48961378,
+   "type": 5
+  },
+  "49554443": {
+   "names": {
+    "ko": "충전 대기 시간 감소",
+    "en": "Decreased charge cooldown",
+    "ja": "チャージのクールダウンが減少",
+    "zh": "縮短充能冷卻時間",
+    "fr": "Temps de recharge de charge réduit",
+    "de": "Verm. Ladung-Abklingzeit",
+    "es": "Menos recarga de carga",
+    "pt": "Tempo de recarga reduzido",
+    "ru": "Уменьшен откат заряда"
+   },
+   "hero_id": 631049,
+   "slot_id": 48961386,
+   "type": 2
+  },
+  "97251813": {
+   "names": {
+    "ko": "최대 표식 수 증가",
+    "en": "Increased maximum marks count",
+    "ja": "最大マーク数が増加する",
+    "zh": "最大標記層數增加",
+    "fr": "Nombre de marques maximales augmenté",
+    "de": "Erhöhte max. Malanzahl",
+    "es": "Aumentado el número máximo de marcas.",
+    "pt": "Aumento do número máximo de marcas",
+    "ru": "Увеличено максимальное кол-во меток"
+   },
+   "hero_id": 97251807,
+   "slot_id": 48961367,
+   "type": 5
+  },
+  "97251825": {
+   "names": {
+    "ko": "순간이동 후 체력 재생",
+    "en": "Starts regenerating HP after teleporting",
+    "ja": "テレポート後、HP回復が始まる",
+    "zh": "傳送後開始恢復生命值",
+    "fr": "Lance la régénération des PV après une téléportation",
+    "de": "Stellt nach dem Teleportieren LP wieder her",
+    "es": "Empieza a regenerar PS después del teletransporte.",
+    "pt": "Começa a recuperar PV após se teletransportar",
+    "ru": "Запуск регенерации после телепорта"
+   },
+   "hero_id": 97251807,
+   "slot_id": 48961386,
+   "type": 1
+  },
+  "49044722": {
+   "names": {
+    "ko": "미사일 기동성 증가",
+    "en": "Increased missile maneuverability",
+    "ja": "ミサイルの操作性が向上",
+    "zh": "提升飛彈機動性能",
+    "fr": "Maniabilité des\nmissiles augmentée",
+    "de": "Erhöhte Raketen-Manövrierbarkeit",
+    "es": "Mayor manejabilidad de misiles",
+    "pt": "Mais controle de míssil",
+    "ru": "Повышена маневренность ракет"
+   },
+   "hero_id": 631045,
+   "slot_id": 48961396,
+   "type": 3
+  },
+  "49554042": {
+   "names": {
+    "ko": "지속 시간 증가",
+    "en": "Increased duration",
+    "ja": "持続時間が増加",
+    "zh": "延長技能持續時間",
+    "fr": "Durée augmentée",
+    "de": "Erhöhte Dauer",
+    "es": "Más duración",
+    "pt": "Maior duração",
+    "ru": "Увеличено время действия"
+   },
+   "hero_id": 631040,
+   "slot_id": 48961378,
+   "type": 2
+  },
+  "97863787": {
+   "names": {
+    "ko": "장애물 수 증가",
+    "en": "Increased obstacle count",
+    "ja": "石壁の数が増加",
+    "zh": "增加障礙數量",
+    "fr": "Nombre d'obstacles augmenté",
+    "de": "Erhöhte Anzahl an Hindernissen",
+    "es": "Aumento del número de obstáculos.",
+    "pt": "Contagem de obstáculo aumentada",
+    "ru": "Увеличенное кол-во преград"
+   },
+   "hero_id": 91887043,
+   "slot_id": 48961396,
+   "type": 4
+  },
+  "49554412": {
+   "names": {
+    "ko": "투척력 증가",
+    "en": "Increased throwing force\r",
+    "ja": "投てきパワーが増加",
+    "zh": "提升投擲力道",
+    "fr": "Force de lancer augmentée",
+    "de": "Erhöhte Wurfkraft",
+    "es": "Más poder de lanzamiento",
+    "pt": "Força de lançamento maior\r",
+    "ru": "Повышена сила броска"
+   },
+   "hero_id": 631049,
+   "slot_id": 48961378,
+   "type": null
+  },
+  "97863785": {
+   "names": {
+    "ko": "방어막 생성 후 폭발",
+    "en": "Explosion after generating shields",
+    "ja": "シールド生成後、爆発が発生",
+    "zh": "生成護盾後產生爆炸效果",
+    "fr": "Explosion après la génération de boucliers",
+    "de": "Explosion nach Schildgeneration",
+    "es": "Explosión tras generar escudos.",
+    "pt": "Explosão após regenerar escudo",
+    "ru": "Взрыв после генерации щитов"
+   },
+   "hero_id": 91887043,
+   "slot_id": 48961386,
+   "type": null
+  },
+  "49554356": {
+   "names": {
+    "ko": "이동 속도 증가",
+    "en": "Increased move speed",
+    "ja": "移動速度が増加",
+    "zh": "提升移動速度",
+    "fr": "Vitesse de mouvement augmentée",
+    "de": "Erhöhte Bewegungsgeschwindigkeit",
+    "es": "Más velocidad de movimiento",
+    "pt": "Mais vel. movimento",
+    "ru": "Повышена скорость передвижения"
+   },
+   "hero_id": 631049,
+   "slot_id": 48961367,
+   "type": 3
+  },
+  "49553205": {
+   "names": {
+    "ko": "지뢰 수 증가",
+    "en": "Increased mine count",
+    "ja": "マイン数が増加",
+    "zh": "增加地雷數量",
+    "fr": "Nombre de mines augmenté",
+    "de": "Erhöhte Minenanzahl",
+    "es": "Más minas",
+    "pt": "Mais minas",
+    "ru": "Увеличено количество мин"
+   },
+   "hero_id": 631042,
+   "slot_id": 48961396,
+   "type": 8
+  },
+  "49552147": {
+   "names": {
+    "ko": "들이받기 충돌 피해 증가",
+    "en": "Increased ram collision damage",
+    "ja": "体当たりダメージが増加",
+    "zh": "提升身體衝撞傷害",
+    "fr": "Dég. collision enfoncement augmentés",
+    "de": "Erhöhter Rammschaden",
+    "es": "Más daño de embestida",
+    "pt": "Mais dano de colisão ao lançar",
+    "ru": "Повышен урон от тарана"
+   },
+   "hero_id": 631042,
+   "slot_id": 48961386,
+   "type": null
+  },
+  "108140579": {
+   "names": {
+    "ko": "발사 시 공격 범위 증가",
+    "en": "Increased attack range when firing",
+    "ja": "発射武器の攻撃範囲が増加する",
+    "zh": "開火時增加攻擊距離",
+    "fr": "Portée d'attaque augmentée en tirant",
+    "de": "Erhöhte Angriffsreichweite beim Schießen",
+    "es": "Mayor alcance del ataque al disparar.",
+    "pt": "Alcance de ataque maior ao disparar",
+    "ru": "Увеличенная дальность атаки при стрельбе"
+   },
+   "hero_id": 108140568,
+   "slot_id": 48961367,
+   "type": 4
+  },
+  "49549962": {
+   "names": {
+    "ko": "수류탄 수 증가",
+    "en": "Increased grenade count",
+    "ja": "グレネード数が増加",
+    "zh": "增加手榴彈數量",
+    "fr": "Nombre de grenades augmentés",
+    "de": "Erhöhte Granatenanzahl",
+    "es": "Más granadas",
+    "pt": "Mais granadas",
+    "ru": "Увеличено количество гранат"
+   },
+   "hero_id": 631036,
+   "slot_id": 48961396,
+   "type": 7
+  },
+  "82739493": {
+   "names": {
+    "ko": "포탑 체력 증가",
+    "en": "Increased turret HP",
+    "ja": "タレットのHPが増加",
+    "zh": "提升砲塔生命值",
+    "fr": "PV de tourelle ",
+    "de": "Erhöhte Geschütz-LP",
+    "es": "Más PS de torreta",
+    "pt": "Mais PV da torreta",
+    "ru": "Увеличено здоровье турели"
+   },
+   "hero_id": 80931949,
+   "slot_id": 48961396,
+   "type": 1
+  },
+  "49551613": {
+   "names": {
+    "ko": "최대 발사 속도 증가",
+    "en": "Increased maximum fire rate",
+    "ja": "最大発射速度が増加",
+    "zh": "提升最大射速",
+    "fr": "Cadence de tir maximale augmentée",
+    "de": "Erhöhte max. Feuerrate",
+    "es": "Más cadencia de fuego máxima",
+    "pt": "Mais taxa de tiros máx.",
+    "ru": "Повышен максимальный темп стрельбы"
+   },
+   "hero_id": 631042,
+   "slot_id": 48961367,
+   "type": null
+  },
+  "67709714": {
+   "names": {
+    "ko": "지뢰로 제거 시 대기 시간 초기화",
+    "en": "Eliminations with Mine reset cooldown",
+    "ja": "マインでの撃破でクールダウンリセット",
+    "zh": "使用地雷殲滅敵人將重置冷卻時間",
+    "fr": "Les éliminations effectuées par Mine réinitialisent le temps de recharge",
+    "de": "Eliminierungen mit Minen setzen Abklingzeit zurück",
+    "es": "Las eliminaciones con la mina restablecen el tiempo de recarga.",
+    "pt": "Eliminações com Minas zeram a recarga",
+    "ru": "Устранения Миной сбрасывают откат"
+   },
+   "hero_id": 61223451,
+   "slot_id": 48961378,
+   "type": 6
+  },
+  "49549586": {
+   "names": {
+    "ko": "스프링 사용 시 대기 시간 감소",
+    "en": "Decreased cooldown for using Spring",
+    "ja": "スプリングの使用でクールダウン減少",
+    "zh": "使用爆衝時縮短冷卻時間",
+    "fr": "Temps de recharge réduit avec l'utilisation du ressort",
+    "de": "Verringerte Abklingzeit bei Feder-Einsatz",
+    "es": "Menos recarga al usar Resorte",
+    "pt": "Recarga reduzida ao usar mola",
+    "ru": "Снижен откат при использовании Отскока"
+   },
+   "hero_id": 631036,
+   "slot_id": 48961378,
+   "type": 2
+  },
+  "67709646": {
+   "names": {
+    "ko": "기절 시간 감소",
+    "en": "Reduced stun time",
+    "ja": "スタン時間が減少",
+    "zh": "縮短暈眩時間",
+    "fr": "Temps d'étourdissement réduit",
+    "de": "Verringerte Betäubungszeit",
+    "es": "El aturdimiento dura menos.",
+    "pt": "Tempo de atordoamento menor",
+    "ru": "Сокращено время оглушения"
+   },
+   "hero_id": 61223451,
+   "slot_id": 48961367,
+   "type": 2
+  },
+  "49553824": {
+   "names": {
+    "ko": "조준 시간 감소",
+    "en": "Decreased aiming time",
+    "ja": "照準時間が減少",
+    "zh": "縮短瞄準時間",
+    "fr": "Temps de visée réduit",
+    "de": "Verminderte Zielzeit",
+    "es": "Menos focalización",
+    "pt": "Menos tempo de mira",
+    "ru": "Снижено время прицеливания"
+   },
+   "hero_id": 631040,
+   "slot_id": 48961367,
+   "type": null
+  },
+  "49553527": {
+   "names": {
+    "ko": "치유 수류탄이 이동 속도를 증가시킴",
+    "en": "Healing grenade boosts movement speed",
+    "ja": "回復グレネードが移動速度を増加",
+    "zh": "治療手榴彈可提升移動速度",
+    "fr": "La grenade régénérante accroît la vitesse de mouvement",
+    "de": "Heilgranate erhöht Bewegungsgeschwindigkeit",
+    "es": "La granada curativa aumenta la velocidad de movimiento",
+    "pt": "Granada de cura aumenta vel. movimento",
+    "ru": "Лечебная граната ускоряет движение"
+   },
+   "hero_id": 631047,
+   "slot_id": 48961378,
+   "type": 3
+  },
+  "82739530": {
+   "names": {
+    "ko": "방어막 획득 시 공격 범위 증가",
+    "en": "Increased attack range when gaining shields",
+    "ja": "シールド獲得時に攻撃範囲が増加",
+    "zh": "獲得護盾時增加攻擊距離",
+    "fr": "Portée d'attaque augmentée avec les boucliers",
+    "de": "Erhöhte Angriffsreichweite bei Erhalt von Schilden",
+    "es": "Más alcance de ataque con escudos.",
+    "pt": "Maior alcance de ataque ao ganhar escudos",
+    "ru": "Повышена дальность атаки при получении щитов"
+   },
+   "hero_id": 80931949,
+   "slot_id": 48961367,
+   "type": 4
+  },
+  "97251814": {
+   "names": {
+    "ko": "체력이 가득 차면 공격 범위 증가",
+    "en": "Increased attack range at full health",
+    "ja": "HP満タン時、攻撃範囲が拡大する",
+    "zh": "生命值全滿時，攻擊距離增加",
+    "fr": "Portée d'attaque augmentée à pleine santé",
+    "de": "Erhöhte Angriffsreichweite bei voller Gesundheit",
+    "es": "El alcance del ataque aumenta cuando la salud está al máximo.",
+    "pt": "Alcance de ataque maior com a vida cheia",
+    "ru": "Увеличена дальность атаки при макс. здоровье"
+   },
+   "hero_id": 97251807,
+   "slot_id": 48961367,
+   "type": 4
+  },
+  "108140578": {
+   "names": {
+    "ko": "총알 한 발마다 치명타 확률이 적용됩니다.",
+    "en": "Each bullet has a critical hit chance",
+    "ja": "弾攻撃が一定確率でクリティカルヒットになる",
+    "zh": "每發子彈都有暴擊機率",
+    "fr": "Chaque projectile a une chance d'infliger un coup critique",
+    "de": "Jede Kugel hat eine Chance auf kritische Treffer",
+    "es": "Cada bala tiene una probabilidad de infligir daño crítico.",
+    "pt": "Cada projétil tem chance de causar dano crítico",
+    "ru": "У каждой пули есть шанс на критическое попадание"
+   },
+   "hero_id": 108140568,
+   "slot_id": 48961367,
+   "type": null
+  },
+  "49553512": {
+   "names": {
+    "ko": "충전 수 증가",
+    "en": "Increased charges count",
+    "ja": "チャージ数が増加",
+    "zh": "增加充能次數",
+    "fr": "Nombre de charges augmenté",
+    "de": "Erhöhte Ladungsanzahl",
+    "es": "Más cargas",
+    "pt": "Mais cargas",
+    "ru": "Увеличено количество зарядов"
+   },
+   "hero_id": 631047,
+   "slot_id": 48961378,
+   "type": 5
+  },
+  "67709746": {
+   "names": {
+    "ko": "접착 시 지뢰 발동 피해 증가",
+    "en": "Increased Trigger Mine damage while stuck",
+    "ja": "貼りつき中トリガーマインのダメージ増加",
+    "zh": "黏附期間提升觸發地雷傷害",
+    "fr": "Dég mine à déclenchement\naugmentés quand collée",
+    "de": "Erhöhter Zünderminen-Schaden wenn angeheftet",
+    "es": "Adherida, la mina inflige más daño al activarse",
+    "pt": "Mais dano de mina de ativação enquanto preso",
+    "ru": "Повышен урон Мины при прилипании"
+   },
+   "hero_id": 61223451,
+   "slot_id": 48961378,
+   "type": null
+  },
+  "49553193": {
+   "names": {
+    "ko": "활성화 시 모든 대기 시간 초기화",
+    "en": "Activation resets all cooldowns",
+    "ja": "発動で全てのクールダウンがリセット",
+    "zh": "啟動時重置所有冷卻時間",
+    "fr": "Réinitialise tous les temps de recharge",
+    "de": "Aktivierung setzt alle Abklingzeiten zurück",
+    "es": "Restablece todas las recargas.",
+    "pt": "Ativar reinicia todas as recargas",
+    "ru": "Активация сбрасывает все откаты"
+   },
+   "hero_id": 631042,
+   "slot_id": 48961396,
+   "type": 6
+  },
+  "49552397": {
+   "names": {
+    "ko": "레킹 볼에서 나온 후 방어막 획득",
+    "en": "Gains shields after exiting Wrecking Ball",
+    "ja": "レッキングボール終了後にシールドを獲得",
+    "zh": "結束破壞球狀態後獲得護盾",
+    "fr": "Boucliers reçus après boule de démolition",
+    "de": "Erhält Schilde nach Ende der Abrisskugel",
+    "es": "Tras abandonar la forma bola de demolición, obtiene escudos.",
+    "pt": "Ganha escudo ao sair da bola de demo",
+    "ru": "Получает щиты после выхода из Шара"
+   },
+   "hero_id": 631042,
+   "slot_id": 48961386,
+   "type": 1
+  },
+  "60377526": {
+   "names": {
+    "ko": "당긴 라이벌이 피해를 받음",
+    "en": "Pulled rivals take damage",
+    "ja": "引き寄せた敵へダメージを与える",
+    "zh": "被拉中的敵人會受到傷害",
+    "fr": "Les adversaires attirés subissent des dégâts",
+    "de": "Angezogene Gegner nehmen Schaden",
+    "es": "Los rivales atraídos sufren daño.",
+    "pt": "Rivais atraídos recebem dano",
+    "ru": "Притянутые противники получают урон"
+   },
+   "hero_id": 45850136,
+   "slot_id": 48961378,
+   "type": null
+  },
+  "49553908": {
+   "names": {
+    "ko": "체력 재생 지연 감소",
+    "en": "Decreased health regeneration delay",
+    "ja": "HP回復遅延が減少",
+    "zh": "縮短生命回復延遲",
+    "fr": "Délai de régénération de santé réduit",
+    "de": "Die Gesundheitsregeneration\nbeginnt früher",
+    "es": "Menos retardo de regeneración de salud",
+    "pt": "Menos atraso de cura da vida",
+    "ru": "Снижена задержка регенерации здоровья"
+   },
+   "hero_id": 631040,
+   "slot_id": 48961386,
+   "type": 1
+  },
+  "97251827": {
+   "names": {
+    "ko": "라이벌을 명중할 때마다 방어막 획득",
+    "en": "Gains shields for each rival hit",
+    "ja": "ライバルにヒットするとシールドを獲得",
+    "zh": "每命中一名敵人即可獲得護盾",
+    "fr": "Génère des boucliers pour chaque adversaire touché",
+    "de": "Gewährt Schilde für jeden getroffenen Gegner",
+    "es": "Recibe escudos por cada rival alcanzado.",
+    "pt": "Ganha escudos para cada rival atingido",
+    "ru": "Получает щиты за каждого задетого противника"
+   },
+   "hero_id": 97251807,
+   "slot_id": 48961396,
+   "type": 1
+  },
+  "70291724": {
+   "names": {
+    "ko": "에너지 셀 수 증가",
+    "en": "Increased Energy Cells count",
+    "ja": "エネルギーセル数が増加",
+    "zh": "增加能量核心數量",
+    "fr": "Nombre de cellules d'énergie augmenté",
+    "de": "Erhöhte Energiezellenanzahl",
+    "es": "Más celdas de energía",
+    "pt": "Mais células de energia",
+    "ru": "Больше энергоядер"
+   },
+   "hero_id": 65893852,
+   "slot_id": 48961386,
+   "type": 5
+  },
+  "70291639": {
+   "names": {
+    "ko": "체력이 가득 차면 피해 증가",
+    "en": "Increased damage at full health",
+    "ja": "HP満タンでダメージが増加",
+    "zh": "滿血時提升傷害",
+    "fr": "Dégâts augmentés à pleine santé",
+    "de": "Erhöhter Schaden bei vollen LP",
+    "es": "Más daño con los PS máximos",
+    "pt": "Mais dano com vida cheia",
+    "ru": "Повышенный урон при полном HP"
+   },
+   "hero_id": 65893852,
+   "slot_id": 48961367,
+   "type": null
+  },
+  "67709832": {
+   "names": {
+    "ko": "얼티밋 중 이동 속도 증가",
+    "en": "Increased movement speed during Ultimate",
+    "ja": "究極を使用中の移動速度が増加",
+    "zh": "終極技期間提升移動速度",
+    "fr": "Vitesse de mouvement augmentée avec une ultime",
+    "de": "HP restoration on every Staff hit",
+    "es": "Más velocidad de movimiento con la suprema",
+    "pt": "Mais vel. de movimento durante Suprema",
+    "ru": "Повышена скорость в ульте"
+   },
+   "hero_id": 61223451,
+   "slot_id": 48961396,
+   "type": 3
+  },
+  "70291720": {
+   "names": {
+    "ko": "치유 대신 방어막 부여",
+    "en": "Gives shields instead of heal",
+    "ja": "回復の代わりにシールドを付与",
+    "zh": "改為提供護盾而非回復生命值",
+    "fr": "Boucliers au lieu de guérison",
+    "de": "Gewährt Schilde statt Heilung",
+    "es": "Otorga escudos en lugar de curar",
+    "pt": "Concede escudo em vez de cura",
+    "ru": "Дают щиты вместо лечения"
+   },
+   "hero_id": 65893852,
+   "slot_id": 48961386,
+   "type": 1
+  },
+  "49044664": {
+   "names": {
+    "ko": "미사일 수 증가",
+    "en": "Increased missile count",
+    "ja": "ミサイル数が増加",
+    "zh": "增加飛彈數量",
+    "fr": "Nombre de missiles augmenté",
+    "de": "Erhöhte Raketenanzahl",
+    "es": "Más misiles",
+    "pt": "Mais mísseis",
+    "ru": "Увеличено число ракет"
+   },
+   "hero_id": 631045,
+   "slot_id": 48961396,
+   "type": 7
+  }
+ }
+}

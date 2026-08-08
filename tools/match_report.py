@@ -33,6 +33,7 @@ import sys
 import html
 import json
 import collections
+import itertools
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 import replay_stream as R
@@ -92,6 +93,15 @@ def collect(name):
                        "name": pl.get("Name"), "bot": bool(pl.get("IsBot")),
                        "hero_id": hid, "level": (h or {}).get("Level"),
                        "hero_name": (heroes_tbl.get(hid) or {}).get("en") if hid else None,
+                       # 🆔 영구 계정 ID — 닉네임은 바뀌고 겹치지만 이건 안 그렇다.
+                       #    누적 통계는 반드시 이걸로 묶어야 한다(2026-08-09 12차):
+                       #    같은 사람이 개명하면 두 사람이 되고, 보이지 않는 닉네임(채움문자)을
+                       #    쓰는 **서로 다른 두 사람**이 한 행으로 합쳐지는 일이 실제로 있었다.
+                       "player_id": pl.get("PlayerId"),
+                       "rating": pl.get("Rating"), "squad": pl.get("SquadId"),
+                       # 🎽 선택한 퍽 4개 — 리포트 결과 카드에 빌드를 보여 줄 수 있다
+                       "perks": [pk.get("Id") for pk in ((h or {}).get("Perks") or [])
+                                 if pk.get("Selected")],
                        # 보유 영웅 전체의 레벨 — 추론으로 영웅이 정해진 뒤 레벨을 채우는 데 쓴다
                        "levels": {str(x.get("Id")): x.get("Level") for x in hs}})
 
@@ -113,6 +123,7 @@ def collect(name):
     # ── ② 실시간 프레임에서 사건·좌표·체력 ───────────────────────────────
     logs, hp, pos = [], collections.defaultdict(list), collections.defaultdict(list)
     skills, owner_of, ult_ents = [], {}, set()   # 발동 · 스킬엔티티→캐릭터 · 궁 엔티티
+    respawns = collections.defaultdict(list)     # 엔티티 → 부활 시각들 (파일이 주는 실측값)
     stats = {}                                   # 선수 → 게임이 보낸 전적(검증용)
     score = {}                                   # 모드별 점수(승패 판정용)
     score_tl = []                                # 점수 변화 타임라인 (ms, 컴포넌트, {필드:값})
@@ -152,18 +163,35 @@ def collect(name):
                 # 이 엔티티가 **궁** 이라는 표시. 충전 진행도라 사용 시점이 아니다 —
                 # 실제 사용은 위 `AbilityUsageState` 가 이 엔티티에서 뜰 때다.
                 ult_ents.add(e)
+            elif c == "Respawn" and "RespawnCounter" in v:
+                # 🎉 **부활 시각이 파일에 있다** (2026-08-09 12차 발견).
+                #    예전엔 "좌표가 다시 오는 때"로 추정했는데, 은신(칼리브리)처럼
+                #    살아 있어도 좌표가 끊기는 영웅에서 추정이 통째로 빗나갔다.
+                respawns[e].append(ms)
     # ── ③ 영웅 판별 — 추론(신호 넷)과 StartData 를 **서로 대조**한다 ─────
     for p in players.values():
         p.update(identify(name, p["hero_entity"], hp,
                           comps=restore_comps.get(p["hero_entity"])))
     # 선수 엔티티는 팀 안에서 번호 순 = StartData 의 PlayerMatchId 순으로 짝지어진다.
     # (세 경기 18명 전부에서 추론 결과와 StartData 의 영웅·레벨이 일치해 확인됨)
+    #
+    # 🪤 **그 가정이 깨지는 경기가 있다** (2026-08-09 12차 감사, J2VRV3D4).
+    #    엔티티 457·461 이 서로 바뀌어 **영웅도 닉네임도 통째로 뒤바뀐** 리포트가 나갔다
+    #    (콜드브루=실제 레메디인데 노바로, 그 반대도). 추론(identify)은 양쪽 다 정답을
+    #    가리키고 있었는데 파일값이 덮어써 버린 것.
+    #    → 짝짓기 전에 **추론과 파일이 모두 확정이면서 서로 어긋나는지** 보고,
+    #      순서를 바꾸면 둘 다 맞아떨어지는 조합이 있으면 그걸 쓴다.
     for team in {r["team"] for r in roster}:
         ents = sorted(e for e, q in players.items() if q["team"] == team)
         rs = sorted((r for r in roster if r["team"] == team), key=lambda r: r["match_id"] or 0)
+        rs = _fix_pairing(players, ents, rs)
         for e, r in zip(ents, rs):
             q = players[e]
             q["name"], q["bot"] = r["name"], r["bot"]
+            q["player_id"] = r.get("player_id")
+            q["rating"] = r.get("rating")
+            q["squad"] = r.get("squad")
+            q["perks"] = r.get("perks") or []
             guess = (q.get("hero") or "").lower()
             true_name = (r["hero_name"] or "").lower().replace("-", "")
             q["hero_src"] = "파일" if r["hero_name"] else "추론"
@@ -179,16 +207,29 @@ def collect(name):
                             if (v.get("en") or "").lower().replace("-", "") == guess), None)
                 if hid and r.get("levels", {}).get(hid) is not None:
                     q["hero_level"] = r["levels"][hid]
+    # ── ③-b 이름 정규화 — 여기서부터 아래는 **표기가 하나**다 ────────────
+    #    `hero` = 소문자·하이픈 없는 키(집계·조회용) / `hero_disp` = 공식 표기(화면용).
+    #    ⚠️ 위 hero_ok 대조가 끝난 **뒤**에 해야 한다(대조는 자체적으로 정규화해 비교함).
+    heroes_en = {hero_key(v.get("en")): v.get("en") for v in heroes_tbl.values() if v.get("en")}
+    for q in players.values():
+        q["hero"] = hero_key(q.get("hero"))
+        q["hero_disp"] = "/".join(heroes_en.get(x, x.capitalize())
+                                  for x in q["hero"].split("/")) if q["hero"] else "?"
+
     # 스킬 엔티티 → 선수 번호 (주인 캐릭터 → 그 캐릭터를 쓰는 선수)
+    #   오프셋(스킬엔티티 − 영웅엔티티)은 **어느 스킬인지**의 지문이다(스킬표.json).
     ent2pid = {p["hero_entity"]: pid for pid, p in players.items()}
     raw = []
     for ms, e, kind in skills:
         he = owner_of.get(e)
         if he in ent2pid:
-            raw.append((ms, ent2pid[he], "궁" if e in ult_ents else "스킬"))
+            raw.append((ms, ent2pid[he], "궁" if e in ult_ents else "스킬", e - he))
     skill_use = _cluster(raw)
+    # 부활 시각은 **선수 번호**로 바꿔 둔다 (Respawn 은 선수 엔티티에 실려 온다)
+    resp = {pid: sorted(respawns.get(pid, [])) for pid in players}
     return {"players": players, "logs": logs, "hp": hp, "pos": pos, "skills": skill_use,
             "stats": stats, "score": score, "score_tl": score_tl, "ent2pid": ent2pid,
+            "respawns": resp,
             "frames": frames, "ok": ok, "start": start,
             "t0": min((m for m, _ in logs), default=0)}
 
@@ -198,19 +239,28 @@ def collect(name):
 #      실측: Dread 의 궁은 한 번 쓰면 약 5초간 트리거가 9번까지 떴다
 #      (61.7~66.8초에 9번, 108.1~113.2초에 5번 → 실제로는 **2번 사용**).
 #   그래서 같은 선수의 연속 트리거를 아래 간격 안이면 **한 번**으로 센다.
-CLUSTER_MS = {"궁": 5000, "스킬": 800}
+#   🪤 5000 은 **너무 빠듯했다** (2026-08-09 12차 감사): 벡터 궁(지팡이 변신)은
+#      변신·복귀 두 번 트리거되고 간격이 **정확히 5040ms** 라 40ms 차로 안 묶여
+#      전 경기에서 궁 횟수가 **정확히 2배**로 나왔다(ZDAVTZPC 사람 "궁 6번" ← 실제 3번).
+#      드레드는 정확히 5000ms 라 `<=` 경계에 우연히 걸려 살아 있었다 — 여유를 준다.
+CLUSTER_MS = {"궁": 6000, "스킬": 800}
 
 
 def _cluster(raw):
-    """(시각, 선수, 종류) 목록에서 같은 선수·같은 종류의 연속 트리거를 묶는다."""
+    """(시각, 선수, 종류, 오프셋) 목록에서 같은 선수·같은 스킬의 연속 트리거를 묶는다.
+
+    오프셋(스킬엔티티 − 영웅엔티티)까지 함께 받아 **어느 스킬인지**를 유지한다.
+    묶는 단위도 선수·종류가 아니라 **선수·스킬**이다 — 서로 다른 스킬을 연달아 쓰면
+    각각 세야 하기 때문. (예전에는 종류로만 묶어 0.8초 안의 다른 스킬이 하나로 합쳐졌다)
+    """
     out, last = [], {}
-    for ms, pid, kind in sorted(raw):
-        key = (pid, kind)
+    for ms, pid, kind, off in sorted(raw):
+        key = (pid, kind, off)
         if key in last and ms - last[key] <= CLUSTER_MS.get(kind, 800):
             last[key] = ms                      # 같은 사용의 연장 — 세지 않는다
             continue
         last[key] = ms
-        out.append((ms, pid, kind))
+        out.append((ms, pid, kind, off))
     return out
 
 
@@ -234,6 +284,55 @@ FINGERPRINT = [
     ({"calibri", "nova"}, "EnableInvisible", "calibri", "nova"),
     ({"magnus", "sejin"}, "BlinkAbility", "sejin", "magnus"),
 ]
+
+
+def hero_key(s):
+    """영웅 이름을 **하나의 표기**로 — 소문자·하이픈 제거 (`Se-Jin`·`sejin` → `sejin`).
+
+    🪤 이게 없어서 같은 영웅이 두 갈래로 집계됐다(2026-08-09 12차 감사).
+       StartData 경로는 영웅표의 `Se-Jin`(공식 표기), 추론 경로는 체력표 키 `sejin` 을 넣어
+       한 경기 안에서도 표기가 섞였고 → 누적통계가 갈라지고, 사이트 초상화 키(`sejin`)와
+       어긋나 **세진 초상화가 "?" 로 깨져 있었다.**
+       후보가 여럿일 때 쓰는 `a/b` 병기 표기도 각 조각을 따로 정규화한다.
+    """
+    return "/".join(x.lower().replace("-", "") for x in str(s or "").split("/"))
+
+
+def _fix_pairing(players, ents, rs):
+    """엔티티 ↔ StartData 명단 짝짓기가 어긋났으면 바로잡는다.
+
+    기본 가정은 "팀 안에서 엔티티 번호순 = PlayerMatchId 순"이고 거의 항상 맞다.
+    🪤 그런데 J2VRV3D4 에서 깨졌다(2026-08-09 12차 감사): 두 선수의 **영웅도 닉네임도
+       통째로 뒤바뀐** 리포트가 나갔다. 추론(identify)은 양쪽 다 정답을 가리키고 있었는데
+       파일값이 그대로 덮어써서 아무도 몰랐다.
+    → **추론이 확정(hero_sure)인 자리만** 채점해서, 순서를 바꾸면 더 잘 맞는 조합이
+      있으면 그걸 쓴다. 증거가 없으면(추론이 확정 아님·파일에 영웅 없음) 손대지 않는다.
+    """
+    if len(ents) != len(rs) or len(ents) > 6:      # 6명 넘으면 순열이 과해진다 — 손대지 않음
+        return rs
+
+    def score(order):
+        """맞으면 +1, 어긋나면 -1. 양쪽 다 확정일 때만 센다."""
+        s = 0
+        for e, r in zip(ents, order):
+            q = players[e]
+            if not q.get("hero_sure") or not r.get("hero_name"):
+                continue
+            s += 1 if hero_key(q.get("hero")) == hero_key(r["hero_name"]) else -1
+        return s
+
+    base = score(rs)
+    if base >= 0:                                   # 어긋난 증거가 없으면 그대로
+        return rs
+    best, best_s = rs, base
+    for order in itertools.permutations(rs):
+        s = score(order)
+        if s > best_s:
+            best, best_s = list(order), s
+    if best_s > base:
+        names = " / ".join(f"{r.get('name')}→{r.get('hero_name')}" for r in best)
+        print(f"   ⚠️ 명단 짝짓기 교정(점수 {base}→{best_s}): {names}")
+    return best
 
 
 def identify(replay, hero_entity, hp, comps=None):
@@ -353,7 +452,7 @@ def label(d, pid):
     bot = "🤖" if p.get("bot") else ""
     if p.get("hero_sure"):
         lv = f" Lv{p['hero_level']}" if p.get("hero_level") else ""
-        return f"{who}{bot}({p['hero'].capitalize()}{lv}·{t}팀)"
+        return f"{who}{bot}({p.get('hero_disp') or p['hero'].capitalize()}{lv}·{t}팀)"
     return f"{who}{bot}({t}팀)"
 
 
@@ -373,7 +472,7 @@ def roster_line(d, pid):
                 chk += f" + 컴포넌트 지문({p['fp']})"
         else:
             chk = "파일값·추론 일치 ✅" if p["hero_ok"] else "파일값·추론 불일치 ⚠️"
-        return f"{who}{bot} = {p['hero'].capitalize()}{lv}  ({chk}, 최대체력 {p.get('max_hp') or '?'})"
+        return f"{who}{bot} = {p.get('hero_disp') or p['hero'].capitalize()}{lv}  ({chk}, 최대체력 {p.get('max_hp') or '?'})"
     cands = "/".join(x.capitalize() for x in p.get("hero_candidates") or ["?"])
     return f"{who}{bot} = {cands} 중 하나  ⚠️미확정"
 
@@ -420,15 +519,21 @@ def deaths(d):
 
     한 번의 죽음에 여러 명이 처치 크레딧을 받으므로(게임 규칙), 로그를 그대로 늘어놓으면
     같은 죽음이 서너 줄로 보인다. `(대상, 초)` 로 묶어 "누구 사망 ← 잡은 사람들" 한 줄로.
+
+    🪤 **죽음 사건은 잡은 쪽이 누구든 성립한다** (2026-08-09 12차 감사).
+       예전에는 `h[1] not in players` 로 걸러서 **터렛·포탑 등 비플레이어에게 잡힌 죽음이
+       통째로 사라졌다**(FZ4Y6HCL P168: 여기선 5건, 게임 DeathsCount 는 6). 그 죽음은
+       사망 지도·사망 심화·생존율·교전 승패에서 전부 빠져 있었다.
+       → 사건은 `대상이 선수` 이면 만들고, **잡은 사람 목록에만** 선수 조건을 건다.
     """
     ev = {}
     for ms, h in sorted(d["logs"]):
-        if h[0] not in DEATH_KINDS or h[2] not in d["players"] or h[1] not in d["players"]:
+        if h[0] not in DEATH_KINDS or h[2] not in d["players"]:
             continue
         key = next((k for k in ev if k[0] == h[2] and abs(k[1] - ms) <= 1200), (h[2], ms))
         ev.setdefault(key, [])
-        if h[0] in KILL_CREDIT and h[1] not in ev[key]:
-            ev[key].append(h[1])          # 잡은 사람은 **크레딧이 있는 것만** 적는다
+        if h[0] in KILL_CREDIT and h[1] in d["players"] and h[1] not in ev[key]:
+            ev[key].append(h[1])          # 잡은 사람은 **크레딧이 있는 선수만** 적는다
     return sorted((ms, tgt, who) for (tgt, ms), who in ev.items())
 
 
@@ -494,7 +599,7 @@ def ult_value(d, window_ms=8000):
     ds = deaths(d)
     out = {}
     for pid, p in d["players"].items():
-        used = [ms for ms, q, k in d.get("skills", []) if q == pid and k == "궁"]
+        used = [ms for ms, q, k, _off in d.get("skills", []) if q == pid and k == "궁"]
         got = lost = 0
         for ms in used:
             for dms, tgt, who in ds:
@@ -610,12 +715,21 @@ def fight_participation(d):
 
 
 def _death_spans(d):
-    """선수별 [사망시각, 복귀시각) 구간 — 복귀는 좌표가 다시 갱신되는 시점(alive_time과 같은 근사)."""
+    """선수별 [사망시각, 복귀시각) 구간.
+
+    복귀 시각은 **파일이 주는 `Respawn` 실측값**을 쓴다(2026-08-09 12차).
+    🪤 예전엔 "좌표가 다시 오는 때"로 추정했는데, 은신(칼리브리)처럼 살아 있어도 좌표가
+       끊기는 영웅에서 추정이 통째로 빗나가 사망 직전 체력이 "0%"로 읽히는 사고가 났다
+       (7RGTWKER Vampi — 10차에 고쳤다던 그 오류의 재발).
+    실측 부활 간격은 18경기 전부 **정확히 10.02초**였다. 부활 기록이 없으면 그 값으로 둔다.
+    """
+    RESPAWN_MS = 10020
     spans = collections.defaultdict(list)
     for dms, tgt, _who in deaths(d):
-        he = d["players"][tgt]["hero_entity"]
-        track = sorted(m for m, _ in d["pos"].get(he, []))
-        back = next((m for m in track if m > dms + 500), dms + 8000)
+        rs = d.get("respawns", {}).get(tgt) or []
+        back = next((m for m in rs if m > dms + 500), None)
+        if back is None:                      # 부활 기록이 없으면(경기 끝 등) 실측 상수로
+            back = dms + RESPAWN_MS
         spans[tgt].append((dms, min(back, dms + 20000)))
     return spans
 
@@ -710,6 +824,208 @@ def heal_split(d):
     return dict(out)
 
 
+# ═══ 🏷 스킬 이름 (2026-08-09 12차) ═════════════════════════════════════
+#   리플레이는 "스킬을 썼다"만 남기지만, **스킬 엔티티의 오프셋**이 어느 스킬인지의 지문이다.
+#   법칙·앵커 실증은 `도구/스킬표생성.py` 주석 참고. 표가 없으면 이름 없이 동작한다(선택 기능).
+_SKILLS = None
+
+
+def skill_table():
+    global _SKILLS
+    if _SKILLS is None:
+        _SKILLS = (_load("skill_names.json") or {}).get("heroes", {})
+    return _SKILLS
+
+
+# 사이트가 실제로 쓰는 언어만 리포트에 싣는다 — 9개를 다 넣으면 리포트가 40% 커진다.
+#   (나머지 언어는 사이트가 영어로 폴백한다 — RPT_L 과 같은 규칙)
+SITE_LANGS = ("ko", "en", "ja", "zh")
+
+
+def _names4(e):
+    """스킬 이름 사전에서 사이트가 쓰는 4개 언어만."""
+    n = (e or {}).get("names") or {}
+    return {k: v for k, v in n.items() if k in SITE_LANGS}
+
+
+def skill_entry(d, pid, off):
+    """(선수, 오프셋) → 스킬표의 항목. 모르면 None (이름 없이도 기능은 돌아간다).
+
+    🪤 칼리브리·노바는 모드 전환 쌍이 있어 두 오프셋이 같은 버튼이다 — 앞쪽으로 합친다.
+    """
+    p = d["players"].get(pid)
+    if not p:
+        return None
+    h = skill_table().get(hero_key(p.get("hero")))
+    if not h:
+        return None
+    off = h.get("pairs", {}).get(str(off), off)      # 모드 전환 쌍 병합
+    return h.get("offsets", {}).get(str(off))
+
+
+def skill_of(d, pid, off, lang="ko"):
+    """(선수, 오프셋) → 그 스킬의 공식 이름."""
+    e = skill_entry(d, pid, off)
+    return (e["names"].get(lang) or e["names"].get("en")) if e else None
+
+
+def ult_combos(d, window_ms=5000):
+    """✨ **궁 연계** — 같은 팀의 궁이 겹쳐 들어갔고, 그 뒤에 처치가 따라왔나.
+
+    판정: 한 선수의 궁 사용 후 `window_ms` 안에 **다른 아군의 궁**이 또 들어가고,
+          그 마지막 궁으로부터 8초 안에 **상대 팀 사망**이 있으면 연계 성공으로 본다.
+    ⚠️ 인과가 아니라 동시성이다(궁이 잡은 건지 이미 이기던 싸움인지는 못 가른다).
+       문장도 그렇게 쓴다.
+    되돌려주는 것: [{"ms", "team", "pids", "skills", "kills"}]
+    """
+    ds = deaths(d)
+    ults = sorted((ms, pid) for ms, pid, k, _o in d.get("skills", []) if k == "궁")
+    offs = {(ms, pid): o for ms, pid, k, o in d.get("skills", []) if k == "궁"}
+    out, used = [], set()
+    for i, (ms, pid) in enumerate(ults):
+        if (ms, pid) in used:
+            continue
+        team = d["players"][pid]["team"]
+        group = [(ms, pid)]
+        for ms2, pid2 in ults[i + 1:]:
+            if ms2 - group[-1][0] > window_ms:
+                break
+            if pid2 != pid and d["players"][pid2]["team"] == team and \
+                    pid2 not in {q for _, q in group}:
+                group.append((ms2, pid2))
+        if len(group) < 2:
+            continue
+        used.update(group)
+        last = group[-1][0]
+        kills = sum(1 for dms, tgt, _w in ds
+                    if last <= dms <= last + 8000 and d["players"][tgt]["team"] != team)
+        out.append({"ms": group[0][0], "team": team,
+                    "pids": [q for _, q in group],
+                    "skills": [skill_of(d, q, offs.get((m, q))) for m, q in group],
+                    "skills_i18n": [_names4(skill_entry(d, q, offs.get((m, q))))
+                                    for m, q in group],
+                    "kills": kills})
+    return out
+
+
+def focus_after_setup(d, window_ms=4000, min_dealers=2):
+    """🎯 **판 깔고 점사** — 상대를 묶거나 기절시킨 직후 팀이 그 상대를 몰아쳐 잡았나.
+
+    MAMMON 요청(2026-08-09)의 바로 그 장면:
+      "노바가 바인드샷을 걸어 상대를 묶고 다같이 점사를 한 부분은 좋았다"
+
+    판정: **판을 깔아주는 스킬**(스킬표의 `setup` — 공식 설명에 기절/묶음/끌어당김/표식이
+          있는 것)을 쓴 뒤 `window_ms` 안에, 그 팀의 서로 다른 선수 `min_dealers` 명 이상이
+          같은 상대를 때리고, 그 상대가 창 안에 죽으면 성공으로 본다.
+    🪤 예전엔 **모든 스킬**을 봤더니 한 경기 24건이 잡혔다(힐 스킬로 "점사를 열었다"는
+       말까지 나옴). 판정을 setup 스킬로 좁혀야 문장이 사실이 된다.
+    ⚠️ 인과는 단정하지 않는다 — 스킬이 잡아준 건지 겹친 건지는 못 가른다. 문장도 그렇게 쓴다.
+    되돌려주는 것: [{"ms", "pid", "skill", "target", "dealers", "team"}]
+    """
+    ds = deaths(d)
+    dmg = [(ms, h[1], h[2]) for ms, h in d["logs"]
+           if h[0] == 0 and h[1] in d["players"] and h[2] in d["players"]]
+    out = []
+    for ms, pid, kind, off in d.get("skills", []):
+        e = skill_entry(d, pid, off)
+        if not e or not e.get("setup"):
+            continue
+        team = d["players"][pid]["team"]
+        by_target = collections.defaultdict(set)
+        for dms, a, v in dmg:
+            if ms <= dms <= ms + window_ms and d["players"][a]["team"] == team \
+                    and d["players"][v]["team"] != team:
+                by_target[v].add(a)
+        # 🪤 한 번의 스킬로 **여러 명**이 죽으면 한 장면이다. 대상마다 한 줄씩 내면
+        #    같은 순간이 3~4줄로 쪼개져 읽을 수가 없다(실측: 00:47 에 4줄).
+        hit, dealers_all = [], set()
+        for tgt, dealers in by_target.items():
+            if len(dealers) < min_dealers:
+                continue
+            if not any(tgt == t and ms <= dms <= ms + window_ms for dms, t, _w in ds):
+                continue
+            hit.append(tgt)
+            dealers_all |= dealers
+        if hit:
+            out.append({"ms": ms, "pid": pid,
+                        "skill": e["names"].get("ko") or e["names"].get("en"),
+                        # 사이트가 보는 언어로 고르도록 이름 사전을 통째로 넘긴다
+                        "skill_i18n": _names4(e),
+                        "target": hit[0], "targets": sorted(hit),
+                        "dealers": sorted(dealers_all), "team": team})
+    # 🪤 두 가지 중복을 걷어낸다:
+    #    ① 모드 전환 쌍(노바 바인드샷)은 두 오프셋이 각각 트리거돼 같은 장면이 두 번 잡힌다.
+    #    ② 한 교전에서 여러 명이 각자 판을 깔면 같은 처치가 사람 수만큼 반복된다
+    #       (00:47 오테오 '킥' + 풍산개 '때려눕히기' → 같은 2명 처치).
+    #       → **같은 팀·3초 안·대상이 겹치면** 먼저 건 사람 것만 남긴다.
+    dedup, seen = [], []
+    for x in sorted(out, key=lambda q: q["ms"]):
+        if any(y["team"] == x["team"] and abs(y["ms"] - x["ms"]) <= 3000
+               and set(y["targets"]) & set(x["targets"]) for y in seen):
+            continue
+        seen.append(x)
+        dedup.append(x)
+    return dedup
+
+
+_PERKS = None
+
+
+def perk_name(pid, lang="ko"):
+    """퍽 id → 공식 효과 설명. 모르면 None.
+
+    🪤 이 조회는 **반드시 이 파일 안에** 있어야 한다. 서버 사본은 `동기화.py` 가
+       파일명을 영문으로 바꾸는데(퍽표.json → perk_names.json), 그 치환은 `도구/` 에서
+       복사되는 파이썬 파일에만 적용된다. `app.py` 에서 한글 파일명으로 열면
+       **Render 에서만 조용히 실패**한다(로컬은 되고 서버는 퍽이 전부 빈칸).
+    """
+    global _PERKS
+    if _PERKS is None:
+        _PERKS = (_load("perk_names.json") or {}).get("perks", {})
+    e = _PERKS.get(str(pid))
+    if not e:
+        return None
+    return e["names"].get(lang) or e["names"].get("en")
+
+
+_RANGE = None
+
+
+def range_table():
+    global _RANGE
+    if _RANGE is None:
+        _RANGE = (_load("hero_range.json") or {}).get("heroes", {})
+    return _RANGE
+
+
+def engage_range(d, tol_ms=1000):
+    """📏 **선수별 교전 거리** — 딜을 넣을 때 상대와 얼마나 떨어져 있었나 (중앙값).
+
+    영웅마다 무기 사거리가 달라 절대값은 의미가 없다. `사거리표.json` 의 **그 영웅 기준선**과
+    비교해야 "이 영웅치고 너무 붙었다/멀었다"를 말할 수 있다.
+    되돌려주는 것: {pid: {"n", "median"}}
+    """
+    out = collections.defaultdict(list)
+    for ms, h in d["logs"]:
+        if h[0] != 0 or h[1] == h[2]:
+            continue
+        a, v = d["players"].get(h[1]), d["players"].get(h[2])
+        if not a or not v:
+            continue
+        pa = _pos_at(d, a["hero_entity"], ms, tol=tol_ms)
+        pv = _pos_at(d, v["hero_entity"], ms, tol=tol_ms)
+        if not pa or not pv:
+            continue
+        out[h[1]].append(((pa[0] - pv[0]) ** 2 + (pa[2] - pv[2]) ** 2) ** .5)
+    res = {}
+    for pid, xs in out.items():
+        xs.sort()
+        n = len(xs)
+        res[pid] = {"n": n, "median": round(xs[n // 2] if n % 2 else
+                                            (xs[n // 2 - 1] + xs[n // 2]) / 2, 2)}
+    return res
+
+
 def fight_story(d):
     """⚔️ 교전 일지 — 구간마다 "누가 열었고, 몇대몇으로 시작했고, 결과가 어땠나".
 
@@ -734,23 +1050,29 @@ def _pos_at(d, ent, ms, tol=2000):
     return best[1] if best and abs(best[0] - ms) <= tol else None
 
 
-def positioning(d, warmup_ms=6000):
+def positioning(d, warmup_ms=3000):
     """🧭 **전방/후방 지수 + 이동 거리** — 누가 앞라인이고 누가 뒷라인인가.
 
-    · 스폰 축: 경기 초반 6초의 팀별 평균 위치 = 양 팀 진영. 그 두 점을 잇는 선에
-      선수의 매 좌표를 투영한다. 0 = 우리 진영, 1 = 적 진영.
+    · 스폰 축: 경기 **맨 처음 좌표부터 3초간**의 팀별 평균 위치 = 양 팀 진영.
+      그 두 점을 잇는 선에 선수의 매 좌표를 투영한다. 0 = 우리 진영, 1 = 적 진영.
     · 전방지수 = 내 평균 위치 − 우리 팀 평균 위치 (+면 팀보다 앞에 선다)
     · 이동거리 = 좌표 샘플 사이 거리 합. 한 번에 20 유닛 넘게 튀면 부활 순간이라 뺀다.
+
+    🪤 예전에는 기준이 `t0`(첫 **전투 로그**) + 6초였다 (2026-08-09 12차 감사).
+       t0 은 첫 좌표보다 1~14초 늦어서, "스폰"이라고 잡은 점이 이미 **한참 진격한 자리**였다
+       (추정 스폰간 거리의 77~162% 를 이동한 뒤). 그래서 축이 짧아지고 전방지수가 부풀려졌고,
+       "우리 진영보다 뒤"(음수)라는 불가능한 값도 나왔다.
+       → 기준을 **첫 좌표 샘플**로 바꾼다. 그게 진짜 스폰이다.
     """
-    t0 = d["t0"]
     spawn = {}
+    first_ms = min((tr[0][0] for tr in d["pos"].values() if tr), default=d["t0"])
     for team in {p["team"] for p in d["players"].values()}:
         pts = []
         for p in d["players"].values():
             if p["team"] != team:
                 continue
             for ms, xyz in d["pos"].get(p["hero_entity"], []):
-                if ms <= t0 + warmup_ms:
+                if ms <= first_ms + warmup_ms:
                     pts.append(xyz)
         if pts:
             spawn[team] = (sum(q[0] for q in pts) / len(pts), sum(q[2] for q in pts) / len(pts))
@@ -898,30 +1220,37 @@ def coach(d):
     t0 = d["t0"]
 
     # ── 팀 판정 (진 팀 관점) ──────────────────────────────────────────
+    #    🪤 **사람이 한 명도 없는 팀에는 훈수하지 않는다** (2026-08-09 12차 감사).
+    #       선수 판정은 봇을 빼고 있었는데 팀 판정에는 가드가 없어서, 전원 봇인 팀에게
+    #       "인원이 갖춰졌을 때만 싸우세요" 같은 코칭이 3경기에서 실제로 나갔다.
+    has_human = {t: any((not p.get("bot")) and p["team"] == t for p in d["players"].values())
+                 for t in teams}
     if w and len(teams) == 2:
         loser = teams[0] if teams[1] == w else teams[1]
         lost_f = sum(1 for *_x, win in fr if win == w)
         won_f = sum(1 for *_x, win in fr if win == loser)
-        if nf >= 3 and lost_f > nf / 2:
-            out.append({"k": "t_fights", "sev": "team", "team": loser,
-                        "lost": lost_f, "of": nf})
-        elif nf >= 3 and won_f > nf / 2:
-            # 교전은 이겼는데 경기를 짐 = 목표(점수) 관리 문제
-            out.append({"k": "t_objective", "sev": "team", "team": loser,
-                        "won": won_f, "of": nf})
-        # 승부처: 마지막으로 리드가 뒤집힌 순간과 겹치는 교전
+        if has_human.get(loser):
+            if nf >= 3 and lost_f > nf / 2:
+                out.append({"k": "t_fights", "sev": "team", "team": loser,
+                            "lost": lost_f, "of": nf})
+            elif nf >= 3 and won_f > nf / 2:
+                # 교전은 이겼는데 경기를 짐 = 목표(점수) 관리 문제
+                out.append({"k": "t_objective", "sev": "team", "team": loser,
+                            "won": won_f, "of": nf})
+        # 승부처: 마지막으로 리드가 뒤집힌 순간
+        #   🪤 예전엔 그 순간이 든 **교전의 시작 시각**을 가리켰다. 30초+ 교전을 안 쪼개기로
+        #      했기 때문에 긴 공방에서는 최대 101초나 어긋났다(7RGTWKER 실측).
+        #      → 역전이 일어난 **바로 그 시각**을 가리킨다.
         _rows, flips = score_timeline(d)
-        if flips:
+        if flips and any(has_human.values()):
             fms = flips[-1][0]
             hit = next((f for f in fr if f[0] - 8000 <= fms <= f[1] + 8000), None)
-            if hit:
-                a, b, tot, lostmap, fwin = hit
-                out.append({"k": "t_decisive", "sev": "team", "team": w,
-                            "s": round((a - t0) / 1000, 1),
-                            "deaths": sum(lostmap.values())})
+            out.append({"k": "t_decisive", "sev": "team", "team": w,
+                        "s": round((fms - t0) / 1000, 1),
+                        "deaths": sum(hit[3].values()) if hit else 0})
         # 접전(마지막 점수 1차 이내)이면 위로도 한 줄
         _rows2 = _rows or []
-        if _rows2:
+        if _rows2 and has_human.get(loser):
             la, lb = _rows2[-1][1], _rows2[-1][2]
             if abs((la or 0) - (lb or 0)) <= 1 and max(la or 0, lb or 0) >= 2:
                 out.append({"k": "t_close", "sev": "team", "team": loser})
@@ -1013,8 +1342,54 @@ def coach(d):
             out.append({"k": "p_carry", "sev": "good", "pid": pid,
                         "k_n": st[pid]["처치"], "dmg": st[pid]["준피해"]})
 
+    # ── 🎓 신규 판정 3종 (2026-08-09 12차) ────────────────────────────
+    #    ① 판 깔고 점사  ② 궁 연계  ③ 교전 거리
+    #    셋 다 **봇에게는 안 낸다**(사람 실력 판정이 아니므로).
+    human = {pid for pid, p in d["players"].items() if not p.get("bot")}
+
+    # ① 판 깔고 점사 — 묶거나 기절시킨 뒤 팀이 몰아쳐 잡은 장면
+    for x in focus_after_setup(d):
+        if x["pid"] not in human:
+            continue
+        out.append({"k": "p_setupkill", "sev": "good", "pid": x["pid"],
+                    "skill": x["skill"], "skill_i18n": x.get("skill_i18n"),
+                    "n": len(x["dealers"]),
+                    "ex": [round((x["ms"] - t0) / 1000, 1)]})
+
+    # ② 궁 연계 — 아군 궁이 겹쳐 들어가고 처치가 따라온 장면
+    for c in ult_combos(d):
+        if c["kills"] < 1:
+            continue
+        pids = [q for q in c["pids"] if q in human]
+        if len(pids) < 2:
+            continue
+        names = [s for s in c["skills"] if s]
+        out.append({"k": "p_ultcombo", "sev": "good", "pid": pids[0],
+                    "with_pid": pids[1], "skills": names,
+                    "skills_i18n": [x for x in (c.get("skills_i18n") or []) if x],
+                    "got": c["kills"],
+                    "ex": [round((c["ms"] - t0) / 1000, 1)]})
+
+    # ③ 교전 거리 — 그 영웅 기준선보다 현저히 붙어서 싸우다 많이 죽었나
+    #    🪤 거리만 보면 "죽음 0에 딜 5천" 넣은 잘한 근접 플레이를 지적한다(실측 2건).
+    #       그래서 **죽음 조건이 필수**다. 표본이 적거나(n<30) 기준선 신뢰도가 낮은 영웅,
+    #       모드 전환으로 거리가 두 갈래인 영웅(칼리브리·노바)은 발동하지 않는다.
+    rt = range_table()
+    er = engage_range(d)
+    for pid in human:
+        base = rt.get(hero_key(d["players"][pid].get("hero")))
+        mine = er.get(pid)
+        if not base or not mine or base.get("confidence") == "low" or base.get("bimodal"):
+            continue
+        if mine["n"] < 30 or base.get("p25") is None:
+            continue
+        if mine["median"] < base["p25"] and st[pid]["죽음"] >= 5:
+            out.append({"k": "p_tooclose", "sev": "bad", "pid": pid,
+                        "mine": mine["median"], "base": base["median"],
+                        "n": st[pid]["죽음"]})
+
     # 한 선수당 고칠 점은 2개까지 (잔소리 폭탄 방지 — 제일 심한 것부터)
-    sev_rank = {"p_solo": 0, "p_lowhp": 1, "p_melt": 2, "p_outnum": 3,
+    sev_rank = {"p_solo": 0, "p_lowhp": 1, "p_tooclose": 1.5, "p_melt": 2, "p_outnum": 3,
                 "p_selfheal": 4, "p_lowpart": 5, "p_firstdie": 6, "p_overext": 7}
     per = collections.Counter()
     trimmed = []
@@ -1025,10 +1400,22 @@ def coach(d):
                 continue
         trimmed.append(c)
     # 칭찬 다듬기: "전원 참여"처럼 **다들 받는 칭찬은 칭찬이 아니다** → 4명 이상이면 통째로 뺌.
-    # 전체 🟢도 4줄까지 (에이스 > 궁 타이밍 > 참여 순).
+    # 같은 선수의 같은 종류 칭찬도 한 번만(판 깔고 점사를 3번 했어도 한 줄).
     if sum(1 for c in trimmed if c["k"] == "p_goodpart") >= 4:
         trimmed = [c for c in trimmed if c["k"] != "p_goodpart"]
-    good_rank = {"p_carry": 0, "p_ultgood": 1, "p_goodpart": 2}
+    seen_good = set()
+    dedup = []
+    for c in trimmed:
+        if c["sev"] == "good":
+            key = (c["k"], c.get("pid"))
+            if key in seen_good:
+                continue
+            seen_good.add(key)
+        dedup.append(c)
+    trimmed = dedup
+    # 전체 🟢은 4줄까지 — 새로 만든 "장면" 칭찬을 먼저 보여 준다(읽는 재미가 있다).
+    good_rank = {"p_setupkill": 0, "p_ultcombo": 1, "p_carry": 2,
+                 "p_ultgood": 3, "p_goodheal": 4, "p_goodpart": 5}
     goods = sorted((c for c in trimmed if c["sev"] == "good"),
                    key=lambda c: good_rank.get(c["k"], 9))[:4]
     trimmed = [c for c in trimmed if c["sev"] != "good"] + goods
@@ -1056,7 +1443,23 @@ COACH_KO = {
     "p_goodheal": "🟢 {name}: 아군 회복 {ally} — 팀을 살리는 힐 분배가 좋았어요.",
     "p_ultgood": "🟢 {name}: 궁 {n}번 뒤에 처치 {got}회가 이어졌어요 — 궁 타이밍이 좋습니다.",
     "p_carry":   "🟢 {name}: 처치 {k_n} · 팀 최고 딜({dmg}) — 이 경기의 에이스였어요.",
+    "p_setupkill": "🟢 {name}: '{skill}'{jo} 상대를 잡아둔 뒤 {n}명이 몰아쳐 처치했어요 — 좋은 시작이었습니다.",
+    "p_ultcombo": "🟢 {name}: 아군과 궁을 겹쳐 넣어({skills}) 처치 {got}회로 이어졌어요 — 좋은 연계입니다.",
+    "p_tooclose": "🔴 {name}: 이 영웅 평균({base})보다 훨씬 붙어서({mine}) 싸우다 {n}번 죽었어요 — 사거리 이점을 살려 한 발짝 물러서서 싸워 보세요.",
 }
+
+
+def josa_ro(word):
+    """한국어 조사 '으로/로' 고르기 — 받침이 없거나 'ㄹ' 받침이면 '로'.
+
+    스킬 이름이 데이터에서 오기 때문에 필요하다("'킥'로"가 아니라 "'킥'으로").
+    한글이 아닌 이름(영어 등)은 '로'로 둔다.
+    """
+    ch = (str(word or "").strip() or " ")[-1]
+    if not ("가" <= ch <= "힣"):
+        return "로"
+    jong = (ord(ch) - 0xAC00) % 28
+    return "로" if jong in (0, 8) else "으로"
 
 
 def _fmt_ex(ex):
@@ -1088,6 +1491,12 @@ def coach_lines(d, tpl=None):
             vals["dmg"] = f"{vals['dmg']:,}"
         if "ally" in vals:
             vals["ally"] = f"{vals['ally']:,}"
+        if isinstance(vals.get("skills"), list):          # 궁 연계: 스킬 이름 나열
+            vals["skills"] = " + ".join(x for x in vals["skills"] if x) or "궁"
+        if "with_pid" in c:
+            vals["with"] = label(d, c["with_pid"]).split("(")[0]
+        if "skill" in vals:                               # '킥'으로 / '봉쇄'로
+            vals["jo"] = josa_ro(vals["skill"])
         try:
             line = t.format(**vals)
         except (KeyError, IndexError):
@@ -1116,7 +1525,7 @@ def render_text(name, d):
                 L.append(f"      {roster_line(d, pid)}")
     L.append("")
     st = summarize(d)
-    sk = collections.Counter((pid, k) for _, pid, k in d.get("skills", []))
+    sk = collections.Counter((pid, k) for _, pid, k, _off in d.get("skills", []))
     L.append("【선수별 요약】")
     L.append("   선수          팀  처치 죽음 어시   준피해  받은피해  구조물   회복  실드  스킬  궁")
     for pid, p in sorted(d["players"].items(), key=lambda x: (x[1]["team"], -st[x[0]]["준피해"])):
@@ -1133,7 +1542,7 @@ def render_text(name, d):
         L.append("")
     L.append("【타임라인】 (경기 시작 기준)")
     tl = []
-    for ms, pid, kind in d.get("skills", []):
+    for ms, pid, kind, _off in d.get("skills", []):
         if kind == "궁":
             tl.append((ms, f"✨ 궁  {label(d,pid)}"))
     for ms, tgt, who in deaths(d):
@@ -1245,7 +1654,7 @@ def render_html(name, d):
     for pid in sorted(d["players"]):
         h.append(f"<li>{html.escape(roster_line(d, pid))}</li>")
     h.append("</ul>")
-    sk = collections.Counter((pid, k) for _, pid, k in d.get("skills", []))
+    sk = collections.Counter((pid, k) for _, pid, k, _off in d.get("skills", []))
     h.append("<h2>선수별 요약</h2><table><tr><th>선수</th><th>팀</th><th>처치</th><th>죽음</th>"
              "<th>어시</th><th>준 피해</th><th>받은 피해</th><th>구조물</th><th>회복</th><th>실드</th>"
              "<th>스킬</th><th>궁</th></tr>")
@@ -1266,7 +1675,7 @@ def render_html(name, d):
             h.append(f"<div class=ev><span>{html.escape(line)}</span></div>")
     h.append("<h2>타임라인</h2>")
     tl = [(ms, f"✨ 궁 {html.escape(label(d,pid))}")
-          for ms, pid, kind in d.get("skills", []) if kind == "궁"]
+          for ms, pid, kind, _off in d.get("skills", []) if kind == "궁"]
     for ms, tgt, who in deaths(d):
         w = ", ".join(label(d, x).split("(")[0] for x in who)
         tl.append((ms, f"💀 {html.escape(label(d,tgt))} 사망 ← {html.escape(w)}"))
