@@ -193,12 +193,14 @@ def build_report(code, s3date):
                    "opener": f.get("opener"), "nums": f.get("nums")}
                   for f in A.fight_story(d)]
     # 💚 힐 분배 (kind 1 회복의 자기/아군 나눔) → 선수 stats에 추가 필드로
+    #    healA=아군에게 준 힐 · healR=아군에게서 받은 힐 (사이트 명단 표는 이 둘만 씀)
     heals = A.heal_split(d)
     for p in players:
-        hl = heals.get(p["pid"])
-        if hl:
-            p["stats"]["healA"] = hl["ally"]
-            p["stats"]["healS"] = hl["self"]
+        # 힐 기록이 아예 없는 선수도 0으로 채운다 — 새 리포트에서 "–"(값 없음)가 안 나오게
+        hl = heals.get(p["pid"]) or {"ally": 0, "self": 0, "recv": 0}
+        p["stats"]["healA"] = hl["ally"]
+        p["stats"]["healS"] = hl["self"]
+        p["stats"]["healR"] = hl.get("recv", 0)
     spots = [{"s": _sec(ms, t0), "tgt": tgt, "x": round(p[0], 1), "z": round(p[2], 1)}
              for ms, tgt, who, p in A.death_spots(d) if p]
 
@@ -234,6 +236,8 @@ def build_report(code, s3date):
         "dur": _sec(dur, t0) if dur else None,
         "players": players,
         "score": [[_sec(ms, t0), a, b] for ms, a, b in srows],
+        # "pct"=장악(0~100 진행도, %로 표시) · "pts"=그 외 점수 — 사이트가 % 붙일지 판단
+        "scorekind": A.score_unit(d),
         "flips": [[_sec(ms, t0), team] for ms, team in flips],
         "ults": ults, "objs": objs, "deaths": deaths_out,
         "fights": fights_out, "spots": spots, "traces": traces, "heat": heat,

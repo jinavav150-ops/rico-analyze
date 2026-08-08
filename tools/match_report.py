@@ -693,9 +693,12 @@ def heal_split(d):
     """💚 힐 분배 — kind 1(회복)의 대상 기록으로 "누구를 살렸나"를 본다.
 
     kind 13(재생)·15(구급킷)은 본인 회복이라 분배 판단에선 뺀다.
-    되돌려주는 것: {pid: {"self": n, "ally": n}} — ally 비중이 곧 "팀 힐러 성향".
+    되돌려주는 것: {pid: {"self": n, "ally": n, "recv": n}}
+      · ally = 아군에게 준 힐 (팀 힐러 성향) · recv = 아군에게서 받은 힐
+      · 사이트 명단 표는 ally/recv 두 칸만 쓴다 — 자가 회복은 표에서 제외
+        (2026-08-09 MAMMON 결정: "아군에게 받은 힐과 준 힐로만").
     """
-    out = collections.defaultdict(lambda: {"self": 0, "ally": 0})
+    out = collections.defaultdict(lambda: {"self": 0, "ally": 0, "recv": 0})
     for ms, h in d["logs"]:
         if h[0] != 1 or h[1] not in d["players"] or not h[4]:
             continue
@@ -703,6 +706,7 @@ def heal_split(d):
             out[h[1]]["self"] += h[4]
         elif h[2] in d["players"] and d["players"][h[2]]["team"] == d["players"][h[1]]["team"]:
             out[h[1]]["ally"] += h[4]
+            out[h[2]]["recv"] += h[4]
     return dict(out)
 
 
@@ -803,14 +807,40 @@ def heat_grid(d, n=26):
 
 
 def score_timeline(d):
-    """📈 점수 흐름 — (초, 1팀, 2팀) 목록. 리드가 뒤집힌 순간도 같이 돌려준다."""
+    """📈 점수 흐름 — (초, 1팀, 2팀) 목록. 리드가 뒤집힌 순간도 같이 돌려준다.
+
+    🪤 **모드마다 흐르는 필드가 다르다** (2026-08-09 리플레이 18개 전수 실측):
+      · 강타/사수/사냥 → Team1/2Score
+      · 장악(한 지점)  → Team1/2CaptureScore **만** 흐른다 (0→100 한 번)
+      · 점멸(여러 지점) → Team1/2CapturedPoints(진짜 스코어)가 흐르고,
+        CaptureScore 는 지점마다 0→100 을 **반복**한다(리셋) — 그래프로 쓰면 톱니가 된다.
+    예전 코드는 keys[0:2](CapturedPoints)만 읽어서 **장악 그래프가 통째로 비었다**
+    (TYW12FB7 실측 — 점수 변화 100건이 전부 CaptureScore 였는데 하나도 안 잡힘).
+    → 쌍(pair) 단위로, CapturedPoints 가 한 번이라도 흐른 경기는 그걸 쓰고
+      아니면 CaptureScore 를 쓴다.
+    """
+    tl = sorted(d.get("score_tl", []))
+    # 컴포넌트별로 "어느 필드 쌍을 그래프로 쓸까"를 먼저 정한다 (실제로 흐른 쌍만 후보)
+    seen = {}
+    for _ms, comp, vals in tl:
+        keys = SCORE_FIELDS.get(comp) or ()
+        got = seen.setdefault(comp, set())
+        for i in range(0, len(keys) - 1, 2):
+            if keys[i] in vals or keys[i + 1] in vals:
+                got.add((keys[i], keys[i + 1]))
+    use = {}
+    for comp, got in seen.items():
+        keys = SCORE_FIELDS.get(comp) or ()
+        pairs = [(keys[i], keys[i + 1]) for i in range(0, len(keys) - 1, 2)]
+        use[comp] = next((p for p in pairs if p in got), None)   # keys 순서 = 우선순위
     rows, flips = [], []
     last = (0, 0)
     lead = 0
-    for ms, comp, vals in sorted(d.get("score_tl", [])):
-        keys = SCORE_FIELDS.get(comp) or ()
-        a = vals.get(keys[0]) if keys else None
-        b = vals.get(keys[1]) if len(keys) > 1 else None
+    for ms, comp, vals in tl:
+        pair = use.get(comp)
+        if not pair or (pair[0] not in vals and pair[1] not in vals):
+            continue                    # 다른 쌍(점멸의 진행도 등)만 실린 항목은 그래프에 안 쓴다
+        a, b = vals.get(pair[0]), vals.get(pair[1])
         cur = (a if a is not None else last[0], b if b is not None else last[1])
         if cur == last and rows:
             continue
@@ -822,6 +852,19 @@ def score_timeline(d):
                 flips.append((ms, now))
             lead = now
     return rows, flips
+
+
+def score_unit(d):
+    """그래프 값의 단위 — 장악(0~100 진행도)이면 "pct", 그 외 점수면 "pts".
+    사이트가 최종 점수에 % 를 붙일지 판단하는 데 쓴다(점멸의 2:1 에 %를 붙이면 안 된다)."""
+    caps = scores = False
+    for _ms, comp, vals in d.get("score_tl", []):
+        if comp != "Capturepoint":
+            continue
+        scores = True
+        if "Team1CapturedPoints" in vals or "Team2CapturedPoints" in vals:
+            caps = True
+    return "pct" if (scores and not caps) else "pts"
 
 
 def first_engage_counts(d):
