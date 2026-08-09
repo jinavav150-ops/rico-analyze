@@ -236,6 +236,28 @@ def build_report(code, s3date):
     for tr in d["pos"].values():
         if tr:
             dur = max(dur, tr[-1][0])
+
+    # ✨ 명장면 — A.scene_list() 가 "같은 선수+같은 스킬 반복"을 하나로 묶고 우선순위로
+    #    5개까지만 남긴다(근거는 scene_list() 문서 참고). 여기서는 JSON 모양만 만든다.
+    scene_rows, scenes_dropped = A.scene_list(d)
+    scenes_out = []
+    for sc in scene_rows:
+        base = {"s": _sec(sc["ms"], t0), "kind": sc["kind"], "pid": sc["pid"],
+                # count=1 이면 옛 리포트와 완전히 같은 모양 → 사이트가 기존 문장 그대로 쓴다.
+                # 2 이상이면 사이트가 "N번 반복(예시 시각 · 외 M회)" 문장으로 묶어 보여준다.
+                "count": sc["count"], "times": [_sec(t, t0) for t in sc["times"]]}
+        if sc["kind"] == "setup":
+            base.update({"skill": sc["skill"], "skill_i18n": sc.get("skill_i18n"),
+                         "n": len(sc["dealers"]), "kills": sc["kills"],
+                         # 효과 종류(stun/bind/pull/mark) — "kind" 는 이미 장면 종류(setup/ult)로
+                         # 쓰고 있어 이름이 안 겹치게 "setup_kind" 로 따로 보낸다. 옛 스킬표엔
+                         # 없어서 None 이 나올 수 있고, 그때 사이트는 기존 sc_setup 문장으로 떨어진다.
+                         "setup_kind": sc.get("setup_kind")})
+        else:
+            base.update({"pids": sc["pids"], "skills": sc["skills"],
+                         "skills_i18n": sc.get("skills_i18n"), "got": sc["kills"]})
+        scenes_out.append(base)
+
     report = {
         "v": 1, "code": code, "date": s3date,
         "made": int(time.time()),
@@ -257,20 +279,10 @@ def build_report(code, s3date):
         # 🎓 코칭 판정 — 서버는 (키+숫자)만 보내고 문장은 사이트가 언어별 템플릿으로 만든다
         "coach": A.coach(d),
         # ✨ 명장면 — "판 깔고 점사"·"궁 연계" (사이트가 타임라인처럼 보여 준다)
-        "scenes": [{"s": _sec(x["ms"], t0), "kind": "setup", "pid": x["pid"],
-                    "skill": x["skill"], "skill_i18n": x.get("skill_i18n"),
-                    "tgt": x["target"], "n": len(x["dealers"]),
-                    "kills": len(x.get("targets") or [x["target"]]),
-                    # 효과 종류(stun/bind/pull/mark) — "kind" 는 이미 장면 종류(setup/ult)로 쓰고
-                    # 있으므로 이름이 겹치지 않게 "setup_kind" 로 따로 보낸다. 옛 스킬표엔 없어서
-                    # None 이 나올 수 있고, 사이트는 그때 기존 sc_setup 문장으로 떨어진다.
-                    "setup_kind": x.get("kind")}
-                   for x in A.focus_after_setup(d)]
-                  + [{"s": _sec(c["ms"], t0), "kind": "ult", "pid": c["pids"][0],
-                      "pids": c["pids"], "skills": [x for x in c["skills"] if x],
-                      "skills_i18n": [x for x in (c.get("skills_i18n") or []) if x],
-                      "got": c["kills"]}
-                     for c in A.ult_combos(d) if c["kills"] > 0],
+        "scenes": scenes_out,
+        # 우선순위 컷으로 빠진 "묶은 뒤" 장면 개수 — 0 이면 안 잘림(옛 리포트엔 이 키가 없어
+        # 사이트가 N(r.scenes_more||0)으로 읽으면 자동으로 0 취급된다).
+        "scenes_more": scenes_dropped,
     }
     return report, ok_ratio
 

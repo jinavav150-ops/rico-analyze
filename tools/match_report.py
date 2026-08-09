@@ -971,6 +971,78 @@ def focus_after_setup(d, window_ms=4000, min_dealers=2):
     return dedup
 
 
+def scene_list(d, cap=5):
+    """✨ **명장면 최종 목록** — `focus_after_setup()`·`ult_combos()` 를 합쳐 사이트에 낼 리스트로 만든다.
+
+    MAMMON 실측(2026-08-09, R4A7SZ4A): 쿨이 짧은 기본기('전도파')를 쓸 때마다 판 깔고 점사가
+    잡혀서, 명장면 5개 중 5개가 전부 "타이칸 — 전도파"였다. **읽는 사람에게 정보가 0**이었다.
+    `focus_after_setup()`의 기존 중복 제거는 **같은 순간**(모드 전환 쌍·같은 교전 겹침)만 걷어낸다
+    — 이건 다른 층위다. 여기서는 **같은 선수 + 같은 스킬이 경기 전체에 걸쳐 반복**되면 하나로
+    묶고 횟수·시각 예시를 남긴다. ⚠️ `focus_after_setup()`이 이미 걷어낸 것 위에 얹는 것이지,
+    그 로직을 대신하지 않는다.
+
+    합친 뒤에도 많으면 우선순위로 자른다(MAMMON 기준 "2~3개, 많아야 5개"):
+      ① 한 번에 여러 명이 죽은 장면(kills 큰 것)  ② 궁 연계  ③ 단일 처치
+    자른 개수는 **발명이 아니라 18경기 실측**으로 골랐다(`도구/장면개수_시뮬.py`):
+      병합 전 경기당 2~19개(중앙값 7) → 병합만으로 2~10개(중앙값 3.5, 14/18경기가 이미 5개 이하).
+      cap=5 로 자르면 18경기 중 **4경기만** 잘리고(FZ4Y6HCL 10→5 등), 나머지는 그대로 나온다.
+      cap=4 는 6경기가 잘리고 cap=6 은 1경기만 잘려 상한 의미가 없어진다 — 5가 "많아야 5개"에
+      맞으면서 잘리는 경기를 최소화하는 값이다.
+    잘린 게 있으면 조용히 버리지 않고 `dropped` 로 개수를 돌려준다(사이트가 "외 N건"으로 표시).
+
+    되돌려주는 것: (scenes, dropped)
+      scenes: [{"kind":"setup"|"ult", "ms", "count", "times":[ms...], "kills", ...}]
+              (setup 은 pid/skill/skill_i18n/kind/dealers, ult 은 pids/skills/skills_i18n 를 그대로 포함)
+      dropped: 우선순위로 잘려나간 "묶은 뒤" 장면 개수(0이면 안 잘림)
+    """
+    def _skill_key(x):
+        i18 = x.get("skill_i18n") or {}
+        return i18.get("en") or x.get("skill") or ""
+
+    groups = collections.OrderedDict()
+    for x in sorted(focus_after_setup(d), key=lambda q: q["ms"]):
+        key = ("setup", x["pid"], _skill_key(x))
+        groups.setdefault(key, []).append(x)
+    for c in sorted((c for c in ult_combos(d) if c["kills"] > 0), key=lambda q: q["ms"]):
+        key = ("ult", tuple(sorted(c["pids"])),
+               tuple(sorted(s for s in c["skills"] if s)))
+        groups.setdefault(key, []).append(c)
+
+    scenes = []
+    for key, xs in groups.items():
+        first = xs[0]
+        if key[0] == "setup":
+            kills = sum(len(x["targets"]) for x in xs)
+            scenes.append({
+                "kind": "setup", "pid": first["pid"],
+                "skill": first["skill"], "skill_i18n": first.get("skill_i18n"),
+                "setup_kind": first.get("kind"),     # 효과 종류(stun/bind/pull/mark) — 옛 스킬표면 None
+                "dealers": first["dealers"],
+                "ms": first["ms"], "times": [x["ms"] for x in xs],
+                "count": len(xs), "kills": kills, "max_kills": max(len(x["targets"]) for x in xs),
+            })
+        else:
+            kills = sum(c["kills"] for c in xs)
+            scenes.append({
+                "kind": "ult", "pid": first["pids"][0], "pids": first["pids"],
+                "skills": [s for s in first["skills"] if s],
+                "skills_i18n": [x for x in (first.get("skills_i18n") or []) if x],
+                "ms": first["ms"], "times": [c["ms"] for c in xs],
+                "count": len(xs), "kills": kills, "max_kills": max(c["kills"] for c in xs),
+            })
+
+    def _tier(s):
+        if s["kind"] == "ult":
+            return 1
+        return 0 if s["max_kills"] >= 2 else 2
+
+    ranked = sorted(scenes, key=lambda s: (_tier(s), -s["kills"], s["ms"]))
+    kept = ranked[:cap]
+    dropped = len(ranked) - len(kept)
+    kept.sort(key=lambda s: s["ms"])
+    return kept, dropped
+
+
 _PERKS = None
 
 
