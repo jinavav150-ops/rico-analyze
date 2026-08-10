@@ -278,6 +278,12 @@ def build_report(code, s3date):
         "fights": fights_out, "spots": spots, "traces": traces, "heat": heat,
         # 🎓 코칭 판정 — 서버는 (키+숫자)만 보내고 문장은 사이트가 언어별 템플릿으로 만든다
         "coach": A.coach(d),
+        # 🧩 왜 졌나 — 인과 사슬. 판이 갈린 순간의 **앞 칸**(상대 궁이 차 있었다·뭉쳐
+        #    있었다·인원 열세·정비 없이 재진입)을 결과와 이어 붙인 고리 목록.
+        #    문장은 사이트(RPT_WHY)가 만든다. 조건이 안 맞으면 None → 사이트가 절을 통째로 뺀다.
+        #    ⚠️ 픽 상성은 **여기 안 들어간다** — 상성표의 주인은 index.html 이고 관리자가
+        #       고칠 수 있어서, 사이트가 자기 MATCHUPS 로 직접 계산한다(match_report.pick_matchup 주석).
+        "why": A.why_lost(d),
         # ✨ 명장면 — "판 깔고 점사"·"궁 연계" (사이트가 타임라인처럼 보여 준다)
         "scenes": scenes_out,
         # 우선순위 컷으로 빠진 "묶은 뒤" 장면 개수 — 0 이면 안 잘림(옛 리포트엔 이 키가 없어
