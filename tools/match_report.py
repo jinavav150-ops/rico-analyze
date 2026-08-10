@@ -123,6 +123,7 @@ def collect(name):
     # ── ② 실시간 프레임에서 사건·좌표·체력 ───────────────────────────────
     logs, hp, pos = [], collections.defaultdict(list), collections.defaultdict(list)
     skills, owner_of, ult_ents = [], {}, set()   # 발동 · 스킬엔티티→캐릭터 · 궁 엔티티
+    ult_charge = []                              # (ms, 궁엔티티, 충전타이머) — 궁이 찬 시각용
     respawns = collections.defaultdict(list)     # 엔티티 → 부활 시각들 (파일이 주는 실측값)
     stats = {}                                   # 선수 → 게임이 보낸 전적(검증용)
     score = {}                                   # 모드별 점수(승패 판정용)
@@ -163,6 +164,16 @@ def collect(name):
                 # 이 엔티티가 **궁** 이라는 표시. 충전 진행도라 사용 시점이 아니다 —
                 # 실제 사용은 위 `AbilityUsageState` 가 이 엔티티에서 뜰 때다.
                 ult_ents.add(e)
+                # 🔋 **궁이 언제 다 찼나** (2026-08-10 16차). `UltimateTimeChargeData` 가
+                #    실려 오는 프레임만 의미가 있다 — 두 가지 뜻뿐이다:
+                #      (지속, 1, 끝ms) = 지금부터 충전 시작, 늦어도 '끝ms'에 가득 참
+                #      (0, 0, 0)       = **바로 지금 가득 찼다**(피해 충전이 더해져 예정보다 빠를 수 있음)
+                #    사이사이 오는 `UltimateEarnedChargeProgress` 만 있는 프레임은 진행도라 버린다.
+                #    ⚠️ (0,0,0)을 "궁을 썼다"로 읽으면 안 된다 — 실측(7RGTWKER, DreadSherX)에서
+                #       가득 찬 뒤 **17초 뒤에** 썼다. 사용 시각은 `AbilityUsageState` 쪽이 진실이다.
+                tc = v.get("UltimateTimeChargeData")
+                if tc is not None:
+                    ult_charge.append((ms, e, tuple(tc)))
             elif c == "Respawn" and "RespawnCounter" in v:
                 # 🎉 **부활 시각이 파일에 있다** (2026-08-09 12차 발견).
                 #    예전엔 "좌표가 다시 오는 때"로 추정했는데, 은신(칼리브리)처럼
@@ -225,11 +236,19 @@ def collect(name):
         if he in ent2pid:
             raw.append((ms, ent2pid[he], "궁" if e in ult_ents else "스킬", e - he))
     skill_use = _cluster(raw)
+    # 궁 충전 이벤트도 같은 방법으로 **선수 번호**로 바꾼다.
+    #   🪤 주인을 못 찾는 궁 엔티티가 있다(7RGTWKER 의 380·412 — 경기 도중 생긴 것).
+    #      그냥 버린다. 억지로 짝지으면 남의 궁을 그 선수 것으로 말하게 된다.
+    charge = []
+    for ms, e, tc in ult_charge:
+        he = owner_of.get(e)
+        if he in ent2pid:
+            charge.append((ms, ent2pid[he], tc))
     # 부활 시각은 **선수 번호**로 바꿔 둔다 (Respawn 은 선수 엔티티에 실려 온다)
     resp = {pid: sorted(respawns.get(pid, [])) for pid in players}
     return {"players": players, "logs": logs, "hp": hp, "pos": pos, "skills": skill_use,
             "stats": stats, "score": score, "score_tl": score_tl, "ent2pid": ent2pid,
-            "respawns": resp,
+            "respawns": resp, "ult_charge": charge,
             "frames": frames, "ok": ok, "start": start,
             "t0": min((m for m, _ in logs), default=0)}
 
@@ -610,6 +629,72 @@ def ult_value(d, window_ms=8000):
                 else:
                     lost += 1
         out[pid] = (len(used), got, lost)
+    return out
+
+
+def ult_ready(d):
+    """🔋 **궁이 언제부터 준비돼 있었나** — 선수별 [(찬 시각, 쓴 시각 or None)] 목록.
+
+    MAMMON이 원한 인과 사슬(2026-08-09)의 **앞 칸**이다:
+      "상대 레메디 궁이 40초째 차 있었는데 그 상태로 들어갔다."
+    지금까지 리포트는 궁을 **쓴 뒤**만 봤다(`ult_value`). 쓰기 **전에** 차 있었다는 사실은
+    "왜 그때 들어가면 안 됐나"를 설명하는데, 그걸 아무도 안 보고 있었다.
+
+    읽는 법 (`collect()` 의 `ult_charge` 주석 참고):
+      · `(0,0,0)` 이 실린 프레임 = **그 순간 궁이 가득 찼다**
+      · `(지속,1,끝ms)` 가 실린 프레임 = 다시 충전 시작(= 직전에 궁을 썼다는 뜻)
+    쓴 시각은 충전 이벤트가 아니라 **`AbilityUsageState`(=`d["skills"]` 의 "궁")** 에서 가져온다.
+
+    🪤 **관측된 것만 쓴다.** `(지속,1,끝ms)` 의 '끝ms'로 "그때쯤 찼겠지"를 **추정하지 않는다** —
+       실측(7RGTWKER, ix!)에서 예정 시각이 지나도 `(0,0,0)` 이 영영 안 오는 선수가 있었다
+       (경기 중 이탈로 보임). 추정하면 "차 있었다"고 없는 사실을 말하게 된다.
+       그래서 이 함수는 **과소 보고 쪽으로 틀린다** — 그게 안전한 방향이다.
+    """
+    used_by = collections.defaultdict(list)
+    for ms, pid, kind, _off in d.get("skills", []):
+        if kind == "궁":
+            used_by[pid].append(ms)
+    for v in used_by.values():
+        v.sort()
+
+    ready_by = collections.defaultdict(list)
+    for ms, pid, tc in sorted(d.get("ult_charge", [])):
+        if tuple(tc) == (0, 0, 0):
+            ready_by[pid].append(ms)
+
+    out = {}
+    for pid in d["players"]:
+        spans, uses = [], list(used_by.get(pid, []))
+        for r in ready_by.get(pid, []):
+            # 그 뒤에 처음 쓴 시각. 1초는 봐준다 — 준비와 사용이 같은 순간이면
+            # 프레임 순서에 따라 사용이 몇십 ms 먼저 찍힐 수 있다.
+            u = next((x for x in uses if x >= r - 1000), None)
+            if u is not None:
+                uses = [x for x in uses if x > u]
+            spans.append((r, u))
+        out[pid] = spans
+    return out
+
+
+def ult_ready_at(d, ms, team=None, min_hold_ms=0, _rd=None, _dead=None):
+    """그 시각에 **궁을 들고 있던** 선수들 → [(pid, 몇 ms째 들고 있었나)].
+
+    `team` 을 주면 그 팀만. `min_hold_ms` 로 "충분히 볼 시간이 있었다" 를 거를 수 있다.
+    죽어 있는 사람은 뺀다 — 죽은 사람 궁은 그 순간의 위협이 아니다.
+    `_rd`/`_dead` 는 여러 번 부를 때 미리 계산해 넘기는 자리(없으면 그때그때 계산).
+    """
+    spans_all = _rd if _rd is not None else ult_ready(d)
+    dead = _dead if _dead is not None else _death_spans(d)
+    out = []
+    for pid, spans in spans_all.items():
+        if team is not None and d["players"][pid]["team"] != team:
+            continue
+        if any(a <= ms <= b for a, b in dead.get(pid, [])):
+            continue
+        for r, u in spans:
+            if r <= ms and (u is None or ms < u) and ms - r >= min_hold_ms:
+                out.append((pid, ms - r))
+                break
     return out
 
 
@@ -1146,6 +1231,55 @@ def _pos_at(d, ent, ms, tol=2000):
     return best[1] if best and abs(best[0] - ms) <= tol else None
 
 
+def team_spread(d, ms, team, tol=2000):
+    """🫂 그 순간 그 팀이 **얼마나 붙어 있었나** — {n, radius, pids}.
+
+    · `n`      = 그때 좌표가 잡힌(=살아 있는) 팀원 수
+    · `radius` = 팀원끼리 가장 멀리 떨어진 두 사람 사이 거리(2D)
+    죽어 있으면 좌표가 안 오므로 자연히 빠진다. 2명 미만이면 radius 는 None.
+    """
+    pts = []
+    for pid, p in d["players"].items():
+        if p["team"] != team:
+            continue
+        q = _pos_at(d, p["hero_entity"], ms, tol)
+        if q is not None:
+            pts.append((pid, q))
+    r = None
+    if len(pts) >= 2:
+        r = max(((a[0]-b[0])**2 + (a[2]-b[2])**2) ** .5
+                for _i, a in pts for _j, b in pts)
+    return {"n": len(pts), "radius": r, "pids": [i for i, _q in pts]}
+
+
+def spread_baseline(d, step=1000):
+    """팀별 **그 경기 자신의** 산개도 분포 → {team: {"p25":…, "med":…, "n":…}}.
+
+    🪤 "몇 유닛 안이면 뭉친 것인가"를 **내가 정하지 않기 위해** 있는 함수다.
+       절대 임계값(예: 13유닛)은 맵 크기·모드·인원마다 달라서 근거가 없다 —
+       HANDOFF §8이 이미 "임계값이 AI가 정한 숫자"를 약점으로 지적해 뒀다.
+       대신 그 경기에서 그 팀이 평소 얼마나 벌리고 다녔는지를 재고,
+       **평소보다 유난히 붙어 있었을 때**(하위 25%)만 "뭉쳤다"고 말한다.
+    """
+    if not d["pos"]:
+        return {}
+    lo = min(tr[0][0] for tr in d["pos"].values() if tr)
+    hi = max(tr[-1][0] for tr in d["pos"].values() if tr)
+    out = {}
+    for team in sorted({p["team"] for p in d["players"].values()}):
+        vals = []
+        ms = lo
+        while ms <= hi:
+            s = team_spread(d, ms, team, tol=step)
+            if s["n"] >= 3 and s["radius"] is not None:   # 3명 이상 살아 있을 때만
+                vals.append(s["radius"])
+            ms += step
+        if len(vals) >= 20:
+            vals.sort()
+            out[team] = {"p25": vals[len(vals)//4], "med": vals[len(vals)//2], "n": len(vals)}
+    return out
+
+
 def positioning(d, warmup_ms=3000):
     """🧭 **전방/후방 지수 + 이동 거리** — 누가 앞라인이고 누가 뒷라인인가.
 
@@ -1306,6 +1440,157 @@ def first_engage_counts(d):
 #   이 파일의 한국어 템플릿)이 만든다 — 그래야 언어를 늘려도 서버를 안 고친다.
 #   ⚠️ 정직함이 규칙이다: 전부 임계값 기반이고 숫자를 함께 내보낸다.
 #      "궁 뒤 성과"처럼 인과가 아닌 동시성인 것은 문장도 그렇게 쓴다.
+
+def why_lost(d, max_scenes=2):
+    """🧩 **왜 졌나 — 인과 사슬** (2026-08-10 16차, MAMMON 방향 전환)
+
+    MAMMON(2026-08-09): *"내가 얼마의 데미지를 넣었든 수치는 관심이 없어.
+    어떻게 해야 이기는지가 가장 궁금하고 **왜 졌는지**가 가장 궁금한 거지."*
+
+    지금까지 리포트는 사슬의 **마지막 칸**만 말했다 — "혼자 죽은 게 3번 중 3번".
+    값어치는 **앞 칸**에 있다:
+
+        ① 상대 궁이 차 있었다 → ② 그 상태로 뭉쳐서 들어갔다
+                                  → ③ 광역기에 함께 걸렸다 → ④ N초 만에 전멸
+
+    이 함수는 **표를 하나 더 만드는 게 아니다.** 경기에서 판이 갈린 순간 1~2개를 고르고,
+    그 순간의 **앞 칸**을 찾아 결과와 이어 붙인 '고리(link)' 목록을 돌려준다.
+    문장은 여기서 만들지 않는다 — 사이트가 4개 언어로 만든다(코칭과 같은 방식).
+
+    ⚠️ **앞 칸이 하나도 없으면 그 장면은 아예 안 낸다.** 결과 칸만 있는 장면을 내면
+       예전 리포트로 되돌아가는 것이고, 그건 이 작업을 한 이유를 지운다.
+    ⚠️ 봇만 있는 팀에는 안 낸다(§coach 의 12차 함정과 같은 이유).
+    ⚠️ 여기서 숫자는 **주장이 아니라 근거**다 — "40초"는 정보가 아니라
+       *"충분히 볼 시간이 있었다"* 의 증거로 쓰인다.
+
+    되돌려주는 것: {"team": 진 팀, "scenes": [{"s": 초, "role", "links":[…]}]} 또는 None
+    """
+    w, _why = winner(d)
+    teams = sorted({p["team"] for p in d["players"].values()})
+    if not w or len(teams) != 2:
+        return None
+    loser = teams[0] if teams[1] == w else teams[1]
+    if not any((not p.get("bot")) and p["team"] == loser for p in d["players"].values()):
+        return None
+
+    fr = fight_rounds(d)
+    t0 = d["t0"]
+    rd = ult_ready(d)                       # 한 번만 계산해 돌려 쓴다
+    dead = _death_spans(d)
+    base = spread_baseline(d)
+    ds = deaths(d)
+    setups = focus_after_setup(d)
+    _rows, flips = score_timeline(d)
+    flip_ms = flips[-1][0] if flips else None
+
+    # ── 어느 순간을 이야기할 것인가 = **무너진 순간(사망 뭉치)** ────────
+    #    🪤 처음엔 `fight_rounds()` 의 교전 하나를 통째로 장면으로 삼았다가
+    #       **"3인 팀인데 9명이 83초 만에 죽었다"** 가 나왔다 — 긴 공방은 부활이 섞여
+    #       한 교전이 80초를 넘고, 그 안의 사망을 다 더하면 팀 인원을 넘어선다.
+    #       MAMMON이 이미 제보했던 함정(14차, `fight_story` 주석)을 그대로 다시 밟은 것이다.
+    #    → 장면의 단위를 **8초 안에 몰린 아군 사망**으로 바꾼다. 부활이 10.02초라
+    #       이 창에는 같은 사람이 두 번 들어올 수 없다 = 구조적으로 부풀지 않는다.
+    #       "2.1초 만에 둘이 죽었어요" 라는 MAMMON의 목표 문장과도 단위가 같다.
+    BURST_MS = 8000
+    mine = sorted((ms, tgt) for ms, tgt, _who in ds if d["players"][tgt]["team"] == loser)
+    bursts = []
+    for ms, tgt in mine:
+        if bursts and ms - bursts[-1][-1][0] <= BURST_MS:
+            bursts[-1].append((ms, tgt))
+        else:
+            bursts.append([(ms, tgt)])
+    # 🪤 **사람 수로 센다, 죽음 횟수로 세지 않는다.** 사망 간격만 8초로 묶으면 뭉치 전체
+    #    길이는 그보다 길어질 수 있고(부활 10.02초), 그러면 같은 사람이 두 번 들어와
+    #    "3인 팀에서 4명이 죽었다"가 또 나온다. 서로 다른 사람이 2명 이상일 때만 장면으로 삼고,
+    #    누군가 되살아나 또 죽었으면 `again` 으로 밝혀 문장이 사실을 말하게 한다.
+    bursts = [g for g in bursts if len({t for _m, t in g}) >= 2]
+    if not bursts:
+        return None
+
+    cand = []
+    for grp in bursts:
+        g = [m for m, _t in grp]
+        fell = {t for _m, t in grp}         # 실제로 쓰러진 **사람**들
+        t = g[0]                            # 무너지기 시작한 순간
+        look = t - 5000                     # "그 상태로 들어갔다" 를 재는 시점
+        links, lead = [], []
+
+        # ── 앞 칸 ① 상대 궁이 차 있었고, 그 궁이 실제로 터졌다 ───────────
+        #    🪤 "차 있었다"만으로는 추측이다. 그 궁이 **이 순간에 실제로 쓰였을 때만**
+        #       사슬로 인정한다 — 안 그러면 "위험했을 수도 있다"는 빈 말이 된다.
+        held = ult_ready_at(d, look, team=w, min_hold_ms=8000, _rd=rd, _dead=dead)
+        fired = [(pid, hold) for pid, hold in held
+                 if any(q == pid and k == "궁" and look - 1000 <= ms <= g[-1]
+                        for ms, q, k, _o in d["skills"])]
+        if fired:
+            lead.append({"k": "ultheld", "n": len(fired),
+                         "hold": int(max(h for _p, h in fired) / 1000),
+                         "who": [p for p, _h in fired]})
+
+        # ── 앞 칸 ② 인원 열세로 시작했다 ────────────────────────────────
+        ac = alive_counts(d, dead, look)
+        if ac.get(loser, 0) and ac.get(loser, 0) < ac.get(w, 0):
+            lead.append({"k": "outnum", "a": ac[loser], "e": ac[w]})
+
+        # ── 앞 칸 ③ 평소보다 뭉쳐 있었다 ────────────────────────────────
+        sp = team_spread(d, look, loser)
+        bl = base.get(loser)
+        if bl and sp["n"] >= 3 and sp["radius"] is not None and sp["radius"] <= bl["p25"]:
+            lead.append({"k": "grouped", "n": sp["n"],
+                         "r": round(sp["radius"], 1), "base": round(bl["med"], 1)})
+
+        # ── 앞 칸 ④ 직전 교전에서 밀린 직후 다시 들어갔다 ───────────────
+        prev = [f for f in fr if f[1] < look]
+        if prev and prev[-1][4] == w:
+            gap = look - prev[-1][1]
+            if 0 <= gap <= 12000:
+                lead.append({"k": "restart", "gap": int(gap / 1000)})
+
+        if not lead:
+            continue                        # 앞 칸이 없으면 이야기가 안 된다 — 통째로 뺀다
+        links += lead
+
+        # ── 중간 칸 — 무슨 일이 벌어졌나 ────────────────────────────────
+        #    판깔기는 **2명 이상 걸렸을 때만** 사슬에 넣는다. 1명은 그냥 교전이라
+        #    "이래서 무너졌다"의 설명이 못 된다.
+        got = [x for x in setups if x["team"] == w and look <= x["ms"] <= g[-1]
+               and len(x["targets"]) >= 2]
+        if got:
+            x = max(got, key=lambda q: len(q["targets"]))
+            links.append({"k": "caught", "skill": x["skill"],
+                          "skill_i18n": x.get("skill_i18n"),
+                          "kind": x.get("kind"), "n": len(x["targets"])})
+
+        # ── 결과 칸 ─────────────────────────────────────────────────────
+        res = {"k": "wiped", "n": len(fell), "sec": round((g[-1] - g[0]) / 1000, 1),
+               "all": len(fell) == sum(1 for p in d["players"].values()
+                                       if p["team"] == loser)}
+        if len(g) > len(fell):
+            res["again"] = len(g) - len(fell)      # 부활해서 또 죽은 횟수
+        links.append(res)
+        # 🪤 **역전이 전멸보다 먼저 일어났으면 "이 장면이 판을 갈랐다"는 거짓말이다.**
+        #    처음엔 창을 ±8초로 잡았더니 J2VRV3D4 에서 역전 43.3초 · 전멸 48.9초인데도
+        #    전멸이 역전을 만든 것처럼 문장이 나갔다(9초마다 점수가 오르는 거점 모드라
+        #    2팀은 이미 앞서 가는 중이었다). 인과 방향이 거꾸로다.
+        #    → 역전은 **전멸이 시작된 뒤**여야 한다(프레임 순서 흔들림만 1.5초 봐준다).
+        is_flip = flip_ms is not None and g[0] - 1500 <= flip_ms <= g[-1] + 12000
+        if is_flip:
+            links.append({"k": "flip", "team": w})
+
+        cand.append({"s": round((t - t0) / 1000, 1),
+                     "role": "decisive" if is_flip else "worst",
+                     "links": links,
+                     "_rank": (1 if is_flip else 0, len(fell), len(lead))})
+
+    if not cand:
+        return None
+    cand.sort(key=lambda x: x["_rank"], reverse=True)
+    scenes = cand[:max_scenes]
+    scenes.sort(key=lambda x: x["s"])
+    for s in scenes:
+        s.pop("_rank", None)
+    return {"team": loser, "scenes": scenes}
+
 
 def coach(d):
     """판정 목록 [{k, sev, pid?, team?, ...숫자들}] — sev: bad(고칠 점)/good(잘한 점)/info/team."""
@@ -1562,6 +1847,119 @@ COACH_KO = {
 }
 
 
+def pick_matchup(d, team=None):
+    """🎲 **픽에서 이미 기울어 있었나** — 양 팀 영웅 조합의 상성 점수.
+
+    사슬의 **맨 앞 칸**이다(MAMMON 2026-08-09: *"캐릭의 상성이 우선 안 좋고…"*).
+
+    🪤 **이건 CLI 리포트 전용이다.** 상성표의 주인은 `index.html` 이고, 운영자가 관리자
+       UI로 직접 고칠 수 있으며 설명문에 9개 언어 번역이 붙어 있다. 그래서 **사이트는
+       서버가 보내는 값을 안 쓰고 자기 MATCHUPS 로 직접 계산한다** — 그래야 표를 고치면
+       바로 반영되고 번역도 맞는다. 여기 값은 맥에서 대조해 보라고 있는 사본이다.
+       사본은 `python3 도구/픽상성표생성.py` 로 다시 만든다(손으로 고치지 말 것).
+    ⚠️ 표(`픽상성표.json`)가 없으면 조용히 None — 서버에는 이 파일을 올리지 않는다.
+
+    되돌려주는 것: {"team", "score", "pairs":[{"me","foe","w","why","bad"}]} 또는 None
+    """
+    tbl = _load("픽상성표.json")
+    mu = (tbl or {}).get("matchups")
+    if not mu:
+        return None
+    teams = sorted({p["team"] for p in d["players"].values()})
+    if len(teams) != 2:
+        return None
+    if team is None:
+        w, _why = winner(d)
+        if not w:
+            return None
+        team = teams[0] if teams[1] == w else teams[1]
+    foe = teams[0] if teams[1] == team else teams[1]
+    mine = [p["hero"] for p in d["players"].values() if p["team"] == team and p.get("hero")]
+    them = [p["hero"] for p in d["players"].values() if p["team"] == foe and p.get("hero")]
+    pairs, score = [], 0
+    for a in mine:
+        for b in them:
+            adv, dis = mu.get(f"{a}>{b}"), mu.get(f"{b}>{a}")
+            if adv:
+                score += adv[0]
+                pairs.append({"me": a, "foe": b, "w": adv[0], "why": adv[1], "bad": False})
+            if dis:
+                score -= dis[0]
+                pairs.append({"me": a, "foe": b, "w": dis[0], "why": dis[1], "bad": True})
+    if not pairs:
+        return None
+    pairs.sort(key=lambda x: (not x["bad"], -x["w"]))
+    return {"team": team, "score": score, "pairs": pairs}
+
+
+# 🧩 인과 사슬 문장 (CLI용 한국어 — 사이트는 RPT_WHY 로 4개 언어를 따로 갖는다)
+#    고리 하나 = **홀로 서는 한 문장**. 순서(앞 칸 → 중간 칸 → 결과 칸)는 why_lost()가 정한다.
+#    🪤 문장 앞에 "그래서·그런데" 같은 접속어를 넣지 말 것 — 앞 고리가 빠지면 말이 어긋난다.
+WHY_KO = {
+    "ultheld":   "상대 {who}의 궁이 이미 {hold}초째 차 있었고, 그 궁이 여기서 터졌어요.",
+    "ultheld_n": "상대 궁 {n}개가 이미 {hold}초째 차 있는 상태로 들어갔고, 그게 여기서 터졌어요.",
+    # 🪤 "{a}대{e}로" 라고 쓰면 "2대3로"가 된다(3=삼, 받침 ㅁ → '으로'). 숫자 조사는
+    #    읽는 법에 따라 갈려 규칙으로 못 맞춘다 — 조사가 안 붙는 문장 구조로 피한다.
+    "outnum":    "{a}대{e} — 인원이 갖춰지기 전에 싸움이 시작됐어요.",
+    "grouped":   "그 직전 {n}명이 {r}유닛 안에 뭉쳐 있었어요 — 이 경기에서 평소 간격은 {base}유닛이었습니다.",
+    "restart":   "직전 교전에서 밀린 지 {gap}초 만에 다시 들어갔어요 — 정비할 틈이 없었습니다.",
+    "caught":       "‘{skill}’{jo} {n}명이 한꺼번에 잡혔습니다.",
+    "caught_stun":  "‘{skill}’{jo} {n}명이 한꺼번에 기절했습니다.",
+    "caught_bind":  "‘{skill}’{jo} {n}명이 한꺼번에 묶였습니다.",
+    "caught_pull":  "‘{skill}’{jo} {n}명이 한꺼번에 끌려갔습니다.",
+    "caught_mark":  "‘{skill}’{jo} {n}명이 한꺼번에 표식이 찍혔습니다.",
+    "wiped":     "{sec}초 만에 {n}명이 쓰러졌어요.",
+    "wiped_all": "{sec}초 만에 팀 {n}명 전원이 쓰러졌어요.",
+    "wiped_now":     "거의 동시에 {n}명이 쓰러졌어요.",
+    "wiped_now_all": "거의 동시에 팀 {n}명 전원이 쓰러졌어요.",
+    "again":     "(그중 {again}번은 부활한 뒤 다시 당한 것입니다.)",
+    "flip":      "리드가 여기서 {team}팀으로 넘어갔습니다 — 이 장면이 판을 갈랐어요.",
+}
+
+
+def why_key(l):
+    """고리 하나 → 문장 템플릿 키. 사이트(RPT_WHY)와 **같은 규칙**을 써야 한다."""
+    k = l["k"]
+    if k == "ultheld":
+        return "ultheld_n" if l.get("n", 1) > 1 else "ultheld"
+    if k == "caught" and l.get("kind"):
+        return f"caught_{l['kind']}"
+    if k == "wiped":
+        return ("wiped_now" if l.get("sec", 1) < 0.5 else "wiped") + ("_all" if l.get("all") else "")
+    return k
+
+
+def why_lines(d, tpl=None):
+    """인과 사슬 → 사람이 읽는 문단 목록 [(시각문자열, [문장,…]), …] (기본 한국어)."""
+    tpl = tpl or WHY_KO
+    r = why_lost(d)
+    if not r:
+        return []
+    out = []
+    for sc in r["scenes"]:
+        v = max(0, int(sc["s"]))
+        sents = []
+        for l in sc["links"]:
+            t = tpl.get(why_key(l))
+            if not t:
+                continue
+            vals = dict(l)
+            if l.get("who"):
+                vals["who"] = ", ".join(label(d, p).split("(")[0] for p in l["who"])
+            if "skill" in vals:
+                vals["jo"] = josa_ro(vals["skill"])
+            try:
+                s = t.format(**vals)
+            except (KeyError, IndexError):
+                continue
+            if l.get("again") and tpl.get("again"):
+                s += " " + tpl["again"].format(**vals)
+            sents.append(s)
+        if sents:
+            out.append((f"{v // 60:02d}:{v % 60:02d}", sents))
+    return out
+
+
 def josa_ro(word):
     """한국어 조사 '으로/로' 고르기 — 받침이 없거나 'ㄹ' 받침이면 '로'.
 
@@ -1649,6 +2047,21 @@ def render_text(name, d):
                  f"{c['준피해']:>8} {c['받은피해']:>9} {c['구조물피해']:>7} {c['회복']:>6} {c['실드']:>5}"
                  f"{sk[(pid,'스킬')]:>6}{sk[(pid,'궁')]:>4}")
     L.append("")
+    # 🧩 인과 사슬이 먼저다 — "왜 졌나"가 궁금한 것이고, 개별 지적은 그다음이다.
+    wl = why_lines(d)
+    if wl:
+        r = why_lost(d)
+        L.append(f"【왜 졌나】  {r['team']}팀 관점 — 판이 갈린 순간")
+        pm = pick_matchup(d, r["team"])
+        if pm and pm["score"] <= -2:
+            L.append(f"   ▸ 픽 (상성 점수 {pm['score']:+d} — 시작부터 불리)")
+            for x in [q for q in pm["pairs"] if q["bad"]][:3]:
+                L.append(f"       {x['me']} vs {x['foe']}: {x['why']}")
+        for t, sents in wl:
+            L.append(f"   ▸ {t}")
+            for s in sents:
+                L.append("       " + s)
+        L.append("")
     cl = coach_lines(d)
     if cl:
         L.append("【코칭 코멘트】  ※ 데이터 기반 자동 판정 — 상황 맥락(핑·역할 분담)까지는 모릅니다")
@@ -1783,6 +2196,20 @@ def render_html(name, d):
                  f"<td>{c['받은피해']}</td><td>{c['구조물피해']}</td><td>{c['회복']}</td>"
                  f"<td>{c['실드']}</td><td>{sk[(pid,'스킬')]}</td><td>{sk[(pid,'궁')]}</td></tr>")
     h.append("</table>")
+    wl = why_lines(d)
+    if wl:
+        r = why_lost(d)
+        h.append(f"<h2>왜 졌나 — {r['team']}팀</h2>"
+                 "<p class=note>판이 갈린 순간을 앞뒤로 이어 붙인 것. 숫자는 주장이 아니라 근거다.</p>")
+        pm = pick_matchup(d, r["team"])
+        if pm and pm["score"] <= -2:
+            rows = "".join(f"<div>{html.escape(x['me'])} vs {html.escape(x['foe'])}: "
+                           f"{html.escape(x['why'])}</div>"
+                           for x in [q for q in pm["pairs"] if q["bad"]][:3])
+            h.append(f"<div class=ev><span><b>픽 (상성 점수 {pm['score']:+d})</b>{rows}</span></div>")
+        for t, sents in wl:
+            body = "".join(f"<div>{html.escape(s)}</div>" for s in sents)
+            h.append(f"<div class=ev><span><b>{t}</b>{body}</span></div>")
     cl = coach_lines(d)
     if cl:
         h.append("<h2>코칭 코멘트</h2><p class=note>데이터 기반 자동 판정 — 상황 맥락(핑·역할 분담)까지는 모른다.</p>")
