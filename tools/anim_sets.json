@@ -3274,5 +3274,74 @@
     "TriggerParameters": 14
    }
   }
+ },
+ "FVAFV4RM": {
+  "완주율": 99,
+  "엔티티별_영웅": {
+   "31": "Fury",
+   "53": "Remedy",
+   "72": "Magnus/Sejin",
+   "80": "Magnus/Sejin",
+   "93": "Fury",
+   "115": "Leo"
+  },
+  "엔티티별_후보": {
+   "31": [
+    "Fury"
+   ],
+   "53": [
+    "Remedy"
+   ],
+   "72": [
+    "Magnus/Sejin"
+   ],
+   "80": [
+    "Magnus/Sejin"
+   ],
+   "93": [
+    "Fury"
+   ],
+   "115": [
+    "Leo"
+   ]
+  },
+  "항목수": {
+   "31": {
+    "BoolParameters": 1,
+    "FloatParameters": 8,
+    "IntParameters": 2,
+    "TriggerParameters": 17
+   },
+   "53": {
+    "BoolParameters": 2,
+    "FloatParameters": 8,
+    "IntParameters": 2,
+    "TriggerParameters": 12
+   },
+   "72": {
+    "BoolParameters": 1,
+    "FloatParameters": 8,
+    "IntParameters": 2,
+    "TriggerParameters": 15
+   },
+   "80": {
+    "BoolParameters": 1,
+    "FloatParameters": 8,
+    "IntParameters": 2,
+    "TriggerParameters": 15
+   },
+   "93": {
+    "BoolParameters": 1,
+    "FloatParameters": 8,
+    "IntParameters": 2,
+    "TriggerParameters": 17
+   },
+   "115": {
+    "BoolParameters": 2,
+    "FloatParameters": 8,
+    "IntParameters": 2,
+    "TriggerParameters": 13
+   }
+  }
  }
 }

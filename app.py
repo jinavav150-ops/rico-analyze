@@ -46,6 +46,8 @@ sys.path.insert(0, os.path.join(BASE, "tools"))
 S = importlib.import_module("restore_state")
 A = importlib.import_module("match_report")
 R = importlib.import_module("replay_stream")
+T10 = importlib.import_module("top10_updater")   # 🏅 프로 TOP 10 30분 갱신 (2026-08-29) — env 없으면 조용히 쉼
+T10.start_background()
 
 from flask import Flask, jsonify, request  # noqa: E402  (경로 세팅 뒤에)
 
@@ -295,7 +297,8 @@ def build_report(code, s3date):
 
 @app.get("/health")
 def health():
-    return jsonify({"ok": True, "cached": len(_cache), "jobs": len(_jobs)})
+    return jsonify({"ok": True, "cached": len(_cache), "jobs": len(_jobs),
+                    "top10": T10.STATE})   # last_ok=마지막 성공(epoch초) · last_err · runs
 
 
 # ═══ 🕒 비동기 처리 — Render 무료 플랜(CPU 0.1코어) 대응 ═══════════════════
