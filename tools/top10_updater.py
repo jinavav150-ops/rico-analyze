@@ -7,6 +7,20 @@ from the game meta server, combine with the frozen PREVIOUS-season hero scores,
 compute each top-10 player's 3 main heroes, and PUT the result to Firebase `top10`.
 The fan site subscribes to that node, so the screen updates with no site deploy.
 
+It ALSO builds the "pro ranking deep stats" screen (Firebase `top10deep`, rules v35):
+per-hero rating gained/lost, pro-only K/D, and win rate per teammate. Those come from
+`get_match_results_info` on each player's `match_state.match_history` — the server keeps
+the LAST 25 MATCHES per player, wins AND losses. Built 2026-08-29 from three suggestions
+by pro player GG Qwaser.
+
+CORRECTION 2026-08-30: MatchType was read backwards at first. The game defines
+Training = 0, **Pro = 1**, **Casual = 2** — so MatchType 2 is CASUAL, not Pro. In practice
+only ~5% of the top 10's last 25 matches are Pro; the rest are Casual (a `rating/` ReplayKey
+prefix just means the mode is rated, not that it is Pro). Reported by pro player GG Qwaser.
+So each row now carries md = {pro, casual, etc} and the site prints that breakdown on every
+card instead of claiming these are Pro stats. Collecting Pro-only matches is a separate task. The deep pass runs after the
+main upload in its own try/except, so a failure there never blocks the main `top10` write.
+
 Why this design (2026-08-29):
   - The Mac LaunchAgent version (리코스탯/top10_live.py) only runs while the Mac is on.
     This server runs 24/7 on Render, so rankings stay fresh even with the Mac off.
@@ -54,9 +68,12 @@ SITE_ID = {"Dread":"dread","Khan":"khan","Vector":"vector","Oni":"oni","Remedy":
            "Sejin":"sejin","Twinkle":"twinkle","Jagger":"jagger","Calibri":"calibri",
            "Leo":"leo","Magnus":"magnus","Nova":"nova","Fury":"fury"}
 CUTOFF = 0.25
+HERO_BY_ID = {int(k): v for k, v in HEROES.items()}   # 경기 결과의 HeroId 는 정수로 온다
+MIN_MATE = 2      # 팀메이트 승률에 넣을 최소 동행 경기수 (1경기는 우연이 너무 크다)
+MIN_HERO = 2      # 영웅별 레이팅 증감에 필요한 최소 경기수 (첫 값과 끝 값의 차이라 2판 이상 필요)
 CACHE_DIR = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), "replays")  # writable dir on Render
 
-STATE = {"last_ok": 0, "last_err": "", "runs": 0}   # surfaced via /health
+STATE = {"last_ok": 0, "last_err": "", "runs": 0, "deep_ok": 0, "deep_err": ""}   # surfaced via /health
 
 def _log(msg):
     print("[top10] " + msg, flush=True)
@@ -128,10 +145,11 @@ def _fb_id_token():
     with urllib.request.urlopen(req, timeout=15, context=_SSL_CTX) as r:
         return json.load(r)["id_token"]
 
-def _fb_put_top10(payload):
+def _fb_put(path, payload):
+    """규칙 v35 기준 이 봇이 쓸 수 있는 곳은 /top10 과 /top10deep 뿐이다."""
     tok = _fb_id_token()
     body = json.dumps(payload, ensure_ascii=False).encode()
-    req = urllib.request.Request(DB + "/top10.json?auth=" + tok, data=body, method="PUT",
+    req = urllib.request.Request(DB + path + ".json?auth=" + tok, data=body, method="PUT",
                                  headers={"Content-Type": "application/json"})
     with urllib.request.urlopen(req, timeout=20, context=_SSL_CTX) as r:
         return json.load(r)
@@ -213,7 +231,112 @@ def run_once():
     payload = {"asOf": kst.strftime("%Y-%m-%d %H:%M"),
                "ts": int(time.time() * 1000), "season": cur, "src": "render", "rows": rows}
     if partial: payload["partial"] = True
-    _fb_put_top10(payload)
+    _fb_put("/top10", payload)
+    return len(rows)
+
+
+# ── 🏅 심층 지표: 최근 25경기를 경기 단위로 뜯는다 (Firebase /top10deep) ──
+def _wait_for(s, typ, timeout=45):
+    dl = time.time() + timeout
+    while time.time() < dl:
+        try: env, body = _rd(s)
+        except Exception: return None
+        if env.get("type") == typ: return body
+    return None
+
+def run_deep():
+    s = _connect()
+    try:
+        season = None; rid = 700
+        for code in _month_codes():
+            rid += 1
+            b = _get_lb(s, "rating_pro_0_%s" % code, rid, top=1)
+            if (b or {}).get("leaderboard_size"): season = code; break
+        if not season: raise RuntimeError("no pro season found")
+        rid += 1
+        pro = _get_lb(s, "rating_pro_0_%s" % season, rid)
+        if not pro or not pro.get("top_player_ids"): raise RuntimeError("pro board empty")
+        top = list(zip(pro["top_player_ids"][:10], [int(x) for x in pro["top_player_scores"][:10]]))
+        ids = [p for p, _ in top]
+
+        # 계정 정보 — 이름 + 최근 25경기 코드
+        rid += 1
+        s.sendall(_fr({"request_id": rid, "type": "get_accounts_info"},
+                      {"player_ids": ids, "rich_info": True}))
+        accs = {}; dl = time.time() + 30
+        while time.time() < dl and len(accs) < len(ids):
+            body = _wait_for(s, "get_accounts_info", timeout=10)
+            if not body: break
+            for js in body.get("account_info_jsons") or []:
+                try: a = json.loads(js)
+                except Exception: continue
+                if a.get("player_id"): accs[a["player_id"]] = a
+
+        # 경기 상세 — 선수별로 자기 이력을 통째로 요청(여러 선수가 같은 경기를 공유하므로 dict 로 모은다)
+        matches = {}; hist_of = {}
+        for pid in ids:
+            h = ((accs.get(pid) or {}).get("match_state") or {}).get("match_history") or []
+            hist_of[pid] = h
+            need = [c for c in h if c not in matches]
+            if not need: continue
+            rid += 1
+            s.sendall(_fr({"request_id": rid, "type": "get_match_results_info"}, {"match_ids": need}))
+            body = _wait_for(s, "get_match_results_info", timeout=45)
+            for js in (body or {}).get("match_result_info_jsons") or []:
+                try: m = json.loads(js)
+                except Exception: continue
+                if m.get("MatchId"): matches[m["MatchId"]] = m
+            time.sleep(0.2)
+    finally:
+        s.close()
+
+    rows = []
+    for rank, (pid, rating) in enumerate(top, 1):
+        name = ((accs.get(pid) or {}).get("player_state") or {}).get("name") or ("???" + pid[:6])
+        mine = [matches[c] for c in hist_of.get(pid, []) if c in matches]
+        mine.sort(key=lambda m: m.get("Timestamp", 0))
+
+        w = l = K = D = 0
+        md = {"pro": 0, "casual": 0, "etc": 0}      # MatchType: Training=0, Pro=1, Casual=2
+        mate = {}; hero_seq = {}; hero_wl = {}
+        for m in mine:
+            prs = m.get("PlayerResults") or []
+            me = next((p for p in prs if p.get("PlayerId") == pid), None)
+            if not me: continue
+            mt = m.get("MatchType")
+            md["pro" if mt == 1 else ("casual" if mt == 2 else "etc")] += 1
+            win = me.get("Team") == m.get("WinnerTeam")
+            w += 1 if win else 0; l += 0 if win else 1
+            K += me.get("Eliminations", 0) or 0
+            D += me.get("Deaths", 0) or 0
+            for p in prs:
+                if p.get("PlayerId") == pid or p.get("Team") != me.get("Team"): continue
+                nm = p.get("Name") or (p.get("PlayerId") or "")[:8]
+                r = mate.setdefault(nm, [0, 0]); r[0] += 1 if win else 0; r[1] += 1
+            for hr in (me.get("HeroResultData") or []):
+                hn = HERO_BY_ID.get(hr.get("HeroId"))
+                if not hn: continue
+                hero_seq.setdefault(hn, []).append((m.get("Timestamp", 0), hr.get("Rating")))
+                r = hero_wl.setdefault(hn, [0, 0]); r[0] += 1 if win else 0; r[1] += 1
+
+        heroes = []
+        for hn, seq in hero_seq.items():
+            seq.sort(key=lambda x: x[0])
+            vals = [v for _, v in seq if v is not None]
+            gw, gt = hero_wl[hn]
+            heroes.append({"id": SITE_ID[hn], "g": gt, "w": gw,
+                           "d": (vals[-1] - vals[0]) if len(vals) >= MIN_HERO else None,
+                           "cur": vals[-1] if vals else None})
+        heroes.sort(key=lambda x: (-(x["d"] if x["d"] is not None else -10**9), -x["g"]))
+        mates = sorted(([nm, v[0], v[1]] for nm, v in mate.items() if v[1] >= MIN_MATE),
+                       key=lambda x: (-(x[1] / float(x[2])), -x[2]))[:5]
+        rows.append({"r": rank, "n": name, "s": rating, "mp": w + l, "w": w, "l": l, "md": md,
+                     "k": K, "d": D, "kd": round(K / float(D), 2) if D else None,
+                     "heroes": heroes, "mates": mates})   # 상위 5종 자르기 폐지(2026-08-29) — 잘린 영웅의 승패가 사라져 전적 합이 안 맞았다
+
+    kst = datetime.datetime.utcnow() + datetime.timedelta(hours=9)
+    _fb_put("/top10deep", {"asOf": kst.strftime("%Y-%m-%d %H:%M"), "ts": int(time.time() * 1000),
+                           "season": season, "window": 25, "src": "render", "rows": rows})
     return len(rows)
 
 def _loop():
@@ -229,6 +352,14 @@ def _loop():
         except Exception as e:
             STATE["last_err"] = str(e)[:200]
             _log("failed: " + STATE["last_err"])
+        try:
+            # 심층 지표는 따로 감싼다 — 여기서 넘어져도 위의 top10 갱신은 이미 끝나 있어야 한다
+            d = run_deep()
+            STATE["deep_ok"] = int(time.time()); STATE["deep_err"] = ""
+            _log("deep updated %d rows" % d)
+        except Exception as e:
+            STATE["deep_err"] = str(e)[:200]
+            _log("deep failed: " + STATE["deep_err"])
         time.sleep(INTERVAL)
 
 def start_background():
