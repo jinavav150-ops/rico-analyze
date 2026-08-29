@@ -24,11 +24,11 @@ Env vars (set in the Render dashboard):
   RS_GAME_PORT      optional; game server port (default 22000, changes on game updates)
 
 If env vars are missing the thread idles quietly — the analyze server keeps working.
-Previous-season scores: on the FIRST successful fetch of a season the board data is
-cached to disk (hero_cache_<season>.json). When the season rolls over, the last cache
-of the old season becomes the frozen "previous" data automatically. If no cache exists
-yet (fresh deploy), previous-season scores are treated as 0 with a `partial` flag.
-⚠️ Render free tier wipes local disk on redeploy/restart — the cache is best-effort.
+Previous-season scores: frozen once the season ends. Cached to disk per season
+(hero_cache_<season>.json); Render wipes the disk on every deploy, so when the cache
+is missing the updater fetches the previous season's boards from the game server
+directly (once per boot, ~10s) and re-caches. `partial` is only set if the game
+server no longer serves that season at all.
 """
 import os, json, time, socket, struct, threading, datetime, urllib.request, urllib.parse, ssl
 try:
@@ -168,11 +168,27 @@ def run_once():
         try: json.dump(cur_scores, open(_cache_path(cur), "w"))
         except Exception: pass
 
+        # Previous season: frozen once it ends. Render wipes the disk on every deploy, so a
+        # missing cache is NORMAL after a deploy — in that case fetch the prev-season boards
+        # from the game server directly (once per boot, ~10s) and cache them for later runs.
+        # Without this the first post-deploy write had current-season-only sums, which made
+        # the site numbers jump between "full" (Mac) and "half" (cloud) every 30 min (2026-08-29).
         prev_scores = {}; partial = False
         if prev:
             try: prev_scores = json.load(open(_cache_path(prev)))
             except Exception:
-                partial = True   # fresh deploy: no frozen cache for the previous season yet
+                _log("prev-season cache missing — fetching %s boards from game server" % prev)
+                for hid, hname in HEROES.items():
+                    rid += 1
+                    b = _get_lb(s, "rating_heroes_%s_%s" % (hid, prev), rid)
+                    prev_scores[hname] = dict(zip(b.get("top_player_ids", []),
+                                                  [int(x) for x in b.get("top_player_scores", [])])) if b else {}
+                    time.sleep(0.15)
+                if any(prev_scores.values()):
+                    try: json.dump(prev_scores, open(_cache_path(prev), "w"))
+                    except Exception: pass
+                else:
+                    partial = True   # game server no longer serves that season — genuinely no data
 
         rid += 1
         names = _fetch_names(s, ids, rid)
