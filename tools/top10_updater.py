@@ -68,6 +68,11 @@ SITE_ID = {"Dread":"dread","Khan":"khan","Vector":"vector","Oni":"oni","Remedy":
            "Sejin":"sejin","Twinkle":"twinkle","Jagger":"jagger","Calibri":"calibri",
            "Leo":"leo","Magnus":"magnus","Nova":"nova","Fury":"fury"}
 CUTOFF = 0.25
+# A brand-new season's pro board can have 1-2 players for days (pro is rarely played early in a
+# season). Picking that as "current" put a one-player TOP 10 on the site (2026-09-02). Seasons with
+# fewer than MIN_BOARD entries are skipped; the previous season's final standings are used and the
+# payload carries prevSeason/newSeason/newSize so the site can say so.
+MIN_BOARD = 10
 HERO_BY_ID = {int(k): v for k, v in HEROES.items()}   # 경기 결과의 HeroId 는 정수로 온다
 MIN_MATE = 2      # 팀메이트 승률에 넣을 최소 동행 경기수 (1경기는 우연이 너무 크다)
 MIN_HERO = 2      # 영웅별 레이팅 증감에 필요한 최소 경기수 (첫 값과 끝 값의 차이라 2판 이상 필요)
@@ -161,14 +166,17 @@ def run_once():
     s = _connect()
     try:
         # current + previous pro season
-        found = []; rid = 300
+        found = []; fresh = None; rid = 300
         for code in _month_codes():
             rid += 1
             b = _get_lb(s, "rating_pro_0_%s" % code, rid, top=1)
-            if (b or {}).get("leaderboard_size"): found.append(code)
+            n = (b or {}).get("leaderboard_size") or 0
+            if n >= MIN_BOARD: found.append(code)
+            elif n and not found: fresh = (code, n)
             if len(found) >= 2: break
         if not found: raise RuntimeError("no pro season found")
         cur = found[0]; prev = found[1] if len(found) > 1 else None
+        if fresh: _log("new season %s has only %d pro players - using %s final standings" % (fresh[0], fresh[1], cur))
 
         rid += 1
         pro = _get_lb(s, "rating_pro_0_%s" % cur, rid)
@@ -231,6 +239,7 @@ def run_once():
     payload = {"asOf": kst.strftime("%Y-%m-%d %H:%M"),
                "ts": int(time.time() * 1000), "season": cur, "src": "render", "rows": rows}
     if partial: payload["partial"] = True
+    if fresh: payload["prevSeason"] = True; payload["newSeason"] = fresh[0]; payload["newSize"] = fresh[1]
     _fb_put("/top10", payload)
     return len(rows)
 
@@ -247,11 +256,13 @@ def _wait_for(s, typ, timeout=45):
 def run_deep():
     s = _connect()
     try:
-        season = None; rid = 700
+        season = None; fresh = None; rid = 700
         for code in _month_codes():
             rid += 1
             b = _get_lb(s, "rating_pro_0_%s" % code, rid, top=1)
-            if (b or {}).get("leaderboard_size"): season = code; break
+            n = (b or {}).get("leaderboard_size") or 0
+            if n >= MIN_BOARD: season = code; break
+            if n and fresh is None: fresh = (code, n)
         if not season: raise RuntimeError("no pro season found")
         rid += 1
         pro = _get_lb(s, "rating_pro_0_%s" % season, rid)
@@ -335,8 +346,10 @@ def run_deep():
                      "heroes": heroes, "mates": mates})   # 상위 5종 자르기 폐지(2026-08-29) — 잘린 영웅의 승패가 사라져 전적 합이 안 맞았다
 
     kst = datetime.datetime.utcnow() + datetime.timedelta(hours=9)
-    _fb_put("/top10deep", {"asOf": kst.strftime("%Y-%m-%d %H:%M"), "ts": int(time.time() * 1000),
-                           "season": season, "window": 25, "src": "render", "rows": rows})
+    out = {"asOf": kst.strftime("%Y-%m-%d %H:%M"), "ts": int(time.time() * 1000),
+           "season": season, "window": 25, "src": "render", "rows": rows}
+    if fresh: out["prevSeason"] = True; out["newSeason"] = fresh[0]; out["newSize"] = fresh[1]
+    _fb_put("/top10deep", out)
     return len(rows)
 
 def _loop():
