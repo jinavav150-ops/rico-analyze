@@ -387,7 +387,8 @@ def identify(replay, hero_entity, hp, comps=None):
                 hits.append((k, int(round(lv))))
         if hits:
             hp_set = {k for k, _ in hits}
-            level = hits[0][1]
+            lvs = {lv for _, lv in hits}
+            level = lvs.pop() if len(lvs) == 1 else None   # 영웅이 정해진 뒤 아래에서 다시 고른다
 
     if anim_set and hp_set:
         both = anim_set & hp_set
@@ -396,6 +397,11 @@ def identify(replay, hero_entity, hp, comps=None):
     else:
         cand = anim_set or hp_set or set()
         sure = False
+    # 🪤 레벨은 **고른 영웅의** 레벨이어야 한다. 최대체력 710 = 칸 11레벨 = 노바·세진 15레벨이라
+    #    예전처럼 첫 후보의 레벨을 쓰면 칸이 15레벨로 나왔다(TULYQETD 봇 MrSpy, 2026-10-15).
+    if maxhp and growth and len(cand) == 1:
+        lv_of = {k.lower().replace("-", ""): lv for k, lv in hits}
+        level = lv_of.get(next(iter(cand)).lower().replace("-", ""), level)
 
     # ④ 컴포넌트 지문 — 정확히 그 쌍일 때만 개입한다(다른 조합엔 증거가 없다)
     fp_used = None
@@ -420,6 +426,10 @@ SCORE_FIELDS = {
     "GemGrabMode": ("Team1Score", "Team2Score"),           # 사냥
     "Capturepoint": ("Team1CapturedPoints", "Team2CapturedPoints",
                      "Team1CaptureScore", "Team2CaptureScore"),   # 장악·점멸
+    # 밀기(2.3.0, 스와이 전용) — 팀마다 화물을 **가장 멀리 민 거리(0~100%)**. 많이 민 팀이 이긴다.
+    #   TULYQETD 실측: 1팀 84 : 2팀 78, 게임의 `LeadingTeam`=1 과 일치.
+    #   `PayloadScore` 는 지금 화물 위치라 밀려 돌아오면 줄어든다(78→69) — 승패에 쓰면 안 된다.
+    "PushMode":    ("Team1Score", "Team2Score"),
 }
 
 
@@ -1417,6 +1427,8 @@ def score_unit(d):
     사이트가 최종 점수에 % 를 붙일지 판단하는 데 쓴다(점멸의 2:1 에 %를 붙이면 안 된다)."""
     caps = scores = False
     for _ms, comp, vals in d.get("score_tl", []):
+        if comp == "PushMode":                 # 밀기 = 민 거리(%)
+            return "pct"
         if comp != "Capturepoint":
             continue
         scores = True

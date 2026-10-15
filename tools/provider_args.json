@@ -1208,10 +1208,10 @@
   "args": {
    "fracBits": 17,
    "minValue": -1,
-   "maxValue": 50604,
+   "maxValue": 0,
    "epsilon": 1e-05
   },
-  "total_bits": 33,
+  "total_bits": 18,
   "group": "IPushModeOutputComponent"
  },
  {
@@ -1950,10 +1950,10 @@
   "provider": "Int32SerializableProvider",
   "args": {
    "type": 2,
-   "minValue": -65532,
-   "maxValue": 65535
+   "minValue": -1,
+   "maxValue": 4
   },
-  "total_bits": 17,
+  "total_bits": 3,
   "group": "IPowerUpOutputComponent"
  },
  {

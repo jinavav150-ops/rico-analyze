@@ -3343,5 +3343,143 @@
     "TriggerParameters": 13
    }
   }
+ },
+ "2TJVQ7Y3": {
+  "완주율": 100,
+  "엔티티별_영웅": {
+   "17": "Remedy",
+   "36": "Magnus/Sejin",
+   "44": "Calibri/Nova",
+   "54": "Calibri/Nova",
+   "64": "Oni",
+   "72": "Calibri/Nova"
+  },
+  "엔티티별_후보": {
+   "17": [
+    "Remedy"
+   ],
+   "36": [
+    "Magnus/Sejin"
+   ],
+   "44": [
+    "Calibri/Nova"
+   ],
+   "54": [
+    "Calibri/Nova"
+   ],
+   "64": [
+    "Oni"
+   ],
+   "72": [
+    "Calibri/Nova"
+   ]
+  },
+  "항목수": {
+   "17": {
+    "BoolParameters": 2,
+    "FloatParameters": 8,
+    "IntParameters": 2,
+    "TriggerParameters": 12
+   },
+   "36": {
+    "BoolParameters": 1,
+    "FloatParameters": 8,
+    "IntParameters": 2,
+    "TriggerParameters": 15
+   },
+   "44": {
+    "BoolParameters": 1,
+    "FloatParameters": 9,
+    "IntParameters": 2,
+    "TriggerParameters": 14
+   },
+   "54": {
+    "BoolParameters": 1,
+    "FloatParameters": 9,
+    "IntParameters": 2,
+    "TriggerParameters": 14
+   },
+   "64": {
+    "BoolParameters": 3,
+    "FloatParameters": 5,
+    "IntParameters": 2,
+    "TriggerParameters": 13
+   },
+   "72": {
+    "BoolParameters": 1,
+    "FloatParameters": 9,
+    "IntParameters": 2,
+    "TriggerParameters": 14
+   }
+  }
+ },
+ "TULYQETD": {
+  "완주율": 99,
+  "엔티티별_영웅": {
+   "34": "Leo",
+   "52": "Fury",
+   "74": "Magnus/Sejin",
+   "87": "Twinkle",
+   "126": "Calibri/Nova",
+   "145": "Khan"
+  },
+  "엔티티별_후보": {
+   "34": [
+    "Leo"
+   ],
+   "52": [
+    "Fury"
+   ],
+   "74": [
+    "Magnus/Sejin"
+   ],
+   "87": [
+    "Twinkle"
+   ],
+   "126": [
+    "Calibri/Nova"
+   ],
+   "145": [
+    "Khan"
+   ]
+  },
+  "항목수": {
+   "145": {
+    "BoolParameters": 2,
+    "FloatParameters": 9,
+    "IntParameters": 2,
+    "TriggerParameters": 12
+   },
+   "34": {
+    "BoolParameters": 2,
+    "FloatParameters": 8,
+    "IntParameters": 2,
+    "TriggerParameters": 13
+   },
+   "52": {
+    "BoolParameters": 1,
+    "FloatParameters": 8,
+    "IntParameters": 2,
+    "TriggerParameters": 17
+   },
+   "74": {
+    "BoolParameters": 1,
+    "FloatParameters": 8,
+    "IntParameters": 2,
+    "TriggerParameters": 15
+   },
+   "87": {
+    "BoolParameters": 1,
+    "FloatParameters": 8,
+    "IntParameters": 2,
+    "TriggerParameters": 14
+   },
+   "126": {
+    "BoolParameters": 1,
+    "FloatParameters": 9,
+    "IntParameters": 2,
+    "TriggerParameters": 14
+   }
+  }
  }
 }

@@ -1,5 +1,5 @@
 {
- "_출처": "게임원본_스냅샷/2.1.4_build380 + index.html",
+ "_출처": "게임원본_스냅샷/2.3.0_build464 + index.html",
  "_주의": "ModifierType 은 비트 플래그다. 여러 개가 OR 로 겹친다.",
  "maps": {
   "85682979": {
@@ -11,6 +11,11 @@
    "internal": "Control_City",
    "ko": "항구",
    "official": "항구"
+  },
+  "106514009": {
+   "internal": "Level_Push",
+   "ko": "스와이",
+   "official": "스와이"
   },
   "57585175": {
    "internal": "Roof",
@@ -49,6 +54,11 @@
    "official": "강타",
    "default_level_config": 91215405
   },
+  "106326973": {
+   "type": 32,
+   "official": "밀기",
+   "default_level_config": 106326893
+  },
   "54297697": {
    "type": 1,
    "official": "장악",
@@ -75,6 +85,10 @@
   {
    "name": "장악",
    "desc": "중앙 구역을 점거하고 사수하여 100%에 도달"
+  },
+  {
+   "name": "밀기",
+   "desc": "화물을 적 기지까지 밀어 승리"
   }
  ],
  "modifiers": {
@@ -256,6 +270,11 @@
    "mode_id": "91455367",
    "type": 16,
    "official": "강타"
+  },
+  "106326893": {
+   "mode_id": "106326973",
+   "type": 32,
+   "official": "밀기"
   },
   "53007533": {
    "mode_id": "54297697",

@@ -189,7 +189,10 @@ class Stream:
 
 # ── 리플레이 파일 ────────────────────────────────────────────────────────────
 def load(path):
-    return json.load(gzip.open(path))
+    """리플레이를 읽고 **그 게임 버전의 표로 해독기를 바꿔 끼운다**(`use_version`)."""
+    rep = json.load(gzip.open(path))
+    use_version(ver_for_replay(rep.get("CompatibilityVersion")))
+    return rep
 
 
 def frames(rep):
@@ -502,13 +505,30 @@ OFFSET_TIME_BITS = (-1000, 0)        # ReadContainer.ReadOffsetTime  → 10비�
 ARG_FIX = {}
 
 
-def load_spec():
+# ── 게임 버전별 표 ────────────────────────────────────────────────────────────
+# 표 4종(wire_types·sync_spec·read_order·provider_args)은 게임 바이너리에서 뽑는다(`버전.py`).
+# 2.3.0(2026-10-12)은 `IPushModeOutputComponent.PayloadProgress`(19비트) 하나가 늘었다 —
+# 나머지 79개 컴포넌트·구조체 읽기 순서·비트 폭은 2.1.4 와 같다(2026-10-15 전수 대조).
+TABLE_DIRS = {"2.1.4": HERE, "2.3.0": os.path.join(HERE, "v2.3.0")}
+
+
+def ver_for_replay(compat):
+    """리플레이 `CompatibilityVersion` → 표 버전. 2.3 이상은 2.3.0 표, 그 전은 2.1.4 표."""
+    try:
+        major, minor = (int(x) for x in str(compat).split(".")[:2])
+    except ValueError:
+        return "2.1.4"
+    return "2.3.0" if (major, minor) >= (2, 3) else "2.1.4"
+
+
+def load_spec(ver="2.1.4"):
     """`read_order.json`(읽는 순서·종류) + `provider_args.json`(비트 폭) → 컴포넌트 리더."""
-    wt = json.load(open(os.path.join(HERE, "wire_types.json"), encoding="utf-8"))
-    spec = json.load(open(os.path.join(HERE, "sync_spec.json"), encoding="utf-8"))
-    order = json.load(open(os.path.join(HERE, "read_order.json"), encoding="utf-8"))
+    d = TABLE_DIRS[ver]
+    wt = json.load(open(os.path.join(d, "wire_types.json"), encoding="utf-8"))
+    spec = json.load(open(os.path.join(d, "sync_spec.json"), encoding="utf-8"))
+    order = json.load(open(os.path.join(d, "read_order.json"), encoding="utf-8"))
     pa = {}
-    for r in json.load(open(os.path.join(HERE, "provider_args.json"), encoding="utf-8")):
+    for r in json.load(open(os.path.join(d, "provider_args.json"), encoding="utf-8")):
         pa.setdefault((r.get("group"), r["key"]), r)
     for k, fix in ARG_FIX.items():
         if k in pa:
@@ -541,7 +561,21 @@ def load_spec():
     return t2c, readers
 
 
-T2C, INT_READERS = load_spec()
+_SPECS = {}
+VER = None
+
+
+def use_version(ver):
+    """해독기를 그 버전의 표로 바꾼다. `load()` 가 알아서 부른다."""
+    global VER, T2C, INT_READERS
+    if ver not in _SPECS:
+        _SPECS[ver] = load_spec(ver)
+    VER = ver
+    T2C, INT_READERS = _SPECS[ver]
+    return ver
+
+
+use_version("2.1.4")
 
 
 ENTITY_MAP_COUNTS = {}   # (엔티티, 컴포넌트, 필드) → 항목 수. 지도 항목수는 **엔티티마다 다르다**
