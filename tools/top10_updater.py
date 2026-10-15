@@ -35,7 +35,7 @@ Why this design (2026-08-29):
 Env vars (set in the Render dashboard):
   RS_PID / RS_SEC   game meta-server account (site-only account, not MAMMON's main)
   FB_REFRESH        refresh token of the Firebase bot account
-  RS_GAME_PORT      optional; game server port (default 22000, changes on game updates)
+  RS_GAME_PORT      optional; game server port (default 23000 since 2.3.0, changes on game updates; next patch/minor ports are tried automatically)
 
 If env vars are missing the thread idles quietly — the analyze server keeps working.
 Previous-season scores: frozen once the season ends. Cached to disk per season
@@ -53,7 +53,7 @@ except ImportError:
 
 HOST = "frontend-a76415741fc3480f.elb.us-east-1.amazonaws.com"
 IP_FALLBACK = "35.153.75.130"
-GAME_PORT = int(os.environ.get("RS_GAME_PORT", "22000"))
+GAME_PORT = int(os.environ.get("RS_GAME_PORT", "23000"))   # 2026-10-15: 2.3.0 에서 22100→23000 (포트 = 게임 버전 숫자)
 PID = os.environ.get("RS_PID", "").strip()
 SEC = os.environ.get("RS_SEC", "").strip()
 FB_REFRESH = os.environ.get("FB_REFRESH", "").strip()
@@ -102,8 +102,16 @@ def _rd(s):
             json.loads(rn(bl).decode("utf-8", "ignore")) if bl else {})
 
 def _connect():
-    try: s = socket.create_connection((HOST, GAME_PORT), timeout=10)
-    except Exception: s = socket.create_connection((IP_FALLBACK, GAME_PORT), timeout=10)
+    s = None
+    nxt = (GAME_PORT // 1000 + 1) * 1000
+    for port in dict.fromkeys((GAME_PORT, GAME_PORT + 100, GAME_PORT + 200, nxt, nxt + 100)):
+        for host in (HOST, IP_FALLBACK):
+            try: s = socket.create_connection((host, port), timeout=10); break
+            except Exception: s = None
+        if s:
+            if port != GAME_PORT: print(f"[port] {GAME_PORT} failed, connected on {port} - update RS_GAME_PORT", flush=True)
+            break
+    if s is None: raise TimeoutError("game server unreachable")
     s.settimeout(20)
     s.sendall(_fr({"request_id": 1, "type": "authenticate_account"},
                   {"player_id": PID, "authentication_secret": SEC}))
