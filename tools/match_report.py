@@ -33,7 +33,6 @@ import sys
 import html
 import json
 import collections
-import itertools
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 import replay_stream as R
@@ -63,6 +62,11 @@ KILL_CREDIT = {4, 17, 20}
 # **사망 사건**으로 세는 종류 — 크레딧 없이 `결정타(5)` 만 남는 죽음이 있다(2026-08-07 실측).
 #   예: TLJXLVAF P180 은 91299ms 에 결정타만 있고 처치 로그가 없는데 게임은 죽음 1로 센다.
 DEATH_KINDS = KILL_CREDIT | {5}
+# 트리거 오프셋 하한(-1000ms) — 여기 붙은 MatchLog 는 옛 기록의 재전송이다(collect 참고)
+OFFSET_MIN = R.OFFSET_TIME_BITS[0]
+# 재전송된 기록의 '일어난 시각'은 직전 프레임 사본과 0~9ms 어긋난다(4GUD54ZX 실측: 0·1ms 가 99%).
+# 같은 내용의 **다른** 기록은 한 틱(20ms) 뒤에 온다 → 그 절반 아래로 잡는다.
+RESEND_TOL_MS = 9
 
 
 def collect(name):
@@ -129,6 +133,7 @@ def collect(name):
     score = {}                                   # 모드별 점수(승패 판정용)
     score_tl = []                                # 점수 변화 타임라인 (ms, 컴포넌트, {필드:값})
     hero_ents = {p["hero_entity"] for p in players.values()}
+    prev_win, resent = {}, 0                     # MatchLog 재전송 거르기용 (엔티티 → 직전 프레임 기록)
     frames = ok = 0
     for b in [x for k, x in R.frames(rep) if k == R.T_DATA]:
         fr = R.parse_frame(b)
@@ -138,9 +143,36 @@ def collect(name):
         ms = fr["time"]
         for e, t, c, v in fr["events"]:
             if c == "MatchLog":
-                for hit in v.get("Data", []):
-                    if hit[0] in LOG:                 # 있을 수 없는 종류는 버린다
+                # 🪤 **재전송 거르기** (2026-10-18, 2.3.0 9경기 공식 결과 대조).
+                #    MatchLog 엔티티의 트리거 번호가 4096(13비트 상한)에 닿으면 그 뒤로는
+                #    번호가 4096 에 붙은 채, **최근 기록 30개쯤을 매 프레임 통째로 다시** 보낸다
+                #    (4GUD54ZX: 포화 뒤 행 15만 개 중 새 기록 6천 개). 그대로 세면 피해가 수십 배.
+                #    ① 오프셋이 하한(-1000)이면 1초 넘은 옛 기록 → 버린다
+                #    ② 직전 프레임에 같은 (번호, 내용)이 '일어난 시각'(프레임시각+오프셋)
+                #       ±RESEND_TOL_MS 안에 있었으면 재전송 → 버린다. 같은 순간 똑같은 기록이
+                #       두 개면 직전 프레임에도 두 개 있으니 개수대로 짝지어 지운다.
+                #    포화 전에는 번호가 기록마다 달라 ②에 걸릴 일이 없다.
+                data = v.get("Data", [])
+                trig = getattr(data, "trig", None) or [(None, None)] * len(data)
+                pool, cur = prev_win.get(e, {}), collections.defaultdict(list)
+                for hit, (ix, off) in zip(data, trig):
+                    if hit[0] not in LOG:             # 있을 수 없는 종류는 버린다
+                        continue
+                    if off is None:                   # 번호·오프셋을 모르면 거르지 않는다
                         logs.append((ms, hit))
+                        continue
+                    if off <= OFFSET_MIN:
+                        resent += 1
+                        continue
+                    at, cand = ms + off, pool.get((ix, hit), [])
+                    cur[(ix, hit)].append(at)
+                    j = next((i for i, pa in enumerate(cand) if abs(pa - at) <= RESEND_TOL_MS), None)
+                    if j is not None:
+                        cand.pop(j)
+                        resent += 1
+                        continue
+                    logs.append((ms, hit))
+                prev_win[e] = cur
             elif c == "Hp" and "Hp" in v:
                 hp[e].append((ms, v["Hp"], v.get("MaxHp")))
             elif c == "Transform" and "Position" in v:
@@ -183,19 +215,22 @@ def collect(name):
     for p in players.values():
         p.update(identify(name, p["hero_entity"], hp,
                           comps=restore_comps.get(p["hero_entity"])))
-    # 선수 엔티티는 팀 안에서 번호 순 = StartData 의 PlayerMatchId 순으로 짝지어진다.
-    # (세 경기 18명 전부에서 추론 결과와 StartData 의 영웅·레벨이 일치해 확인됨)
+    # 선수 엔티티는 번호 순 = StartData 의 PlayerMatchId 순으로 짝지어진다. **순서를 바꾸지 않는다.**
+    # (근거 2026-10-18: ① 2.3.0 9경기 54명 전원, 공식 결과의 NetworkId ↔ 이름이 이 순서와 일치
+    #   ② 리플레이 38개 전부, 엔티티 번호순의 팀 배열이 PlayerMatchId 순 팀 배열과 같다 —
+    #      7RGTWKER [1,1,2,2,1,2] 처럼 팀이 섞인 경기도. 엔티티가 명단 순서대로 만들어진다는 뜻)
     #
-    # 🪤 **그 가정이 깨지는 경기가 있다** (2026-08-09 12차 감사, J2VRV3D4).
-    #    엔티티 457·461 이 서로 바뀌어 **영웅도 닉네임도 통째로 뒤바뀐** 리포트가 나갔다
-    #    (콜드브루=실제 레메디인데 노바로, 그 반대도). 추론(identify)은 양쪽 다 정답을
-    #    가리키고 있었는데 파일값이 덮어써 버린 것.
-    #    → 짝짓기 전에 **추론과 파일이 모두 확정이면서 서로 어긋나는지** 보고,
-    #      순서를 바꾸면 둘 다 맞아떨어지는 조합이 있으면 그걸 쓴다.
+    # 🪤 **예전 「명단 짝짓기 교정」은 오답을 냈다** (2026-10-18, TBTGH8X9).
+    #    StartData 영웅(`HeroId`)과 추론이 어긋나면 이름을 섞어 맞췄는데, 어긋남의 원인은
+    #    짝짓기가 아니라 **StartData 영웅이 낡은 값**인 경우였다 — 대기실에서 고른 영웅이라
+    #    본경기 영웅과 다를 수 있다(bohoking: 파일 twinkle, 공식 사용 영웅 nova, 추론 nova).
+    #    교정이 팀2 이름 3개를 뒤바꿨다. 같은 9경기에서 추론(확정)은 공식 사용 영웅과 54/54,
+    #    StartData 영웅은 7/8 맞았다.
+    #    → 이름은 순서대로 두고, **둘 다 확정인데 영웅이 어긋나면 추론을 쓴다**.
+    #    (8/9 J2VRV3D4 를 "457·461 뒤바뀜"으로 교정했던 것도 같은 경우였을 가능성이 크다)
     for team in {r["team"] for r in roster}:
         ents = sorted(e for e, q in players.items() if q["team"] == team)
         rs = sorted((r for r in roster if r["team"] == team), key=lambda r: r["match_id"] or 0)
-        rs = _fix_pairing(players, ents, rs)
         for e, r in zip(ents, rs):
             q = players[e]
             q["name"], q["bot"] = r["name"], r["bot"]
@@ -203,21 +238,24 @@ def collect(name):
             q["rating"] = r.get("rating")
             q["squad"] = r.get("squad")
             q["perks"] = r.get("perks") or []
-            guess = (q.get("hero") or "").lower()
-            true_name = (r["hero_name"] or "").lower().replace("-", "")
+            guess = hero_key(q.get("hero"))
+            true_name = hero_key(r["hero_name"])
             q["hero_src"] = "파일" if r["hero_name"] else "추론"
             q["hero_ok"] = (bool(true_name) and guess == true_name
                             and q.get("hero_level") == r["level"]) if r["hero_name"] else None
-            if r["hero_name"]:                       # 파일에 있는 값이 진실이다
+            if r["hero_name"] and q.get("hero_sure") and guess != true_name:
+                # 파일과 추론이 둘 다 확정인데 다르다 = StartData 영웅이 낡은 값 → 추론을 쓴다
+                print(f"   ⚠️ StartData 영웅과 추론 불일치 → 추론 사용: {r['name']} 파일 {r['hero_name']} / 추론 {q.get('hero')}")
+                q["hero_src"] = "추론(파일과 다름)"
+                q["perks"] = []                      # 퍽은 StartData 영웅 것이라 이 영웅과 맞지 않는다
+                if q.get("hero_level") is None:
+                    q["hero_level"] = _level_from_roster(r, guess)
+            elif r["hero_name"]:                     # 파일에 있는 값이 진실이다
                 q["hero"], q["hero_level"], q["hero_sure"] = r["hero_name"], r["level"], True
             elif q.get("hero_sure") and q.get("hero_level") is None:
                 # 추론으로 영웅이 정해졌는데 레벨이 비면(퍽이 체력을 바꿔 ②가 빗나간 경우)
                 # StartData 의 보유 영웅 목록에서 그 영웅의 레벨을 찾아 채운다 — 파일값이라 정확
-                tbl = _load("hero_names.json")
-                hid = next((k for k, v in tbl.items()
-                            if (v.get("en") or "").lower().replace("-", "") == guess), None)
-                if hid and r.get("levels", {}).get(hid) is not None:
-                    q["hero_level"] = r["levels"][hid]
+                q["hero_level"] = _level_from_roster(r, guess)
     # ── ③-b 이름 정규화 — 여기서부터 아래는 **표기가 하나**다 ────────────
     #    `hero` = 소문자·하이픈 없는 키(집계·조회용) / `hero_disp` = 공식 표기(화면용).
     #    ⚠️ 위 hero_ok 대조가 끝난 **뒤**에 해야 한다(대조는 자체적으로 정규화해 비교함).
@@ -249,7 +287,7 @@ def collect(name):
     return {"players": players, "logs": logs, "hp": hp, "pos": pos, "skills": skill_use,
             "stats": stats, "score": score, "score_tl": score_tl, "ent2pid": ent2pid,
             "respawns": resp, "ult_charge": charge,
-            "frames": frames, "ok": ok, "start": start,
+            "frames": frames, "ok": ok, "start": start, "resent": resent,
             "t0": min((m for m, _ in logs), default=0)}
 
 
@@ -317,41 +355,11 @@ def hero_key(s):
     return "/".join(x.lower().replace("-", "") for x in str(s or "").split("/"))
 
 
-def _fix_pairing(players, ents, rs):
-    """엔티티 ↔ StartData 명단 짝짓기가 어긋났으면 바로잡는다.
-
-    기본 가정은 "팀 안에서 엔티티 번호순 = PlayerMatchId 순"이고 거의 항상 맞다.
-    🪤 그런데 J2VRV3D4 에서 깨졌다(2026-08-09 12차 감사): 두 선수의 **영웅도 닉네임도
-       통째로 뒤바뀐** 리포트가 나갔다. 추론(identify)은 양쪽 다 정답을 가리키고 있었는데
-       파일값이 그대로 덮어써서 아무도 몰랐다.
-    → **추론이 확정(hero_sure)인 자리만** 채점해서, 순서를 바꾸면 더 잘 맞는 조합이
-      있으면 그걸 쓴다. 증거가 없으면(추론이 확정 아님·파일에 영웅 없음) 손대지 않는다.
-    """
-    if len(ents) != len(rs) or len(ents) > 6:      # 6명 넘으면 순열이 과해진다 — 손대지 않음
-        return rs
-
-    def score(order):
-        """맞으면 +1, 어긋나면 -1. 양쪽 다 확정일 때만 센다."""
-        s = 0
-        for e, r in zip(ents, order):
-            q = players[e]
-            if not q.get("hero_sure") or not r.get("hero_name"):
-                continue
-            s += 1 if hero_key(q.get("hero")) == hero_key(r["hero_name"]) else -1
-        return s
-
-    base = score(rs)
-    if base >= 0:                                   # 어긋난 증거가 없으면 그대로
-        return rs
-    best, best_s = rs, base
-    for order in itertools.permutations(rs):
-        s = score(order)
-        if s > best_s:
-            best, best_s = list(order), s
-    if best_s > base:
-        names = " / ".join(f"{r.get('name')}→{r.get('hero_name')}" for r in best)
-        print(f"   ⚠️ 명단 짝짓기 교정(점수 {base}→{best_s}): {names}")
-    return best
+def _level_from_roster(r, hero):
+    """StartData 의 보유 영웅 목록에서 `hero`(hero_key 표기)의 레벨을 찾는다. 없으면 None."""
+    tbl = _load("hero_names.json")
+    hid = next((k for k, v in tbl.items() if hero_key(v.get("en")) == hero), None)
+    return r.get("levels", {}).get(hid) if hid else None
 
 
 def identify(replay, hero_entity, hp, comps=None):

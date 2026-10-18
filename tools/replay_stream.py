@@ -495,6 +495,21 @@ TRIGGER_INDEX_BITS = (-1, 4096)      # ReadContainer.GetTriggerIndex → 13비�
 OFFSET_TIME_BITS = (-1000, 0)        # ReadContainer.ReadOffsetTime  → 10비트
 
 
+class Hits(list):
+    """트리거 값 목록. 평범한 list 와 똑같이 쓰고, `.trig` 에 값마다 (트리거번호, 오프셋ms)가 붙는다.
+
+    🪤 2026-10-18: 번호·오프셋을 읽고 버렸더니 **재전송을 못 걸렀다**. 한 선수의 MatchLog
+       트리거 번호가 4096(13비트 상한)에 닿으면 이미 보낸 기록이 오프셋 -1000(하한)으로
+       매 프레임 다시 온다 → 피해가 수십 배(4GUD54ZX W Tortoise 공식 12,368 → 78만).
+       값 튜플 모양은 그대로 두고 옆에 달아 둔다 — 걸러 내는 건 `경기분석.collect` 가 한다.
+    """
+    __slots__ = ("trig",)
+
+    def __init__(self):
+        super().__init__()
+        self.trig = []
+
+
 # ── provider_args.json 을 손으로 덮어쓸 곳 (지금은 비어 있다) ────────────────
 # 🪤 2026-08-07 7차: 한때 7건이 `maxValue: 0`(=추출 실패) 이라 여기에 손으로 넣었었다.
 #    원인은 `provider_args.py` 가 **함수 호출을 지날 때 레지스터를 전부 버린** 것이었다.
@@ -622,11 +637,12 @@ def read_component(s: Stream, t: int, ent=None):
     out = {}
     for name, kind, fn, mreader in fields:
         if kind == "trigger":
-            hits = []
+            hits = Hits()
             while s.read_bool():
-                s.read_ranged(*TRIGGER_INDEX_BITS)
-                s.read_ranged(*OFFSET_TIME_BITS)
+                ix = s.read_ranged(*TRIGGER_INDEX_BITS)
+                off = s.read_ranged(*OFFSET_TIME_BITS)
                 hits.append(fn(s))
+                hits.trig.append((ix, off))
             if hits:
                 out[name] = hits
         elif kind == "map":
@@ -644,11 +660,12 @@ def read_component(s: Stream, t: int, ent=None):
                     continue
                 if mreader == "TriggerSyncMapReader":
                     # 항목마다 트리거가 여러 개 올 수 있다 (ReadCheck 3개짜리 구조)
-                    hits = []
+                    hits = Hits()
                     while True:
-                        s.read_ranged(*TRIGGER_INDEX_BITS)
-                        s.read_ranged(*OFFSET_TIME_BITS)
+                        ix = s.read_ranged(*TRIGGER_INDEX_BITS)
+                        off = s.read_ranged(*OFFSET_TIME_BITS)
                         hits.append(fn(s))
+                        hits.trig.append((ix, off))
                         if not s.read_bool():
                             break
                     got[i] = hits
